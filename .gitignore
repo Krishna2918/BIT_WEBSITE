@@ -18,3 +18,4 @@ vendor
 BIT-Solution-website.zip
 *.zip
 .DS_Store
+.env*
