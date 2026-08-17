@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /thank-you
+Sitemap: https://bitsolution.vercel.app/sitemap.xml
