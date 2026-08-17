@@ -1,23 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import { createHash } from "node:crypto";
 import {
-  CONSULT_CONSENT_VERSION,
   CONSULT_CONTRACT_VERSION,
-  CONSULT_INTERESTS,
-  CONSULT_SOURCE_CHANNEL,
+  CONSULT_GENERAL_INTERESTS,
+  CONSULT_INTEREST_BY_INTENT,
+  CONSULT_SOURCE_BY_INTENT,
 } from "@/lib/consult-contract";
+import { buildFormAiCrmPayload } from "@/lib/form-ai-payload.server";
+
+const Phone = z
+  .string()
+  .trim()
+  .min(7)
+  .max(40)
+  .refine(
+    (value) => /^\+?[0-9() .-]+$/.test(value) && /^\d{10,15}$/.test(value.replace(/\D/g, "")),
+    "invalid phone",
+  );
 
 const BaseFields = {
   submission_id: z.string().uuid(),
   name: z.string().trim().min(2).max(120),
   company: z.string().trim().min(1).max(160),
   email: z.string().trim().email().max(160),
-  phone: z.string().trim().min(7).max(40),
-  interest: z.enum(CONSULT_INTERESTS),
+  phone: Phone,
   message: z.string().trim().max(2000).optional().default(""),
   casl: z.literal("yes"),
-  source: z.string().trim().min(1).max(120),
   gclid: z.string().max(200).optional(),
   utm_source: z.string().max(120).optional(),
   utm_medium: z.string().max(120).optional(),
@@ -33,52 +41,144 @@ const BaseFields = {
 };
 
 const Schema = z.discriminatedUnion("intent", [
-  z.object({
-    ...BaseFields,
-    intent: z.literal("fleet"),
-    power_units: z.coerce.number().int().min(1).max(10000),
-    eld_telematics_provider: z.string().trim().min(1).max(160),
-    dispatch_bottlenecks: z.string().trim().min(1).max(500),
-  }).strict(),
-  z.object({
-    ...BaseFields,
-    intent: z.literal("dental"),
-    operatory_count: z.coerce.number().int().min(1).max(1000),
-    practice_software: z.string().trim().min(1).max(160),
-    backup_frequency: z.string().trim().min(1).max(160),
-  }).strict(),
-  z.object({
-    ...BaseFields,
-    intent: z.literal("general"),
-  }).strict(),
+  z
+    .object({
+      ...BaseFields,
+      intent: z.literal("fleet"),
+      source: z.literal(CONSULT_SOURCE_BY_INTENT.fleet),
+      interest: z.literal(CONSULT_INTEREST_BY_INTENT.fleet),
+      power_units: z.coerce.number().int().min(1).max(10000),
+      eld_telematics_provider: z.string().trim().min(1).max(160),
+      dispatch_bottlenecks: z.string().trim().min(1).max(500),
+    })
+    .strict(),
+  z
+    .object({
+      ...BaseFields,
+      intent: z.literal("dental"),
+      source: z.literal(CONSULT_SOURCE_BY_INTENT.dental),
+      interest: z.literal(CONSULT_INTEREST_BY_INTENT.dental),
+      operatory_count: z.coerce.number().int().min(1).max(1000),
+      practice_software: z.string().trim().min(1).max(160),
+      backup_frequency: z.string().trim().min(1).max(160),
+    })
+    .strict(),
+  z
+    .object({
+      ...BaseFields,
+      intent: z.literal("general"),
+      source: z.literal(CONSULT_SOURCE_BY_INTENT.general),
+      interest: z.enum(CONSULT_GENERAL_INTERESTS),
+    })
+    .strict(),
 ]);
 
-const CrmResponse = z.object({
-  ok: z.literal(true),
-  contract_version: z.literal(CONSULT_CONTRACT_VERSION),
-  idempotency_key: z.string().regex(/^[a-f0-9]{64}$/),
-  lead_ref: z.string().min(1).max(200),
-  category: z.literal("FORM_AI"),
-  pinned: z.literal(true),
-  priority_order: z.literal(0),
-  qualified: z.boolean(),
-  speed_to_lead: z.unknown(),
-}).strict();
+const CrmResponse = z
+  .object({
+    ok: z.literal(true),
+    contract_version: z.literal(CONSULT_CONTRACT_VERSION),
+    idempotency_key: z.string().regex(/^[a-f0-9]{64}$/),
+    lead_ref: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/),
+    category: z.literal("FORM_AI"),
+    pinned: z.literal(true),
+    priority_order: z.literal(0),
+    qualified: z.boolean(),
+    speed_to_lead: z
+      .object({
+        timezone: z.literal("America/Toronto"),
+        received_at: z.string().datetime(),
+        response_target_at: z.string().datetime(),
+        response_deadline_at: z.string().datetime(),
+        priority_callback: z.boolean(),
+        callback_at: z.string().datetime().nullable(),
+        staffed_window: z
+          .object({
+            weekdays: z.array(z.number().int().min(1).max(7)).min(1).max(7),
+            start: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
+            end: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
+          })
+          .strict(),
+      })
+      .strict(),
+  })
+  .strict();
 
 const BODY_LIMIT = 32_768;
+const ADAPTER_RESPONSE_LIMIT = 32_768;
 
 function env(name: string) {
   const value = process.env[name]?.trim();
   return value || undefined;
 }
 
-function sha256(value: string) {
-  return createHash("sha256").update(value, "utf8").digest("hex");
+function secureAdapterUrl(value: string | undefined) {
+  if (!value) return undefined;
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:" && !parsed.username && !parsed.password && !parsed.hash
+      ? parsed.toString()
+      : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
-function normalizePhone(value: string) {
-  const leadingPlus = value.trim().startsWith("+") ? "+" : "";
-  return `${leadingPlus}${value.replace(/\D/g, "")}`;
+function serverToken(value: string | undefined) {
+  return value && value.length >= 16 && value.length <= 4096 && !/\s/.test(value)
+    ? value
+    : undefined;
+}
+
+async function boundedResponseText(response: Response, limit: number) {
+  const declared = response.headers.get("content-length");
+  if (declared && (!/^\d+$/.test(declared) || Number(declared) > limit)) return undefined;
+  if (!response.body) return "";
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        await reader.cancel();
+        return undefined;
+      }
+      chunks.push(value);
+    }
+    const combined = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      combined.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return new TextDecoder("utf-8", { fatal: true }).decode(combined);
+  } catch {
+    return undefined;
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+function scheduleMatches(
+  actual: z.infer<typeof CrmResponse>["speed_to_lead"],
+  expected: ReturnType<typeof buildFormAiCrmPayload>["body"]["lead"]["speed_to_lead"],
+) {
+  return (
+    actual.timezone === expected.timezone &&
+    actual.received_at === expected.received_at &&
+    actual.response_target_at === expected.response_target_at &&
+    actual.response_deadline_at === expected.response_deadline_at &&
+    actual.priority_callback === expected.priority_callback &&
+    actual.callback_at === expected.callback_at &&
+    actual.staffed_window.start === expected.staffed_window.start &&
+    actual.staffed_window.end === expected.staffed_window.end &&
+    actual.staffed_window.weekdays.length === expected.staffed_window.weekdays.length &&
+    actual.staffed_window.weekdays.every(
+      (weekday, index) => weekday === expected.staffed_window.weekdays[index],
+    )
+  );
 }
 
 async function verifyTurnstile(token: string | undefined, request: Request) {
@@ -131,6 +231,12 @@ export const Route = createFileRoute("/api/consult")({
   server: {
     handlers: {
       POST: async ({ request }) => {
+        if (
+          request.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() !==
+          "application/json"
+        ) {
+          return Response.json({ ok: false, error: "unsupported_media_type" }, { status: 415 });
+        }
         const declaredLength = Number(request.headers.get("content-length") || 0);
         if (declaredLength > BODY_LIMIT) {
           return Response.json({ ok: false, error: "body_too_large" }, { status: 413 });
@@ -160,95 +266,30 @@ export const Route = createFileRoute("/api/consult")({
           );
         }
 
-        const hook = env("FORM_AI_CRM_ADAPTER_URL");
-        const token = env("FORM_AI_CRM_ADAPTER_TOKEN");
-        if (!hook || !token || !hook.startsWith("https://")) {
-          return Response.json(
-            { ok: false, error: "delivery_not_configured" },
-            { status: 503 },
-          );
+        const hook = secureAdapterUrl(env("FORM_AI_CRM_ADAPTER_URL"));
+        const token = serverToken(env("FORM_AI_CRM_ADAPTER_TOKEN"));
+        if (!hook || !token) {
+          return Response.json({ ok: false, error: "delivery_not_configured" }, { status: 503 });
         }
 
-        const { company_website: _honeypot, turnstile_token: _turnstile, ...accepted } =
-          parsed.data;
-        const fingerprint = sha256(JSON.stringify(accepted));
-        const qualification =
-          accepted.intent === "fleet"
-            ? {
-                power_units: accepted.power_units,
-                eld_telematics_provider: accepted.eld_telematics_provider,
-                dispatch_bottlenecks: accepted.dispatch_bottlenecks,
-              }
-            : accepted.intent === "dental"
-              ? {
-                  operatory_count: accepted.operatory_count,
-                  practice_software: accepted.practice_software,
-                  backup_frequency: accepted.backup_frequency,
-                }
-              : {};
-        const body = {
-          contract_version: CONSULT_CONTRACT_VERSION,
-          operation: "UPSERT_FORM_AI",
-          idempotency_key: fingerprint,
-          submission_fingerprint: fingerprint,
-          submission_id: accepted.submission_id,
-          lead_key: `${CONSULT_SOURCE_CHANNEL}:${accepted.intent}:${accepted.email.trim().toLowerCase()}`,
-          category: "FORM_AI",
-          pinned: true,
-          priority_order: 0,
-          contact: {
-            name: accepted.name,
-            company: accepted.company,
-            email: accepted.email.trim().toLowerCase(),
-            phone: normalizePhone(accepted.phone),
-          },
-          request: {
-            interest: accepted.interest,
-            message: accepted.message,
-            qualification,
-          },
-          source: {
-            channel: CONSULT_SOURCE_CHANNEL,
-            intent: accepted.intent,
-            form_source: accepted.source,
-            landing_page: accepted.landing_page || "",
-            referrer: accepted.referrer || "",
-            attribution: {
-              gclid: accepted.gclid || "",
-              utm_source: accepted.utm_source || "",
-              utm_medium: accepted.utm_medium || "",
-              utm_campaign: accepted.utm_campaign || "",
-              utm_term: accepted.utm_term || "",
-              utm_content: accepted.utm_content || "",
-              msclkid: accepted.msclkid || "",
-              fbclid: accepted.fbclid || "",
-            },
-          },
-          consent: {
-            granted: true,
-            framework: "CASL",
-            version: CONSULT_CONSENT_VERSION,
-            captured_at: new Date().toISOString(),
-          },
-          speed_to_lead: {
-            timezone: "America/Toronto",
-            staffed_weekdays: (env("FORM_AI_STAFFED_WEEKDAYS") || "Mon,Tue,Wed,Thu,Fri")
-              .split(",")
-              .map((item) => item.trim())
-              .filter(Boolean),
-            staffed_start: env("FORM_AI_STAFFED_START") || "08:00",
-            staffed_end: env("FORM_AI_STAFFED_END") || "18:00",
-            staffed_target_minutes: 5,
-            staffed_deadline_minutes: 15,
-            after_hours: "next_staffed_opening",
-          },
-        };
+        const {
+          company_website: _honeypot,
+          turnstile_token: _turnstile,
+          ...accepted
+        } = parsed.data;
+        let delivery: ReturnType<typeof buildFormAiCrmPayload>;
+        try {
+          delivery = buildFormAiCrmPayload(accepted);
+        } catch {
+          return Response.json({ ok: false, error: "delivery_not_configured" }, { status: 503 });
+        }
+        const { body, idempotencyKey } = delivery;
         try {
           const delivered = await fetch(hook, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
-              "Idempotency-Key": fingerprint,
+              "Idempotency-Key": idempotencyKey,
               "Content-Type": "application/json",
               Accept: "application/json",
             },
@@ -258,8 +299,28 @@ export const Route = createFileRoute("/api/consult")({
           if (!delivered.ok) {
             return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
           }
-          const receipt = CrmResponse.safeParse(await delivered.json());
-          if (!receipt.success || receipt.data.idempotency_key !== fingerprint) {
+          if (
+            delivered.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() !==
+            "application/json"
+          ) {
+            return Response.json({ ok: false, error: "invalid_delivery_receipt" }, { status: 502 });
+          }
+          const receiptText = await boundedResponseText(delivered, ADAPTER_RESPONSE_LIMIT);
+          if (receiptText === undefined) {
+            return Response.json({ ok: false, error: "invalid_delivery_receipt" }, { status: 502 });
+          }
+          let receiptValue: unknown;
+          try {
+            receiptValue = JSON.parse(receiptText);
+          } catch {
+            return Response.json({ ok: false, error: "invalid_delivery_receipt" }, { status: 502 });
+          }
+          const receipt = CrmResponse.safeParse(receiptValue);
+          if (
+            !receipt.success ||
+            receipt.data.idempotency_key !== idempotencyKey ||
+            !scheduleMatches(receipt.data.speed_to_lead, body.lead.speed_to_lead)
+          ) {
             return Response.json({ ok: false, error: "invalid_delivery_receipt" }, { status: 502 });
           }
           return Response.json({ ok: true, qualified: receipt.data.qualified });

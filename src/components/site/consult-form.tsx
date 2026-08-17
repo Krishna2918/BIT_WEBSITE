@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { captureAttribution, track, type Attribution } from "@/lib/tracking";
 import { SITE } from "@/lib/site";
-import { CONSULT_INTERESTS } from "@/lib/consult-contract";
+import { CONSULT_GENERAL_INTERESTS } from "@/lib/consult-contract";
 import { Turnstile, TURNSTILE_ENABLED } from "@/components/site/turnstile";
 
 export type ConsultIntent = "fleet" | "dental" | "general";
@@ -137,7 +137,7 @@ export function ConsultForm({
       <label>
         What do you need
         <select name="interest" defaultValue={INTEREST[intent]} required>
-          {CONSULT_INTERESTS.map((opt) => (
+          {(intent === "general" ? CONSULT_GENERAL_INTERESTS : [INTEREST[intent]]).map((opt) => (
             <option key={opt}>{opt}</option>
           ))}
         </select>
