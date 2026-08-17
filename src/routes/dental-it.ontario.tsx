@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ConsultForm } from "@/components/site/consult-form";
 import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_INDEXABLE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/dental-it/ontario")({
@@ -15,7 +15,10 @@ export const Route = createFileRoute("/dental-it/ontario")({
           "Clinic software, private servers, cameras, and 24/7 help for Ontario dental practices. Book a consultation with BIT Solution.",
       },
       { property: "og:title", content: "Ontario Dental IT — BIT Solution" },
-      { name: "robots", content: "index,follow" },
+      {
+        name: "robots",
+        content: SITE_INDEXABLE ? "index,follow" : "noindex,nofollow,noarchive",
+      },
     ],
     links: [{ rel: "canonical", href: `${SITE.url}/dental-it/ontario` }],
   }),

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
+import { openConsentPreferences } from "@/lib/consent";
 
 export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
   return (
@@ -43,6 +44,10 @@ export function LpFooter() {
         <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         {" · "}
         <Link to="/privacy">Privacy</Link>
+        {" · "}
+        <button type="button" onClick={openConsentPreferences}>
+          Cookie preferences
+        </button>
       </p>
       <p className="lp-fine">
         {SITE.positioning} No testimonials or performance claims are shown here

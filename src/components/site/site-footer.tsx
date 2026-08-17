@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { INDUSTRIES } from "@/data/industries";
 import { SITE } from "@/lib/site";
+import { openConsentPreferences } from "@/lib/consent";
 
 const COLS = [
   {
@@ -104,9 +105,16 @@ export function SiteFooter() {
             </Link>
           ))}
         </div>
-        <p className="mt-10 text-[11px] text-muted">
-          Copyright © {new Date().getFullYear()} BIT Solution. All rights reserved.
-        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] text-muted">
+          <span>Copyright © {new Date().getFullYear()} BIT Solution. All rights reserved.</span>
+          <button
+            type="button"
+            className="text-link underline underline-offset-2"
+            onClick={openConsentPreferences}
+          >
+            Cookie preferences
+          </button>
+        </div>
       </div>
     </footer>
   );

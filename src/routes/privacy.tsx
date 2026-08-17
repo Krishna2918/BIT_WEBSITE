@@ -36,7 +36,10 @@ function PrivacyPage() {
         <h2 className="mt-10 text-[22px] font-semibold">What we collect</h2>
         <p className="mt-3 text-muted">
           Consultation forms collect your name, company, email, phone, the
-          service you asked about, and an optional message. We also store
+          service you asked about, and an optional message. Fleet requests also
+          ask for the number of power units, the ELD or telematics provider and
+          the main dispatch bottleneck. Dental requests also ask for the number
+          of operatories, practice-management software and backup frequency. We also store
           advertising click identifiers (such as GCLID or UTM values) if they
           are present in the page address, plus the page you came from. We do
           not ask for health records, driver files, or payment card numbers on
@@ -68,10 +71,12 @@ function PrivacyPage() {
 
         <h2 className="mt-10 text-[22px] font-semibold">Cookies and measurement</h2>
         <p className="mt-3 text-muted">
-          If Google Tag Manager, GA4, Microsoft Clarity, or CallRail are
-          configured on this site, those tools may set cookies or swap the
-          displayed phone number so we can measure visits. Hooks are present
-          even when those accounts are not yet connected.
+          Essential storage supports core website functions. Optional analytics
+          stays off unless you allow it through the privacy choices shown on
+          this site. If Google Tag Manager or Google Analytics is later enabled,
+          we use it to measure visits and consultation conversions without
+          sending form or chat content. Microsoft Clarity and CallRail are not
+          enabled at launch.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Retention</h2>

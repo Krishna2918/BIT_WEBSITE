@@ -32,3 +32,6 @@ export const TRACKING = {
    */
   measurementOn: import.meta.env.VITE_MEASUREMENT_ON === "1",
 } as const;
+
+/** Preview/staging is noindex by default. Enable only at the approved cutover. */
+export const SITE_INDEXABLE = import.meta.env.VITE_SITE_INDEXABLE === "1";

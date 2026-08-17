@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ConsultForm } from "@/components/site/consult-form";
 import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_INDEXABLE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/fleet-operations/ontario")({
@@ -15,7 +15,10 @@ export const Route = createFileRoute("/fleet-operations/ontario")({
           "Dispatch, telematics, cameras, and private servers for Ontario commercial fleets. Book a consultation with BIT Solution in Brampton.",
       },
       { property: "og:title", content: "Ontario Fleet Operations IT — BIT Solution" },
-      { name: "robots", content: "index,follow" },
+      {
+        name: "robots",
+        content: SITE_INDEXABLE ? "index,follow" : "noindex,nofollow,noarchive",
+      },
     ],
     links: [{ rel: "canonical", href: `${SITE.url}/fleet-operations/ontario` }],
   }),

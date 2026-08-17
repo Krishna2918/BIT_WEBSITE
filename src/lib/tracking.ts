@@ -1,3 +1,5 @@
+import { readAnalyticsConsent } from "@/lib/consent";
+
 const KEYS = [
   "gclid",
   "utm_source",
@@ -17,6 +19,7 @@ export type Attribution = Record<(typeof KEYS)[number], string> & {
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -29,11 +32,14 @@ export function captureAttribution(): Attribution {
     return { ...empty, landing_page: "", referrer: "" };
   }
   const params = new URLSearchParams(window.location.search);
+  const mayPersist = readAnalyticsConsent() === "granted";
   let stored: Partial<Attribution> = {};
-  try {
-    stored = JSON.parse(sessionStorage.getItem("bit_attr") || "{}") as Partial<Attribution>;
-  } catch {
-    stored = {};
+  if (mayPersist) {
+    try {
+      stored = JSON.parse(sessionStorage.getItem("bit_attr") || "{}") as Partial<Attribution>;
+    } catch {
+      stored = {};
+    }
   }
   const next: Attribution = {
     ...empty,
@@ -43,13 +49,25 @@ export function captureAttribution(): Attribution {
   for (const key of KEYS) {
     next[key] = params.get(key) || stored[key] || "";
   }
-  sessionStorage.setItem("bit_attr", JSON.stringify(next));
+  if (mayPersist) sessionStorage.setItem("bit_attr", JSON.stringify(next));
   return next;
 }
 
+const EVENT_ALIASES: Record<string, string> = {
+  book_consult_click: "consultation_cta_click",
+  consult_submit: "consultation_form_submit",
+  click_to_call: "phone_click",
+  ticket_click: "support_ticket_click",
+  checklist_download: "resource_download",
+};
+
 export function track(event: string, payload: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
-  const safe: Record<string, unknown> = { event, event_time: Date.now() };
+  if (readAnalyticsConsent() !== "granted") return;
+  const safe: Record<string, unknown> = {
+    event: EVENT_ALIASES[event] ?? event,
+    event_time: Date.now(),
+  };
   for (const [key, value] of Object.entries(payload)) {
     if (
       /email|phone|message|name|company|q\b|query|content|body/i.test(key)

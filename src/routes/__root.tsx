@@ -4,8 +4,9 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { TrackingHooks } from "@/components/site/tracking";
+import { CookieConsent } from "@/components/site/cookie-consent";
 import { AskAiChat, HelpSheet } from "@/components/site/ask-ai";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_INDEXABLE } from "@/lib/site";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "BIT Solution";
@@ -19,6 +20,7 @@ function RootChrome() {
   return (
     <>
       <TrackingHooks />
+      <CookieConsent />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -52,6 +54,10 @@ export const Route = createRootRoute({
       { name: "apple-mobile-web-app-title", content: APP_NAME },
       { name: "theme-color", content: "#161617" },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "robots",
+        content: SITE_INDEXABLE ? "index,follow" : "noindex,nofollow,noarchive",
+      },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: APP_NAME },
       ...(ogImage
