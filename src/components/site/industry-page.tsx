@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import type { Industry, IndustryPillar } from "@/data/industries";
 import { INDUSTRIES } from "@/data/industries";
+import { clientsFor } from "@/data/clients";
 
 export function IndustryPage({ industry }: { industry: Industry }) {
   const others = INDUSTRIES.filter((item) => item.slug !== industry.slug);
   const software = industry.pillars.find((p) => p.key === "software");
   const hardware = industry.pillars.find((p) => p.key === "hardware");
+  const clients = clientsFor(industry.slug);
 
   return (
     <main className="bg-bg">
@@ -25,6 +27,7 @@ export function IndustryPage({ industry }: { industry: Industry }) {
         <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-muted">
           {industry.complianceNote}
         </p>
+        {clients.length > 0 ? <ClientTicker clients={clients} /> : null}
       </section>
 
       <img
@@ -119,6 +122,29 @@ export function IndustryPage({ industry }: { industry: Industry }) {
         </div>
       </section>
     </main>
+  );
+}
+
+function ClientTicker({
+  clients,
+}: {
+  clients: ReturnType<typeof clientsFor>;
+}) {
+  const names = clients.map((c) => c.name);
+  const pad = [...names];
+  while (pad.length < 8) pad.push(...names);
+  const loop = [...pad, ...pad];
+  return (
+    <div className="client-ticker">
+      <p>Who trusts us. Who we trust.</p>
+      <div className="client-ticker-mask">
+        <ul>
+          {loop.map((name, i) => (
+            <li key={`${name}-${i}`}>{name}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
