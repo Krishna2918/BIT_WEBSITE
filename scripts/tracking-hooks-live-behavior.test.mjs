@@ -8,6 +8,9 @@ import {
 } from "../src/lib/gtm-script.ts";
 import { writeMeasurementConsent } from "../src/lib/consent.ts";
 import { trackConsultationFormSubmitOnce } from "../src/lib/tracking.ts";
+import indexingHeaders, {
+  CONTENT_SECURITY_POLICY,
+} from "../server/middleware/indexing.ts";
 
 const root = new URL("../", import.meta.url);
 
@@ -153,6 +156,10 @@ test("CSP contains only the bounded GTM and Google Ads measurement hosts", async
   const csp = config.headers[0].headers.find(
     (header) => header.key === "Content-Security-Policy",
   ).value;
+  assert.equal(CONTENT_SECURITY_POLICY, csp);
+  const responseHeaders = new Headers();
+  indexingHeaders({ res: { headers: responseHeaders } });
+  assert.equal(responseHeaders.get("Content-Security-Policy"), csp);
   for (const host of [
     "https://www.googletagmanager.com",
     "https://www.googleadservices.com",

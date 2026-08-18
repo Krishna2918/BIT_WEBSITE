@@ -84,6 +84,8 @@ if (verifyProductionPublicBuild) {
   assert.match(combined, /bit-gtm-script/);
   assert.match(combined, /www\.googletagmanager\.com\/gtm\.js\?id=/);
   assert.doesNotMatch(combined, /gtm\.start|googletagmanager\.com\/ns\.html/u);
+  assert.match(combined, /Content-Security-Policy/);
+  assert.match(combined, /https:\/\/www\.googleadservices\.com/);
 }
 
 console.log(
