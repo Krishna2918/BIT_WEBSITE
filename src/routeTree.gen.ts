@@ -10,19 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as R10SignsYourBusinessNeedsManagedItSupportRouteImport } from './routes/10-signs-your-business-needs-managed-it-support'
+import { Route as R5BiggestBenefitsOfCloudBackupsRouteImport } from './routes/5-biggest-benefits-of-cloud-backups'
+import { Route as AboutUsRouteImport } from './routes/about-us'
+import { Route as AccessibilityStatementRouteImport } from './routes/accessibility-statement'
 import { Route as AiRouteImport } from './routes/ai'
+import { Route as CloudServicesBramptonRouteImport } from './routes/cloud-services-brampton'
 import { Route as ConsultRouteImport } from './routes/consult'
+import { Route as CyberSecurityTipsForSmallBusinessesRouteImport } from './routes/cyber-security-tips-for-small-businesses'
 import { Route as DigitalMarketingRouteImport } from './routes/digital-marketing'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HardwareRouteImport } from './routes/hardware'
+import { Route as HowToChooseAManagedItServicesProviderRouteImport } from './routes/how-to-choose-a-managed-it-services-provider'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcurementRouteImport } from './routes/procurement'
 import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ServiceAreasRouteImport } from './routes/service-areas'
 import { Route as SoftwareRouteImport } from './routes/software'
+import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
+import { Route as Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025RouteImport } from './routes/top-7-cyber-security-solutions-every-business-needs-in-2025'
 import { Route as VoipRouteImport } from './routes/voip'
 import { Route as ApiAssistantRouteImport } from './routes/api/assistant'
 import { Route as ApiConsultRouteImport } from './routes/api/consult'
@@ -39,9 +48,36 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R10SignsYourBusinessNeedsManagedItSupportRoute =
+  R10SignsYourBusinessNeedsManagedItSupportRouteImport.update({
+    id: '/10-signs-your-business-needs-managed-it-support',
+    path: '/10-signs-your-business-needs-managed-it-support',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const R5BiggestBenefitsOfCloudBackupsRoute =
+  R5BiggestBenefitsOfCloudBackupsRouteImport.update({
+    id: '/5-biggest-benefits-of-cloud-backups',
+    path: '/5-biggest-benefits-of-cloud-backups',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AboutUsRoute = AboutUsRouteImport.update({
+  id: '/about-us',
+  path: '/about-us',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityStatementRoute = AccessibilityStatementRouteImport.update({
+  id: '/accessibility-statement',
+  path: '/accessibility-statement',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AiRoute = AiRouteImport.update({
   id: '/ai',
   path: '/ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CloudServicesBramptonRoute = CloudServicesBramptonRouteImport.update({
+  id: '/cloud-services-brampton',
+  path: '/cloud-services-brampton',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConsultRoute = ConsultRouteImport.update({
@@ -49,6 +85,12 @@ const ConsultRoute = ConsultRouteImport.update({
   path: '/consult',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CyberSecurityTipsForSmallBusinessesRoute =
+  CyberSecurityTipsForSmallBusinessesRouteImport.update({
+    id: '/cyber-security-tips-for-small-businesses',
+    path: '/cyber-security-tips-for-small-businesses',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DigitalMarketingRoute = DigitalMarketingRouteImport.update({
   id: '/digital-marketing',
   path: '/digital-marketing',
@@ -69,6 +111,12 @@ const HardwareRoute = HardwareRouteImport.update({
   path: '/hardware',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HowToChooseAManagedItServicesProviderRoute =
+  HowToChooseAManagedItServicesProviderRouteImport.update({
+    id: '/how-to-choose-a-managed-it-services-provider',
+    path: '/how-to-choose-a-managed-it-services-provider',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -94,6 +142,11 @@ const SoftwareRoute = SoftwareRouteImport.update({
   path: '/software',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolutionsRoute = SolutionsRouteImport.update({
+  id: '/solutions',
+  path: '/solutions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -104,6 +157,12 @@ const ThankYouRoute = ThankYouRouteImport.update({
   path: '/thank-you',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route =
+  Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025RouteImport.update({
+    id: '/top-7-cyber-security-solutions-every-business-needs-in-2025',
+    path: '/top-7-cyber-security-solutions-every-business-needs-in-2025',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const VoipRoute = VoipRouteImport.update({
   id: '/voip',
   path: '/voip',
@@ -157,19 +216,28 @@ const InsightsSlugRoute = InsightsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/10-signs-your-business-needs-managed-it-support': typeof R10SignsYourBusinessNeedsManagedItSupportRoute
+  '/5-biggest-benefits-of-cloud-backups': typeof R5BiggestBenefitsOfCloudBackupsRoute
+  '/about-us': typeof AboutUsRoute
+  '/accessibility-statement': typeof AccessibilityStatementRoute
   '/ai': typeof AiRoute
+  '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
+  '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
   '/service-areas': typeof ServiceAreasRoute
   '/software': typeof SoftwareRoute
+  '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
+  '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
@@ -183,19 +251,28 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/10-signs-your-business-needs-managed-it-support': typeof R10SignsYourBusinessNeedsManagedItSupportRoute
+  '/5-biggest-benefits-of-cloud-backups': typeof R5BiggestBenefitsOfCloudBackupsRoute
+  '/about-us': typeof AboutUsRoute
+  '/accessibility-statement': typeof AccessibilityStatementRoute
   '/ai': typeof AiRoute
+  '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
+  '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
   '/service-areas': typeof ServiceAreasRoute
   '/software': typeof SoftwareRoute
+  '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
+  '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
@@ -210,19 +287,28 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/10-signs-your-business-needs-managed-it-support': typeof R10SignsYourBusinessNeedsManagedItSupportRoute
+  '/5-biggest-benefits-of-cloud-backups': typeof R5BiggestBenefitsOfCloudBackupsRoute
+  '/about-us': typeof AboutUsRoute
+  '/accessibility-statement': typeof AccessibilityStatementRoute
   '/ai': typeof AiRoute
+  '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
+  '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
   '/service-areas': typeof ServiceAreasRoute
   '/software': typeof SoftwareRoute
+  '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
+  '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
@@ -238,19 +324,28 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/10-signs-your-business-needs-managed-it-support'
+    | '/5-biggest-benefits-of-cloud-backups'
+    | '/about-us'
+    | '/accessibility-statement'
     | '/ai'
+    | '/cloud-services-brampton'
     | '/consult'
+    | '/cyber-security-tips-for-small-businesses'
     | '/digital-marketing'
     | '/faq'
     | '/gallery'
     | '/hardware'
+    | '/how-to-choose-a-managed-it-services-provider'
     | '/privacy'
     | '/procurement'
     | '/security'
     | '/service-areas'
     | '/software'
+    | '/solutions'
     | '/support'
     | '/thank-you'
+    | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
@@ -264,19 +359,28 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/10-signs-your-business-needs-managed-it-support'
+    | '/5-biggest-benefits-of-cloud-backups'
+    | '/about-us'
+    | '/accessibility-statement'
     | '/ai'
+    | '/cloud-services-brampton'
     | '/consult'
+    | '/cyber-security-tips-for-small-businesses'
     | '/digital-marketing'
     | '/faq'
     | '/gallery'
     | '/hardware'
+    | '/how-to-choose-a-managed-it-services-provider'
     | '/privacy'
     | '/procurement'
     | '/security'
     | '/service-areas'
     | '/software'
+    | '/solutions'
     | '/support'
     | '/thank-you'
+    | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
@@ -290,19 +394,28 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/10-signs-your-business-needs-managed-it-support'
+    | '/5-biggest-benefits-of-cloud-backups'
+    | '/about-us'
+    | '/accessibility-statement'
     | '/ai'
+    | '/cloud-services-brampton'
     | '/consult'
+    | '/cyber-security-tips-for-small-businesses'
     | '/digital-marketing'
     | '/faq'
     | '/gallery'
     | '/hardware'
+    | '/how-to-choose-a-managed-it-services-provider'
     | '/privacy'
     | '/procurement'
     | '/security'
     | '/service-areas'
     | '/software'
+    | '/solutions'
     | '/support'
     | '/thank-you'
+    | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
@@ -317,19 +430,28 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R10SignsYourBusinessNeedsManagedItSupportRoute: typeof R10SignsYourBusinessNeedsManagedItSupportRoute
+  R5BiggestBenefitsOfCloudBackupsRoute: typeof R5BiggestBenefitsOfCloudBackupsRoute
+  AboutUsRoute: typeof AboutUsRoute
+  AccessibilityStatementRoute: typeof AccessibilityStatementRoute
   AiRoute: typeof AiRoute
+  CloudServicesBramptonRoute: typeof CloudServicesBramptonRoute
   ConsultRoute: typeof ConsultRoute
+  CyberSecurityTipsForSmallBusinessesRoute: typeof CyberSecurityTipsForSmallBusinessesRoute
   DigitalMarketingRoute: typeof DigitalMarketingRoute
   FaqRoute: typeof FaqRoute
   GalleryRoute: typeof GalleryRoute
   HardwareRoute: typeof HardwareRoute
+  HowToChooseAManagedItServicesProviderRoute: typeof HowToChooseAManagedItServicesProviderRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcurementRoute: typeof ProcurementRoute
   SecurityRoute: typeof SecurityRoute
   ServiceAreasRoute: typeof ServiceAreasRoute
   SoftwareRoute: typeof SoftwareRoute
+  SolutionsRoute: typeof SolutionsRoute
   SupportRoute: typeof SupportRoute
   ThankYouRoute: typeof ThankYouRoute
+  Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route: typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   VoipRoute: typeof VoipRoute
   ApiAssistantRoute: typeof ApiAssistantRoute
   ApiConsultRoute: typeof ApiConsultRoute
@@ -351,6 +473,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/10-signs-your-business-needs-managed-it-support': {
+      id: '/10-signs-your-business-needs-managed-it-support'
+      path: '/10-signs-your-business-needs-managed-it-support'
+      fullPath: '/10-signs-your-business-needs-managed-it-support'
+      preLoaderRoute: typeof R10SignsYourBusinessNeedsManagedItSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/5-biggest-benefits-of-cloud-backups': {
+      id: '/5-biggest-benefits-of-cloud-backups'
+      path: '/5-biggest-benefits-of-cloud-backups'
+      fullPath: '/5-biggest-benefits-of-cloud-backups'
+      preLoaderRoute: typeof R5BiggestBenefitsOfCloudBackupsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about-us': {
+      id: '/about-us'
+      path: '/about-us'
+      fullPath: '/about-us'
+      preLoaderRoute: typeof AboutUsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accessibility-statement': {
+      id: '/accessibility-statement'
+      path: '/accessibility-statement'
+      fullPath: '/accessibility-statement'
+      preLoaderRoute: typeof AccessibilityStatementRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ai': {
       id: '/ai'
       path: '/ai'
@@ -358,11 +508,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cloud-services-brampton': {
+      id: '/cloud-services-brampton'
+      path: '/cloud-services-brampton'
+      fullPath: '/cloud-services-brampton'
+      preLoaderRoute: typeof CloudServicesBramptonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/consult': {
       id: '/consult'
       path: '/consult'
       fullPath: '/consult'
       preLoaderRoute: typeof ConsultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cyber-security-tips-for-small-businesses': {
+      id: '/cyber-security-tips-for-small-businesses'
+      path: '/cyber-security-tips-for-small-businesses'
+      fullPath: '/cyber-security-tips-for-small-businesses'
+      preLoaderRoute: typeof CyberSecurityTipsForSmallBusinessesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/digital-marketing': {
@@ -391,6 +555,13 @@ declare module '@tanstack/react-router' {
       path: '/hardware'
       fullPath: '/hardware'
       preLoaderRoute: typeof HardwareRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-to-choose-a-managed-it-services-provider': {
+      id: '/how-to-choose-a-managed-it-services-provider'
+      path: '/how-to-choose-a-managed-it-services-provider'
+      fullPath: '/how-to-choose-a-managed-it-services-provider'
+      preLoaderRoute: typeof HowToChooseAManagedItServicesProviderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -428,6 +599,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SoftwareRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/solutions': {
+      id: '/solutions'
+      path: '/solutions'
+      fullPath: '/solutions'
+      preLoaderRoute: typeof SolutionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -440,6 +618,13 @@ declare module '@tanstack/react-router' {
       path: '/thank-you'
       fullPath: '/thank-you'
       preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/top-7-cyber-security-solutions-every-business-needs-in-2025': {
+      id: '/top-7-cyber-security-solutions-every-business-needs-in-2025'
+      path: '/top-7-cyber-security-solutions-every-business-needs-in-2025'
+      fullPath: '/top-7-cyber-security-solutions-every-business-needs-in-2025'
+      preLoaderRoute: typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/voip': {
@@ -517,19 +702,32 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R10SignsYourBusinessNeedsManagedItSupportRoute:
+    R10SignsYourBusinessNeedsManagedItSupportRoute,
+  R5BiggestBenefitsOfCloudBackupsRoute: R5BiggestBenefitsOfCloudBackupsRoute,
+  AboutUsRoute: AboutUsRoute,
+  AccessibilityStatementRoute: AccessibilityStatementRoute,
   AiRoute: AiRoute,
+  CloudServicesBramptonRoute: CloudServicesBramptonRoute,
   ConsultRoute: ConsultRoute,
+  CyberSecurityTipsForSmallBusinessesRoute:
+    CyberSecurityTipsForSmallBusinessesRoute,
   DigitalMarketingRoute: DigitalMarketingRoute,
   FaqRoute: FaqRoute,
   GalleryRoute: GalleryRoute,
   HardwareRoute: HardwareRoute,
+  HowToChooseAManagedItServicesProviderRoute:
+    HowToChooseAManagedItServicesProviderRoute,
   PrivacyRoute: PrivacyRoute,
   ProcurementRoute: ProcurementRoute,
   SecurityRoute: SecurityRoute,
   ServiceAreasRoute: ServiceAreasRoute,
   SoftwareRoute: SoftwareRoute,
+  SolutionsRoute: SolutionsRoute,
   SupportRoute: SupportRoute,
   ThankYouRoute: ThankYouRoute,
+  Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route:
+    Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route,
   VoipRoute: VoipRoute,
   ApiAssistantRoute: ApiAssistantRoute,
   ApiConsultRoute: ApiConsultRoute,

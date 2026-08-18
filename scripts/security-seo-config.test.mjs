@@ -47,21 +47,25 @@ test("public pages use only local system font stacks", async () => {
   assert.match(styles, /--font-mark: "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;/);
 });
 
-test("legacy redirects are permanent, local, and non-duplicated", async () => {
+test("legacy redirects use exact 301s and have no duplicate source", async () => {
   const config = JSON.parse(await read("vercel.json"));
   const sources = config.redirects.map((redirect) => redirect.source);
   assert.equal(new Set(sources).size, sources.length);
   for (const redirect of config.redirects) {
-    assert.equal(redirect.permanent, true);
+    assert.equal(redirect.statusCode, 301);
     assert.match(redirect.source, /^\//);
-    assert.match(redirect.destination, /^\//);
+    assert.ok(
+      redirect.destination.startsWith("/") || redirect.destination.startsWith("https://bitsolution.ca/"),
+    );
   }
   for (const required of [
-    "/about-us",
-    "/solutions",
     "/blog",
+    "/blog/",
     "/contact",
+    "/contact/",
     "/why-businesses-need-reliable-cloud-backup-services-in-canada",
+    "/why-businesses-need-reliable-cloud-backup-services-in-canada/",
+    "/wp-sitemap.xml",
   ]) {
     assert.ok(sources.includes(required), `missing redirect for ${required}`);
   }
@@ -96,6 +100,11 @@ test("all public route families emit a bitsolution.ca canonical", async () => {
     "gallery.tsx", "hardware.tsx", "industries.index.tsx", "industries.$slug.tsx",
     "insights.index.tsx", "insights.$slug.tsx", "privacy.tsx", "procurement.tsx",
     "security.tsx", "service-areas.tsx", "software.tsx", "support.tsx", "voip.tsx",
+    "about-us.tsx", "accessibility-statement.tsx", "solutions.tsx",
+    "cloud-services-brampton.tsx", "how-to-choose-a-managed-it-services-provider.tsx",
+    "cyber-security-tips-for-small-businesses.tsx", "5-biggest-benefits-of-cloud-backups.tsx",
+    "10-signs-your-business-needs-managed-it-support.tsx",
+    "top-7-cyber-security-solutions-every-business-needs-in-2025.tsx",
   ];
   for (const file of routeFiles) {
     const source = await read(`src/routes/${file}`);

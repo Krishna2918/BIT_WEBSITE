@@ -1,0 +1,357 @@
+{
+  "schema": "bit.website.seo-migration-route-map:v2",
+  "captured_at": "2026-08-18T13:54:21.160Z",
+  "source_origin": "https://bitsolution.ca",
+  "final_origin": "https://bitsolution.ca",
+  "baseline_sitemap_rows": 42,
+  "assertion_counts": {
+    "preserve_200": 10,
+    "redirect_301": 21,
+    "gone_410_noindex": 11
+  },
+  "rules": {
+    "redirect_status": 301,
+    "preserve_query_strings": true,
+    "maximum_hops": 1,
+    "canonical_scheme": "https",
+    "canonical_host": "bitsolution.ca",
+    "preview_indexing": "noindex,nofollow,noarchive"
+  },
+  "current_sitemap_rows": [
+    {
+      "source": "/",
+      "action": "preserve_200",
+      "destination": "/"
+    },
+    {
+      "source": "/10-signs-your-business-needs-managed-it-support/",
+      "action": "preserve_200",
+      "destination": "/10-signs-your-business-needs-managed-it-support/"
+    },
+    {
+      "source": "/404-2/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/5-biggest-benefits-of-cloud-backups/",
+      "action": "preserve_200",
+      "destination": "/5-biggest-benefits-of-cloud-backups/"
+    },
+    {
+      "source": "/?elementskit_template=header",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/?wpr_templates=user-footer-footer",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/?wpr_templates=user-header-header",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/?wpr_templates=user-single-single",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/about-us/",
+      "action": "preserve_200",
+      "destination": "/about-us/"
+    },
+    {
+      "source": "/accessibility-statement/",
+      "action": "preserve_200",
+      "destination": "/accessibility-statement/"
+    },
+    {
+      "source": "/author/admin/",
+      "action": "redirect_301",
+      "destination": "/insights"
+    },
+    {
+      "source": "/blog/",
+      "action": "redirect_301",
+      "destination": "/insights"
+    },
+    {
+      "source": "/business-voip-phone-service-brampton/",
+      "action": "redirect_301",
+      "destination": "/voip"
+    },
+    {
+      "source": "/category/it/",
+      "action": "redirect_301",
+      "destination": "/insights"
+    },
+    {
+      "source": "/cloud-backup-vs-local-storage-brampton/",
+      "action": "redirect_301",
+      "destination": "/insights/backup-vs-local"
+    },
+    {
+      "source": "/cloud-services-brampton/",
+      "action": "preserve_200",
+      "destination": "/cloud-services-brampton/"
+    },
+    {
+      "source": "/contact/",
+      "action": "redirect_301",
+      "destination": "/consult"
+    },
+    {
+      "source": "/cyber-security-services-brampton/",
+      "action": "redirect_301",
+      "destination": "/security"
+    },
+    {
+      "source": "/cyber-security-tips-for-small-businesses/",
+      "action": "preserve_200",
+      "destination": "/cyber-security-tips-for-small-businesses/"
+    },
+    {
+      "source": "/digital-marketing-services-brampton/",
+      "action": "redirect_301",
+      "destination": "/digital-marketing"
+    },
+    {
+      "source": "/easy-cloud-migration-for-businesses/",
+      "action": "redirect_301",
+      "destination": "/insights/cloud-migration"
+    },
+    {
+      "source": "/elementskit-content/dynamic-content-megamenu-menuitem488/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/hero-section/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/how-to-choose-a-managed-it-services-provider/",
+      "action": "preserve_200",
+      "destination": "/how-to-choose-a-managed-it-services-provider/"
+    },
+    {
+      "source": "/manage-it-services-brampton/",
+      "action": "redirect_301",
+      "destination": "/support"
+    },
+    {
+      "source": "/managed-it-services-brampton-save-time-money/",
+      "action": "redirect_301",
+      "destination": "/insights/managed-it-time"
+    },
+    {
+      "source": "/managed-it-services/",
+      "action": "redirect_301",
+      "destination": "/support"
+    },
+    {
+      "source": "/metform-form/ad-form/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/metform-form/contact-form/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/metform-form/servies/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/office-network-installation-brampton/",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    },
+    {
+      "source": "/procurement-services/",
+      "action": "redirect_301",
+      "destination": "/procurement"
+    },
+    {
+      "source": "/sample-page/",
+      "action": "gone_410_noindex",
+      "destination": null
+    },
+    {
+      "source": "/security-camera-installation-brampton/",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    },
+    {
+      "source": "/sitemap/",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/solutions/",
+      "action": "preserve_200",
+      "destination": "/solutions/"
+    },
+    {
+      "source": "/struggling-with-cyber-attacks-protect-your-business/",
+      "action": "redirect_301",
+      "destination": "/insights/protect-your-business"
+    },
+    {
+      "source": "/support/",
+      "action": "redirect_301",
+      "destination": "/support"
+    },
+    {
+      "source": "/thank-you/",
+      "action": "redirect_301",
+      "destination": "/thank-you"
+    },
+    {
+      "source": "/top-7-cyber-security-solutions-every-business-needs-in-2025/",
+      "action": "preserve_200",
+      "destination": "/top-7-cyber-security-solutions-every-business-needs-in-2025/"
+    },
+    {
+      "source": "/top-cybersecurity-mistakes-businesses-make-and-how-to-avoid-them/",
+      "action": "redirect_301",
+      "destination": "/insights/cyber-mistakes"
+    },
+    {
+      "source": "/why-businesses-need-reliable-cloud-backup-services-in-canada/",
+      "action": "redirect_301",
+      "destination": "/insights/why-cloud-backup"
+    }
+  ],
+  "internally_linked_legacy_aliases": [
+    {
+      "source": "/business-communication/",
+      "action": "redirect_301",
+      "destination": "/voip"
+    },
+    {
+      "source": "/cloud-services/",
+      "action": "redirect_301",
+      "destination": "/cloud-services-brampton/"
+    },
+    {
+      "source": "/cyber-security-services/",
+      "action": "redirect_301",
+      "destination": "/security"
+    },
+    {
+      "source": "/digital-marketing/",
+      "action": "redirect_301",
+      "destination": "/digital-marketing"
+    },
+    {
+      "source": "/manage-it-services/",
+      "action": "redirect_301",
+      "destination": "/support"
+    },
+    {
+      "source": "/professional-it-services/",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    },
+    {
+      "source": "/security-camera-alarm/",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    },
+    {
+      "source": "/cloud-services.html",
+      "action": "redirect_301",
+      "destination": "/cloud-services-brampton/"
+    },
+    {
+      "source": "/cyber-security-services.html",
+      "action": "redirect_301",
+      "destination": "/security"
+    },
+    {
+      "source": "/digital-marketing.html",
+      "action": "redirect_301",
+      "destination": "/digital-marketing"
+    },
+    {
+      "source": "/manage-it-services.html",
+      "action": "redirect_301",
+      "destination": "/support"
+    },
+    {
+      "source": "/professional-it-services.html",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    },
+    {
+      "source": "/security-camera.html",
+      "action": "redirect_301",
+      "destination": "/hardware"
+    }
+  ],
+  "wp_sitemap_compatibility": [
+    {
+      "source": "/wp-sitemap.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-post-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-page-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-elementskit_content-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-elementskit_template-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-wpr_templates-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-posts-metform-form-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-taxonomies-category-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/wp-sitemap-users-1.xml",
+      "action": "redirect_301",
+      "destination": "/sitemap.xml"
+    }
+  ],
+  "host_normalization": {
+    "final": "https://bitsolution.ca/:path*",
+    "required_sources": [
+      "http://bitsolution.ca/:path*",
+      "http://www.bitsolution.ca/:path*",
+      "https://www.bitsolution.ca/:path*"
+    ],
+    "preserve_path_and_query": true,
+    "maximum_hops": 1,
+    "production_gate": "Vercel primary-domain and Cloudflare edge readback; no DNS action in this release"
+  }
+}

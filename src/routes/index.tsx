@@ -71,10 +71,11 @@ function Home() {
       <section className="hero-frame">
         <div className="relative z-10 px-5 pb-8 pt-8 text-center sm:pb-10 sm:pt-12">
           <h1 className="hero-lockup">
+            <span className="sr-only">BIT Solution — technology solutions for Ontario businesses</span>
             <img
               className="hero-official"
               src="/images/bit-lockup-official.png"
-              alt="BIT Solution — Delivering your technology solutions"
+              alt=""
               width={1914}
               height={383}
             />
