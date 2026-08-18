@@ -118,6 +118,26 @@ function Home() {
 
       <CoverReel />
 
+      <section id="gallery" className="border-t border-hairline bg-bg px-5 py-16">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
+            Gallery
+          </p>
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+            The floors we walk.
+          </h2>
+          <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
+            Hardware, sectors, and the desk. Click a photo to open it.
+          </p>
+          <GalleryGrid items={GALLERY_HOME} />
+          <p className="mt-8 text-center">
+            <Link to="/gallery" className="text-[16px] text-link no-underline hover:underline">
+              Full gallery ›
+            </Link>
+          </p>
+        </div>
+      </section>
+
       <section id="partners" className="border-t border-hairline bg-bg-muted px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
@@ -139,26 +159,6 @@ function Home() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      <section id="gallery" className="border-t border-hairline bg-bg px-5 py-16">
-        <div className="mx-auto max-w-5xl">
-          <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
-            Gallery
-          </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
-            The floors we walk.
-          </h2>
-          <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
-            Hardware, sectors, and the desk. Click a photo to open it.
-          </p>
-          <GalleryGrid items={GALLERY_HOME} />
-          <p className="mt-8 text-center">
-            <Link to="/gallery" className="text-[16px] text-link no-underline hover:underline">
-              Full gallery ›
-            </Link>
-          </p>
         </div>
       </section>
 
