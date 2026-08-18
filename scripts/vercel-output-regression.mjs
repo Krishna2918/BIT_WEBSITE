@@ -66,6 +66,15 @@ assert.match(combined, /bit-mark-v20260818\.svg/);
 assert.match(combined, /bit-mark-v20260818-180\.png/);
 assert.match(combined, /site-v20260818\.webmanifest/);
 
+const verifyProductionPublicBuild = process.env.BIT_VERIFY_PRODUCTION_PUBLIC_BUILD === "1";
+if (verifyProductionPublicBuild) {
+  assert.equal(process.env.VITE_TURNSTILE_ENABLED, "true");
+  assert.equal(process.env.VITE_TURNSTILE_SITE_KEY, "0x4AAAAAAETHN-YhhbIwjKbD");
+  assert.match(combined, /challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
+  assert.match(combined, /0x4AAAAAAETHN-YhhbIwjKbD/);
+  assert.match(combined, /action:\s*["']consult["']/u);
+}
+
 console.log(
   JSON.stringify({
     status: "PASS",
@@ -75,6 +84,8 @@ console.log(
     externalBuilderReferences: 0,
     verifiedBrandIcons: iconPaths.length,
     legacyFaviconPresent: false,
-    measurementActivation: "verified by rendered-response smoke with empty preview IDs",
+    productionPublicBuild: verifyProductionPublicBuild,
+    turnstileCompiled: verifyProductionPublicBuild,
+    turnstileAction: verifyProductionPublicBuild ? "consult" : "not asserted",
   }),
 );
