@@ -1,6 +1,4 @@
 import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
-import { AuthProvider } from "@/lib/auth/provider";
-import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { TrackingHooks } from "@/components/site/tracking";
@@ -75,8 +73,6 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@500;600;700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: "/__grok/manifest.webmanifest" },
-      { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
     ],
     scripts: [
       {
@@ -107,10 +103,7 @@ export const Route = createRootRoute({
         <HeadContent />
       </head>
       <body className="bg-bg text-ink">
-        <PreviewHostBridge />
-        <AuthProvider>
-          <RootChrome />
-        </AuthProvider>
+        <RootChrome />
         <Scripts />
       </body>
     </html>

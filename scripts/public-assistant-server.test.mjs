@@ -67,6 +67,8 @@ test("verified FAQ grounding precedes exact Luna Gateway decision", async () => 
     },
   });
   assert.equal(faqRequest.input, "https://livechat.bitsolution.ca/v1/public/assistant");
+  assert.equal(faqRequest.init.headers.Origin, "https://bitsolution.ca");
+  assert.notEqual(faqRequest.init.headers.Origin, request("ignored").headers.get("origin"));
   assert.equal(modelRequest.model, "openai/gpt-5.6-luna");
   assert.equal(modelRequest.maxOutputTokens, 8);
   assert.equal(modelRequest.maxRetries, 0);

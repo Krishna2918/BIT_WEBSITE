@@ -2,6 +2,7 @@ import { generateText } from "ai";
 
 const PUBLIC_SOURCE = "bitsolution-homepage";
 const FAQ_ENDPOINT = "https://livechat.bitsolution.ca/v1/public/assistant";
+const APPROVED_GROUNDING_ORIGIN = "https://bitsolution.ca";
 export const PUBLIC_AI_MODEL = "openai/gpt-5.6-luna";
 
 const MAX_MESSAGE_LENGTH = 2_000;
@@ -150,7 +151,11 @@ async function getFaqGrounding(
     const response = await fetchImplementation(FAQ_ENDPOINT, {
       method: "POST",
       credentials: "omit",
-      headers: { Accept: "application/json", "Content-Type": "application/json" },
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Origin: APPROVED_GROUNDING_ORIGIN,
+      },
       body: JSON.stringify({ source: PUBLIC_SOURCE, consent: true, message }),
       signal: controller.signal,
     });

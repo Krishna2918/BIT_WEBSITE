@@ -5,13 +5,13 @@ import test from "node:test";
 const root = new URL("../", import.meta.url);
 
 test("Vercel preview build is migration-free, unbound, and fail-closed", async () => {
-  const [packageJson, vercelJson, middleware, consultRoute, assistantRoute, pwaShared] = await Promise.all([
+  const [packageJson, vercelJson, middleware, consultRoute, assistantRoute, viteConfig] = await Promise.all([
     readFile(new URL("package.json", root), "utf8").then(JSON.parse),
     readFile(new URL("vercel.json", root), "utf8").then(JSON.parse),
-    readFile(new URL("server/middleware/grok-pwa.ts", root), "utf8"),
+    readFile(new URL("server/middleware/indexing.ts", root), "utf8"),
     readFile(new URL("src/routes/api/consult.ts", root), "utf8"),
     readFile(new URL("src/routes/api/assistant.ts", root), "utf8"),
-    readFile(new URL("scripts/grok-pwa-shared.mjs", root), "utf8"),
+    readFile(new URL("vite.config.ts", root), "utf8"),
   ]);
 
   assert.equal(
@@ -42,5 +42,5 @@ test("Vercel preview build is migration-free, unbound, and fail-closed", async (
   assert.match(assistantRoute, /GET:\s*methodNotAllowed/);
   assert.match(assistantRoute, /POST:\s*\(\{ request \}\)/);
   assert.match(assistantRoute, /status:\s*405/);
-  assert.doesNotMatch(pwaShared, /https:\/\/grok\.com|grok-app-builder|extensions\.js/);
+  assert.doesNotMatch(viteConfig, /popup|preview bridge|install tutorial/i);
 });

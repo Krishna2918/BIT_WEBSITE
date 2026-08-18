@@ -41,7 +41,7 @@ assert.doesNotMatch(
   combined,
   /VITE_(?:AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|BIT_PUBLIC_AI_ENABLED|BIT_PUBLIC_AI_MODEL)/i,
 );
-assert.doesNotMatch(combined, /grok\.com\/grok-app-builder|grok-app-builder\/extensions\.js/i);
+assert.doesNotMatch(combined, /app-builder\/extensions\.js|external-builder/i);
 
 console.log(
   JSON.stringify({

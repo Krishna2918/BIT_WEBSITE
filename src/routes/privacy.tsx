@@ -68,6 +68,22 @@ function PrivacyPage() {
           Electronic Documents Act. Access, correction, and complaint requests: {SITE.email}.
         </p>
 
+        <h2 className="mt-10 text-[22px] font-semibold">Ask AI and human live chat</h2>
+        <p className="mt-3 text-muted">
+          When you submit text to Ask AI, we process the submitted chat text and limited technical
+          routing information to answer a general public question or decide that a person should
+          help. Processing may involve our website-hosting provider, approved AI Gateway and model
+          processing providers, and the approved public-information service. If you explicitly ask
+          for a person, the question requires human support, or the automated service cannot safely
+          answer, the conversation can be handed to our authorized support team through Chatwoot.
+          An authorized team member can review the conversation, reply, and take over from the
+          automated service. Chat information is used to answer and support your request, not for
+          marketing reuse. Do not enter passwords, access codes, tokens, private keys, payment or
+          health information, client records, or other sensitive information. Chat retention and
+          the exact legal retention period remain subject to the approved privacy policy; this
+          feature will not be activated until Privacy approves those terms.
+        </p>
+
         <h2 className="mt-10 text-[22px] font-semibold">Cookies and measurement</h2>
         <p className="mt-3 text-muted">
           Essential storage supports core website functions. Optional analytics stays off unless you

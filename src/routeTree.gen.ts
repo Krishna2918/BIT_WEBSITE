@@ -16,7 +16,6 @@ import { Route as DigitalMarketingRouteImport } from './routes/digital-marketing
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HardwareRouteImport } from './routes/hardware'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcurementRouteImport } from './routes/procurement'
 import { Route as SecurityRouteImport } from './routes/security'
@@ -34,7 +33,6 @@ import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
 import { Route as IndustriesSlugRouteImport } from './routes/industries.$slug'
 import { Route as InsightsIndexRouteImport } from './routes/insights.index'
 import { Route as InsightsSlugRouteImport } from './routes/insights.$slug'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -69,11 +67,6 @@ const GalleryRoute = GalleryRouteImport.update({
 const HardwareRoute = HardwareRouteImport.update({
   id: '/hardware',
   path: '/hardware',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -161,11 +154,6 @@ const InsightsSlugRoute = InsightsSlugRouteImport.update({
   path: '/insights/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -175,7 +163,6 @@ export interface FileRoutesByFullPath {
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
-  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
@@ -193,7 +180,6 @@ export interface FileRoutesByFullPath {
   '/insights/$slug': typeof InsightsSlugRoute
   '/industries/': typeof IndustriesIndexRoute
   '/insights/': typeof InsightsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -203,7 +189,6 @@ export interface FileRoutesByTo {
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
-  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
@@ -221,7 +206,6 @@ export interface FileRoutesByTo {
   '/insights/$slug': typeof InsightsSlugRoute
   '/industries': typeof IndustriesIndexRoute
   '/insights': typeof InsightsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -232,7 +216,6 @@ export interface FileRoutesById {
   '/faq': typeof FaqRoute
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
-  '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
   '/security': typeof SecurityRoute
@@ -250,7 +233,6 @@ export interface FileRoutesById {
   '/insights/$slug': typeof InsightsSlugRoute
   '/industries/': typeof IndustriesIndexRoute
   '/insights/': typeof InsightsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -262,7 +244,6 @@ export interface FileRouteTypes {
     | '/faq'
     | '/gallery'
     | '/hardware'
-    | '/login'
     | '/privacy'
     | '/procurement'
     | '/security'
@@ -280,7 +261,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/industries/'
     | '/insights/'
-    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -290,7 +270,6 @@ export interface FileRouteTypes {
     | '/faq'
     | '/gallery'
     | '/hardware'
-    | '/login'
     | '/privacy'
     | '/procurement'
     | '/security'
@@ -308,7 +287,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/industries'
     | '/insights'
-    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -318,7 +296,6 @@ export interface FileRouteTypes {
     | '/faq'
     | '/gallery'
     | '/hardware'
-    | '/login'
     | '/privacy'
     | '/procurement'
     | '/security'
@@ -336,7 +313,6 @@ export interface FileRouteTypes {
     | '/insights/$slug'
     | '/industries/'
     | '/insights/'
-    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -347,7 +323,6 @@ export interface RootRouteChildren {
   FaqRoute: typeof FaqRoute
   GalleryRoute: typeof GalleryRoute
   HardwareRoute: typeof HardwareRoute
-  LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcurementRoute: typeof ProcurementRoute
   SecurityRoute: typeof SecurityRoute
@@ -365,7 +340,6 @@ export interface RootRouteChildren {
   InsightsSlugRoute: typeof InsightsSlugRoute
   IndustriesIndexRoute: typeof IndustriesIndexRoute
   InsightsIndexRoute: typeof InsightsIndexRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -417,13 +391,6 @@ declare module '@tanstack/react-router' {
       path: '/hardware'
       fullPath: '/hardware'
       preLoaderRoute: typeof HardwareRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -545,13 +512,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -563,7 +523,6 @@ const rootRouteChildren: RootRouteChildren = {
   FaqRoute: FaqRoute,
   GalleryRoute: GalleryRoute,
   HardwareRoute: HardwareRoute,
-  LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProcurementRoute: ProcurementRoute,
   SecurityRoute: SecurityRoute,
@@ -581,7 +540,6 @@ const rootRouteChildren: RootRouteChildren = {
   InsightsSlugRoute: InsightsSlugRoute,
   IndustriesIndexRoute: IndustriesIndexRoute,
   InsightsIndexRoute: InsightsIndexRoute,
-  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

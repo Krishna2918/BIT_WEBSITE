@@ -31,7 +31,7 @@ test("security headers cover current origins without enabling measurement", asyn
   ]) {
     assert.match(csp, new RegExp(escapeRegExp(directive)));
   }
-  assert.doesNotMatch(csp, /googletagmanager|google-analytics|clarity\.ms|callrail|auth\.grok/i);
+  assert.doesNotMatch(csp, /googletagmanager|google-analytics|clarity\.ms|callrail/i);
 });
 
 test("legacy redirects are permanent, local, and non-duplicated", async () => {
@@ -70,8 +70,8 @@ test("sitemap covers public dynamic routes and excludes private routes", async (
   for (const slug of [...insights.matchAll(/slug: "([^"]+)"/g)].map((match) => match[1])) {
     assert.ok(sitemapUrls.has(`https://bitsolution.ca/insights/${slug}`));
   }
-  assert.doesNotMatch(sitemap, /\/login|\/thank-you|\/consult\/continue|\/api\//);
-  for (const path of ["/login", "/thank-you", "/consult/continue", "/api/", "/__grok/"]) {
+  assert.doesNotMatch(sitemap, /\/thank-you|\/consult\/continue|\/api\//);
+  for (const path of ["/thank-you", "/consult/continue", "/api/"]) {
     assert.match(robots, new RegExp(`Disallow: ${escapeRegExp(path)}`));
   }
 });

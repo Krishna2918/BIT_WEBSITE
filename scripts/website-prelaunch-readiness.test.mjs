@@ -24,12 +24,11 @@ test("robots and sitemap keep private conversion routes out of discovery", async
   const robots = await read("public/robots.txt");
   const sitemap = await read("public/sitemap.xml");
 
-  assert.match(robots, /Disallow: \/login/);
   assert.match(robots, /Disallow: \/thank-you/);
   assert.match(sitemap, /https:\/\/bitsolution\.ca\/consult</);
   assert.match(sitemap, /https:\/\/bitsolution\.ca\/fleet-operations\/ontario</);
   assert.match(sitemap, /https:\/\/bitsolution\.ca\/dental-it\/ontario</);
-  assert.doesNotMatch(sitemap, /\/thank-you|\/consult\/continue|\/login|\/api\//);
+  assert.doesNotMatch(sitemap, /\/thank-you|\/consult\/continue|\/api\//);
 });
 
 test("mobile navigation hides the phone pill below the small breakpoint", async () => {
