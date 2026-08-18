@@ -49,6 +49,18 @@ test("mobile header keeps Sectors directly visible without duplicating it in the
   assert.match(nav, /hidden sm:inline">Book consultation<\/span>/u);
 });
 
+test("homepage mounts the complete Sectors section exactly once", async () => {
+  const home = await read("src/routes/index.tsx");
+  const sectors = await read("src/components/site/cover-reel.tsx");
+  const industryData = await read("src/data/industries.ts");
+
+  assert.match(home, /import \{ CoverReel \} from "@\/components\/site\/cover-reel";/u);
+  assert.equal((home.match(/<CoverReel \/>/gu) ?? []).length, 1);
+  assert.match(sectors, /id="sectors"/u);
+  assert.match(sectors, /INDUSTRIES\.map/u);
+  assert.equal((industryData.match(/slug:\s*"[^"]+"/gu) ?? []).length, 16);
+});
+
 test("privacy route records owner-attested approval and the approved retention controls", async () => {
   const privacy = await read("src/routes/privacy.tsx");
 

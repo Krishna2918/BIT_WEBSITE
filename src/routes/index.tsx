@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type ComponentType } from "react";
 import { HeroGlobeActions } from "@/components/site/ask-ai";
 import { ContactActions } from "@/components/site/contact-actions";
+import { CoverReel } from "@/components/site/cover-reel";
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { PARTNERS } from "@/data/partners";
 import { EXTRAS } from "@/data/extras";
@@ -223,6 +224,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <CoverReel />
 
       <section id="pillars" className="border-t border-hairline bg-bg px-5 py-16">
         <div className="mx-auto max-w-5xl">
