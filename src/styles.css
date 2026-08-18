@@ -15,7 +15,7 @@
   --color-band-dark-muted: #a1a1a6;
   --color-hairline: #d2d2d7;
   --color-mark: #003099;
-  --font-mark: "Michroma", "Eurostile Extended", sans-serif;
+  --font-mark: "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;
   --color-fg: #1d1d1f;
   --color-border: #d2d2d7;
   --radius: 0.75rem;
@@ -153,7 +153,7 @@ svg {
 }
 
 .bit-title {
-  font-family: "Michroma", "Eurostile Extended", sans-serif;
+  font-family: var(--font-mark);
   font-size: 22px;
   font-weight: 700;
   color: #043898;
@@ -176,7 +176,7 @@ svg {
   align-items: center;
   width: 100%;
   margin-top: 7px;
-  font-family: "Orbitron", "Bank Gothic", sans-serif;
+  font-family: var(--font-mark);
   font-size: 7.5px;
   font-weight: 600;
   letter-spacing: 0;
@@ -204,7 +204,7 @@ svg {
   justify-content: space-between;
   width: 100%;
   margin-top: 8px;
-  font-family: "Michroma", sans-serif;
+  font-family: var(--font-mark);
   font-size: 9px;
   font-weight: 500;
   letter-spacing: 0;

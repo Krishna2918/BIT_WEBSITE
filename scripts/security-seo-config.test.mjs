@@ -23,15 +23,28 @@ test("security headers cover current origins without enabling measurement", asyn
     "default-src 'self'",
     "object-src 'none'",
     "frame-ancestors 'none'",
-    "https://fonts.googleapis.com",
-    "https://fonts.gstatic.com",
     "https://challenges.cloudflare.com",
     "https://livechat.bitsolution.ca",
     "wss://livechat.bitsolution.ca",
   ]) {
     assert.match(csp, new RegExp(escapeRegExp(directive)));
   }
-  assert.doesNotMatch(csp, /googletagmanager|google-analytics|clarity\.ms|callrail/i);
+  assert.doesNotMatch(
+    csp,
+    /fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager|google-analytics|clarity\.ms|callrail/i,
+  );
+});
+
+test("public pages use only local system font stacks", async () => {
+  const [rootRoute, styles] = await Promise.all([
+    read("src/routes/__root.tsx"),
+    read("src/styles.css"),
+  ]);
+  const publicFontSource = `${rootRoute}\n${styles}`;
+
+  assert.doesNotMatch(publicFontSource, /fonts\.googleapis\.com|fonts\.gstatic\.com/i);
+  assert.doesNotMatch(publicFontSource, /Michroma|Orbitron|Bank Gothic|Eurostile Extended/i);
+  assert.match(styles, /--font-mark: "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;/);
 });
 
 test("legacy redirects are permanent, local, and non-duplicated", async () => {

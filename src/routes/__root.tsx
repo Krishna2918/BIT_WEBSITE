@@ -68,10 +68,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@500;600;700&display=swap",
-      },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [
