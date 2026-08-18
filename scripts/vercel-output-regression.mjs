@@ -81,6 +81,9 @@ if (verifyProductionPublicBuild) {
   assert.match(clientConsultAsset, /challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
   assert.match(clientConsultAsset, /0x4AAAAAAETHN-YhhbIwjKbD/);
   assert.match(clientConsultAsset, /action:\s*[`"']consult[`"']/u);
+  assert.match(combined, /bit-gtm-script/);
+  assert.match(combined, /www\.googletagmanager\.com\/gtm\.js\?id=/);
+  assert.doesNotMatch(combined, /gtm\.start|googletagmanager\.com\/ns\.html/u);
 }
 
 console.log(
@@ -95,5 +98,6 @@ console.log(
     productionPublicBuild: verifyProductionPublicBuild,
     turnstileCompiled: verifyProductionPublicBuild,
     turnstileAction: verifyProductionPublicBuild ? "consult" : "not asserted",
+    imperativeGtmLoader: verifyProductionPublicBuild,
   }),
 );

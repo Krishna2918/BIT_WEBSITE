@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { TRACKING } from "@/lib/site";
 import { captureAttribution, track } from "@/lib/tracking";
+import { initializeGtag, syncGtmScript } from "@/lib/gtm-script";
 import {
   buildConsentModeState,
   CONSENT_CHANGED_EVENT,
@@ -12,17 +13,15 @@ export function TrackingHooks() {
   const [consent, setConsent] = useState<MeasurementConsent | null>(null);
 
   useEffect(() => {
-    window.dataLayer = window.dataLayer || [];
-    window.gtag =
-      window.gtag || ((...args: unknown[]) => window.dataLayer.push({ arguments: args }));
+    initializeGtag(window);
     const initial = readMeasurementConsent();
     setConsent(initial);
-    window.gtag("consent", "default", {
+    window.gtag?.("consent", "default", {
       ...buildConsentModeState(null),
       wait_for_update: 500,
     });
     if (initial) {
-      window.gtag("consent", "update", buildConsentModeState(initial));
+      window.gtag?.("consent", "update", buildConsentModeState(initial));
     }
     if (initial?.analytics) {
       captureAttribution();
@@ -45,37 +44,16 @@ export function TrackingHooks() {
   const analyticsAllowed = consent?.analytics === true;
   const adsMeasurementAllowed = consent?.adsMeasurement === true;
   const mayLoadMeasurement = TRACKING.measurementOn && (analyticsAllowed || adsMeasurementAllowed);
-  const useGtm = mayLoadMeasurement && Boolean(TRACKING.gtmId);
   const useDirectGa4 =
     TRACKING.measurementOn && analyticsAllowed && !TRACKING.gtmId && Boolean(TRACKING.ga4Id);
 
+  useEffect(() => {
+    syncGtmScript(document, mayLoadMeasurement, TRACKING.gtmId);
+  }, [mayLoadMeasurement]);
+
   return (
     <>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};`,
-        }}
-      />
-      {useGtm && TRACKING.gtmId ? (
-        <>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':Date.now(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${TRACKING.gtmId}');`,
-            }}
-          />
-          <noscript>
-            <iframe
-              title="Google Tag Manager"
-              src={`https://www.googletagmanager.com/ns.html?id=${TRACKING.gtmId}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-            />
-          </noscript>
-        </>
-      ) : (
-        <meta name="bit-gtm-hook" content="ready" />
-      )}
+      <meta name="bit-gtm-hook" content="ready" />
       {useDirectGa4 && TRACKING.ga4Id ? (
         <>
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${TRACKING.ga4Id}`} />
