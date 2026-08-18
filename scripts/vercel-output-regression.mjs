@@ -33,6 +33,14 @@ assert.equal(functionConfig.handler, "index.mjs");
 const searchable = (await walk(output)).filter((path) => /\.(?:css|html|js|json|mjs|txt)$/i.test(path));
 let combined = "";
 for (const path of searchable) combined += `\n/* ${relative(output, path)} */\n${await readFile(path, "utf8")}`;
+const clientConsultAssetNames = (await readdir(join(output, "static", "assets"))).filter((name) =>
+  /^consult-form-[A-Za-z0-9_-]+\.js$/u.test(name),
+);
+assert.equal(clientConsultAssetNames.length, 1, "exactly one client consultation form asset is required");
+const clientConsultAsset = await readFile(
+  join(output, "static", "assets", clientConsultAssetNames[0]),
+  "utf8",
+);
 
 const iconRoot = join(output, "static", "brand-icons");
 const iconPaths = [
@@ -70,9 +78,9 @@ const verifyProductionPublicBuild = process.env.BIT_VERIFY_PRODUCTION_PUBLIC_BUI
 if (verifyProductionPublicBuild) {
   assert.equal(process.env.VITE_TURNSTILE_ENABLED, "true");
   assert.equal(process.env.VITE_TURNSTILE_SITE_KEY, "0x4AAAAAAETHN-YhhbIwjKbD");
-  assert.match(combined, /challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
-  assert.match(combined, /0x4AAAAAAETHN-YhhbIwjKbD/);
-  assert.match(combined, /action:\s*["']consult["']/u);
+  assert.match(clientConsultAsset, /challenges\.cloudflare\.com\/turnstile\/v0\/api\.js\?render=explicit/);
+  assert.match(clientConsultAsset, /0x4AAAAAAETHN-YhhbIwjKbD/);
+  assert.match(clientConsultAsset, /action:\s*[`"']consult[`"']/u);
 }
 
 console.log(
