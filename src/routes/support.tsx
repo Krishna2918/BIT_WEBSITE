@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
-import { track } from "@/lib/tracking";
-import { ContactActions } from "@/components/site/contact-actions";
 import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/support")({
@@ -10,18 +8,12 @@ export const Route = createFileRoute("/support")({
     links: [canonicalLink("/support")],
     meta: [
       { title: "Support — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "24/7 BIT Solution support across Ontario. Call or WhatsApp +1 905-867-6574. Ticket desk coming.",
-      },
+      { name: "description", content: `Call BIT Solution support at ${SITE.phoneDisplay}.` },
     ],
   }),
 });
 
 function SupportPage() {
-  const ticketReady = Boolean(SITE.ticketUrl);
-
   return (
     <main className="bg-bg">
       <section className="px-5 pb-10 pt-16 text-center">
@@ -32,79 +24,25 @@ function SupportPage() {
           A person when it matters.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-muted">
-          24/7 across Ontario. Same number for a call and for WhatsApp. Existing
-          clients and anyone who needs the desk.
+          This informational release uses phone inquiries only. Call the number below for support
+          or to discuss a service request.
         </p>
-      </section>
-
-      <section className="mx-auto grid max-w-3xl gap-3 px-5 pb-16 sm:grid-cols-2">
-        <a
-          href={SITE.phoneHref}
-          className="support-card"
-          onClick={() => track("click_to_call", { source: "support" })}
-        >
-          <p className="support-kicker">Call · 24/7</p>
-          <h2>Phone</h2>
-          <p className="callrail rTapNumber">{SITE.phoneDisplay}</p>
-        </a>
-        <a
-          href={SITE.whatsappHref}
-          className="support-card"
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => track("whatsapp_click", { source: "support" })}
-        >
-          <p className="support-kicker">WhatsApp · 24/7</p>
-          <h2>Message</h2>
-          <p>{SITE.whatsappDisplay}</p>
-        </a>
-        <a
-          href={`mailto:${SITE.supportEmail}`}
-          className="support-card"
-          onClick={() => track("email_click", { source: "support" })}
-        >
-          <p className="support-kicker">Email</p>
-          <h2>Support inbox</h2>
-          <p>{SITE.supportEmail}</p>
-        </a>
-        {ticketReady ? (
-          <a
-            href={SITE.ticketUrl}
-            className="support-card"
-            onClick={() => track("ticket_click", { source: "support" })}
-          >
-            <p className="support-kicker">Clients</p>
-            <h2>Open a Support Ticket</h2>
-            <p>Use the desk we assigned you.</p>
+        <p className="mt-8">
+          <a href={SITE.phoneHref} className="cta-book">
+            Call {SITE.phoneDisplay}
           </a>
-        ) : (
-          <div className="support-card support-card-wait">
-            <p className="support-kicker">Clients</p>
-            <h2>Open a Support Ticket</h2>
-            <p>
-              Ticket desk is being connected. Until the link is live, call,
-              WhatsApp, or email.
-            </p>
-          </div>
-        )}
+        </p>
       </section>
 
       <section className="border-t border-hairline bg-bg-muted px-5 py-16 text-center">
-        <p className="text-[21px] text-ink">Emergency after hours</p>
+        <p className="text-[21px] text-ink">BIT Solution</p>
         <p className="mx-auto mt-2 max-w-lg text-[16px] leading-relaxed text-muted">
-          Same number. {SITE.phoneDisplay}. We do not publish a second line.
+          {SITE.address}
         </p>
-        <div className="mt-6 flex justify-center">
-          <ContactActions source="support-emergency" />
-        </div>
         <p className="mt-8 text-[14px] text-muted">
-          <Link to="/faq" className="text-link no-underline hover:underline">
-            FAQs ›
-          </Link>
+          <Link to="/faq" className="text-link no-underline hover:underline">FAQs ›</Link>
           {" · "}
-          <Link to="/privacy" className="text-link no-underline hover:underline">
-            Privacy ›
-          </Link>
+          <Link to="/privacy" className="text-link no-underline hover:underline">Privacy ›</Link>
         </p>
       </section>
     </main>

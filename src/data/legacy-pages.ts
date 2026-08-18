@@ -17,10 +17,10 @@ export const LEGACY_PAGES = {
     eyebrow: "Accessibility",
     title: "Accessibility statement",
     summary:
-      "BIT Solution is working to make this website useful with a keyboard, screen reader, touch input, and common zoom settings.",
+      "BIT Solution applies WCAG 2.0 Level AA as a mandatory launch standard for this website, regardless of employee threshold.",
     sections: [
-      { title: "Using this site", body: "Navigation, forms, headings, focus states, labels, and error messages are designed to be understandable without relying on colour alone." },
-      { title: "Need another format?", body: "If a page or document creates a barrier, contact BIT Solution and tell us what you need and how you would like us to respond." },
+      { title: "Using this site", body: "Navigation, headings, focus states, keyboard operation, touch targets, text alternatives, zoom, and contrast are tested against WCAG 2.0 Level AA without relying on colour alone." },
+      { title: "Need another format?", body: "If a page or document creates a barrier, call BIT Solution at +1 905-867-6574 and tell us what you need." },
     ],
   },
   solutions: {
@@ -32,7 +32,7 @@ export const LEGACY_PAGES = {
       { title: "Hardware & connected devices", body: "Networks, computers, cameras, access control, communications, and the infrastructure underneath them." },
       { title: "Custom software & AI", body: "Workflow software and carefully bounded AI assistance designed around how the organization operates." },
       { title: "Cybersecurity", body: "Practical access, device, network, backup, and recovery controls coordinated with the environment." },
-      { title: "Support", body: "A human support path for service questions and operational issues, with the existing Call and WhatsApp routes preserved." },
+      { title: "Support", body: "A phone-only human support path for service questions and operational issues." },
     ],
   },
   cloud: {

@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ConsultForm } from "@/components/site/consult-form";
 import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
 import { SITE, SITE_INDEXABLE } from "@/lib/site";
-import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/fleet-operations/ontario")({
   component: FleetOntario,
@@ -12,7 +10,7 @@ export const Route = createFileRoute("/fleet-operations/ontario")({
       {
         name: "description",
         content:
-          "Dispatch, telematics, cameras, and private servers for Ontario commercial fleets. Book a consultation with BIT Solution in Brampton.",
+          `Dispatch, telematics, cameras, and private servers for Ontario commercial fleets. Call BIT Solution at ${SITE.phoneDisplay}.`,
       },
       { property: "og:title", content: "Ontario Fleet Operations IT — BIT Solution" },
       {
@@ -27,7 +25,7 @@ export const Route = createFileRoute("/fleet-operations/ontario")({
 function FleetOntario() {
   return (
     <div className="lp" id="main">
-      <LpHeader consultTo="#consult" />
+      <LpHeader />
       <main>
         <section className="lp-hero">
           <p className="lp-kicker">Ontario · Fleet operations · PIPEDA · MTO / CVOR</p>
@@ -37,15 +35,11 @@ function FleetOntario() {
             server back at the shop — so a driver is not also the IT desk.
           </p>
           <div className="cta-pair lp-cta-row">
-            <a className="cta-book" href="#consult">
-              Book consultation
-            </a>
             <a
-              className="cta-ghost callrail rTapNumber"
+              className="cta-book"
               href={SITE.phoneHref}
-              onClick={() => track("click_to_call", { source: "fleet-hero" })}
             >
-              {SITE.phoneDisplay}
+              Call {SITE.phoneDisplay}
             </a>
           </div>
         </section>
@@ -107,28 +101,14 @@ function FleetOntario() {
           />
         </div>
 
-        <section className="lp-download" id="checklist">
-          <h2>Ontario fleet checklist</h2>
+        <section className="lp-contact-wrap" id="consult">
+          <h2>Call about fleet operations</h2>
           <p>
-            A short internal checklist for cameras, trackers, dispatch, and
-            access. It is not an official MTO form and it is not a certification.
+            Call us to talk through your yard, dispatch stack, and operational needs.
           </p>
-          <a
-            className="lp-book"
-            href="/downloads/mto-fleet-checklist.pdf"
-            onClick={() => track("checklist_download", { file: "mto-fleet" })}
-          >
-            Download the checklist
+          <a className="lp-book" href={SITE.phoneHref}>
+            Call {SITE.phoneDisplay}
           </a>
-        </section>
-
-        <section className="lp-form-wrap" id="consult">
-          <h2>Book a fleet consultation</h2>
-          <p>
-            Brampton and the GTA first — we will talk through your yard, not a
-            script.
-          </p>
-          <ConsultForm intent="fleet" source="fleet-operations-ontario" />
         </section>
       </main>
       <LpFooter />

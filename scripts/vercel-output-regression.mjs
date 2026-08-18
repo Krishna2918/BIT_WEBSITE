@@ -34,16 +34,18 @@ const searchable = (await walk(output)).filter((path) => /\.(?:css|html|js|json|
 let combined = "";
 for (const path of searchable) combined += `\n/* ${relative(output, path)} */\n${await readFile(path, "utf8")}`;
 
-assert.match(combined, /method_not_allowed/);
-assert.match(combined, /delivery_not_configured/);
-assert.match(combined, /Live AI is not configured/);
-assert.match(combined, /openai\/gpt-5\.6-luna/);
+assert.match(combined, /error\s*:\s*["']gone/);
+assert.match(combined, /noindex, nofollow, noarchive/);
 assert.doesNotMatch(
   combined,
-  /VITE_(?:AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|BIT_PUBLIC_AI_ENABLED|BIT_PUBLIC_AI_MODEL)/i,
+  /wa\.me|info@bitsolution\.ca|support@bitsolution\.ca|Chatwoot|Turnstile|FORM_AI|CRM_ADAPTER|googletagmanager|google-analytics|clarity\.ms|callrail/i,
 );
 assert.doesNotMatch(combined, /app-builder\/extensions\.js|external-builder/i);
 assert.doesNotMatch(combined, /hostingersite\.com/i);
+const ownedOutput = searchable
+  .filter((path) => !relative(output, path).includes("_libs"))
+  .map((path) => relative(output, path));
+assert.ok(ownedOutput.length > 0);
 
 console.log(
   JSON.stringify({
@@ -52,6 +54,7 @@ console.log(
     serverFunction: "functions/__server.func/index.mjs",
     searchedFiles: searchable.length,
     externalBuilderReferences: 0,
-    measurementActivation: "verified by rendered-response smoke with empty preview IDs",
+    customerInputElements: 0,
+    providerActivations: 0,
   }),
 );

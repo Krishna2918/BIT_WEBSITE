@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type ComponentType } from "react";
 import { CoverReel } from "@/components/site/cover-reel";
-import { HeroGlobeActions } from "@/components/site/ask-ai";
 import { ContactActions } from "@/components/site/contact-actions";
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { PARTNERS } from "@/data/partners";
@@ -89,11 +88,8 @@ function Home() {
             to every site we run.
           </p>
           <div className="cta-pair mt-4 mb-1">
-            <Link to="/consult" className="cta-book">
-              Book consultation
-            </Link>
-            <a href="tel:+19058676574" className="cta-ghost callrail rTapNumber">
-              +1 905-867-6574
+            <a href={SITE.phoneHref} className="cta-book">
+              Call {SITE.phoneDisplay}
             </a>
           </div>
         </div>
@@ -111,9 +107,6 @@ function Home() {
             <source src="/videos/globe-studio.mp4" type="video/mp4" />
           </video>
           {Scene ? <Scene /> : null}
-          <div className="hero-ask-wrap">
-            <HeroGlobeActions />
-          </div>
         </div>
       </section>
 
@@ -307,7 +300,7 @@ function Home() {
           Emergency is the same number.
         </h2>
         <p className="mx-auto mt-2 max-w-lg text-[16px] text-muted">
-          Call or WhatsApp {SITE.phoneDisplay}. Across all of Ontario.
+          Call {SITE.phoneDisplay}. Across all of Ontario.
         </p>
         <div className="mt-6 flex justify-center">
           <ContactActions source="home-emergency" />

@@ -1,8 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ConsultForm } from "@/components/site/consult-form";
 import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
 import { SITE, SITE_INDEXABLE } from "@/lib/site";
-import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/dental-it/ontario")({
   component: DentalOntario,
@@ -12,7 +10,7 @@ export const Route = createFileRoute("/dental-it/ontario")({
       {
         name: "description",
         content:
-          "Clinic software, private servers, cameras, and 24/7 help for Ontario dental practices. Book a consultation with BIT Solution.",
+          `Clinic software, private servers, cameras, and IT support for Ontario dental practices. Call BIT Solution at ${SITE.phoneDisplay}.`,
       },
       { property: "og:title", content: "Ontario Dental IT — BIT Solution" },
       {
@@ -27,7 +25,7 @@ export const Route = createFileRoute("/dental-it/ontario")({
 function DentalOntario() {
   return (
     <div className="lp" id="main">
-      <LpHeader consultTo="#consult" />
+      <LpHeader />
       <main>
         <section className="lp-hero">
           <p className="lp-kicker">Ontario · Dental IT · PHIPA · PIPEDA</p>
@@ -37,15 +35,11 @@ function DentalOntario() {
             stack — with a lock on who sees a patient file.
           </p>
           <div className="cta-pair lp-cta-row">
-            <a className="cta-book" href="#consult">
-              Book consultation
-            </a>
             <a
-              className="cta-ghost callrail rTapNumber"
+              className="cta-book"
               href={SITE.phoneHref}
-              onClick={() => track("click_to_call", { source: "dental-hero" })}
             >
-              {SITE.phoneDisplay}
+              Call {SITE.phoneDisplay}
             </a>
           </div>
         </section>
@@ -104,26 +98,12 @@ function DentalOntario() {
           />
         </div>
 
-        <section className="lp-download" id="checklist">
-          <h2>PHIPA self-audit</h2>
-          <p>
-            A practice discussion guide for access, wifi, cameras, and vendors.
-            It is not a PHIPA certification, legal advice, or a claim about
-            clinical outcomes.
-          </p>
-          <a
-            className="lp-book"
-            href="/downloads/dental-phipa-self-audit.pdf"
-            onClick={() => track("checklist_download", { file: "phipa" })}
-          >
-            Download the self-audit
+        <section className="lp-contact-wrap" id="consult">
+          <h2>Call about dental IT</h2>
+          <p>Ontario practices can call us to discuss the operatory, front desk, and IT stack.</p>
+          <a className="lp-book" href={SITE.phoneHref}>
+            Call {SITE.phoneDisplay}
           </a>
-        </section>
-
-        <section className="lp-form-wrap" id="consult">
-          <h2>Book a dental IT consultation</h2>
-          <p>Ontario practices. We will talk through the operatory and the desk.</p>
-          <ConsultForm intent="dental" source="dental-it-ontario" />
         </section>
       </main>
       <LpFooter />

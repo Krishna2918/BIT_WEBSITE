@@ -29,7 +29,7 @@ function FaqPage() {
           Questions we get.
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-muted">
-          Straight answers. If yours is not here, call or WhatsApp — 24/7.
+          Straight answers. If yours is not here, call us.
         </p>
       </section>
       <section className="mx-auto max-w-2xl px-5 pb-16">

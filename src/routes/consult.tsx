@@ -1,17 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ConsultForm } from "@/components/site/consult-form";
 import { SITE, SITE_INDEXABLE } from "@/lib/site";
-import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/consult")({
   component: ConsultPage,
   head: () => ({
     meta: [
-      { title: "Book a consultation — BIT Solution" },
+      { title: "Call BIT Solution" },
       {
         name: "description",
-        content:
-          "Book a consultation with BIT Solution. Intelligent infrastructure across all of Ontario. Call or WhatsApp +1 905-867-6574.",
+        content: `Call BIT Solution at ${SITE.phoneDisplay} to discuss technology services across Ontario.`,
       },
       {
         name: "robots",
@@ -25,37 +22,23 @@ export const Route = createFileRoute("/consult")({
 function ConsultPage() {
   return (
     <main className="bg-bg">
-      <section className="mx-auto max-w-xl px-5 pb-20 pt-16">
-        <p className="mb-2 text-center text-[12px] font-medium uppercase tracking-[0.14em] text-link">
-          Consultation
+      <section className="mx-auto max-w-xl px-5 pb-20 pt-16 text-center">
+        <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
+          Contact
         </p>
-        <h1 className="text-center text-[clamp(1.8rem,5vw,2.8rem)] font-semibold tracking-[-0.03em] text-ink">
-          Book a consultation
+        <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-semibold tracking-[-0.03em] text-ink">
+          Call BIT Solution
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-center text-[16px] leading-relaxed text-muted">
-          {SITE.positioning} Tell us about the floor. We cover all of Ontario.
-          We will call you from {SITE.phoneDisplay}.
+        <p className="mx-auto mt-4 max-w-md text-[16px] leading-relaxed text-muted">
+          Tell us what you need by phone. We serve businesses across Ontario and will discuss the
+          right next step without collecting information through this website.
         </p>
-        <div className="mt-5 flex flex-wrap justify-center gap-3 text-[14px]">
-          <a className="text-link no-underline hover:underline callrail rTapNumber" href={SITE.phoneHref}>
-            Call
+        <p className="mt-8">
+          <a className="cta-book" href={SITE.phoneHref}>
+            Call {SITE.phoneDisplay}
           </a>
-          <a
-            className="text-link no-underline hover:underline"
-            href={SITE.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => track("whatsapp_click", { source: "consult" })}
-          >
-            WhatsApp
-          </a>
-          <a className="text-link no-underline hover:underline" href={`mailto:${SITE.email}`}>
-            Email
-          </a>
-        </div>
-        <div className="mt-10">
-          <ConsultForm intent="general" source="consult-page" />
-        </div>
+        </p>
+        <p className="mt-8 text-[14px] leading-relaxed text-muted">{SITE.address}</p>
       </section>
     </main>
   );

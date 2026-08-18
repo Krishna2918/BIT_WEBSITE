@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { INDUSTRIES } from "@/data/industries";
 import { SITE } from "@/lib/site";
-import { openConsentPreferences } from "@/lib/consent";
 
 const COLS = [
   {
@@ -35,7 +34,7 @@ const COLS = [
   {
     title: "Contact",
     links: [
-      { to: "/consult", label: "Book consultation" },
+      { to: "/consult", label: "Call BIT Solution" },
       { to: "/privacy", label: "Privacy" },
     ],
   },
@@ -50,21 +49,8 @@ export function SiteFooter() {
           Under One Flag.
         </p>
         <p className="mb-2 text-[12px] leading-5">
-          <a className="callrail rTapNumber text-ink no-underline" href={SITE.phoneHref}>
+          <a className="text-ink no-underline" href={SITE.phoneHref}>
             {SITE.phoneDisplay}
-          </a>
-          {" · "}
-          <a
-            className="text-ink no-underline"
-            href={SITE.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp
-          </a>
-          {" · "}
-          <a className="text-ink no-underline" href={`mailto:${SITE.email}`}>
-            {SITE.email}
           </a>
           {" · "}
           {SITE.address}
@@ -105,15 +91,8 @@ export function SiteFooter() {
             </Link>
           ))}
         </div>
-        <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] text-muted">
+        <div className="mt-10 text-[11px] text-muted">
           <span>Copyright © {new Date().getFullYear()} BIT Solution. All rights reserved.</span>
-          <button
-            type="button"
-            className="text-link underline underline-offset-2"
-            onClick={openConsentPreferences}
-          >
-            Cookie preferences
-          </button>
         </div>
       </div>
     </footer>

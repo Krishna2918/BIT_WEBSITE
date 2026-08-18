@@ -8,11 +8,11 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How quickly can I get support if I have an issue?",
-    a: "24/7 on +1 905-867-6574 or WhatsApp at the same number. Email support@bitsolution.ca. A person picks up when it is a person problem. The ticket desk URL is being connected.",
+    a: "Call +1 905-867-6574. This informational website uses phone inquiries only.",
   },
   {
     q: "Do you offer customized IT solutions for small businesses?",
-    a: "Yes. We size the work to the floor — a single clinic, a yard, a plant, or a multi-site group. Book a consult and we walk what you already run.",
+    a: "Yes. We size the work to the floor — a single clinic, a yard, a plant, or a multi-site group. Call us to discuss what you already run.",
   },
   {
     q: "Is there a long-term contract required?",

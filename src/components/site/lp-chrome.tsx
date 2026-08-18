@@ -1,9 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
-import { track } from "@/lib/tracking";
-import { openConsentPreferences } from "@/lib/consent";
 
-export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
+export function LpHeader() {
   return (
     <header className="lp-bar">
       <Link to="/" className="lp-brand" aria-label="BIT Solution home">
@@ -12,18 +10,16 @@ export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
       </Link>
       <div className="lp-actions">
         <a
-          className="lp-phone callrail rTapNumber"
+          className="lp-phone"
           href={SITE.phoneHref}
-          onClick={() => track("click_to_call", { source: "lp-header" })}
         >
           {SITE.phoneDisplay}
         </a>
         <a
           className="lp-book"
-          href={consultTo}
-          onClick={() => track("book_consult_click", { source: "lp-header" })}
+          href={SITE.phoneHref}
         >
-          Book consultation
+          Call now
         </a>
       </div>
     </header>
@@ -37,17 +33,11 @@ export function LpFooter() {
         {SITE.name} · {SITE.address}
       </p>
       <p>
-        <a className="callrail rTapNumber" href={SITE.phoneHref}>
+        <a href={SITE.phoneHref}>
           {SITE.phoneDisplay}
         </a>
         {" · "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-        {" · "}
         <Link to="/privacy">Privacy</Link>
-        {" · "}
-        <button type="button" onClick={openConsentPreferences}>
-          Cookie preferences
-        </button>
       </p>
       <p className="lp-fine">
         {SITE.positioning} No testimonials or performance claims are shown here

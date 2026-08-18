@@ -6,7 +6,7 @@ const root = new URL("../", import.meta.url);
 const read = (path) => readFile(new URL(path, root), "utf8");
 const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-test("security headers cover current origins without enabling measurement", async () => {
+test("security headers are self-only and disable form and frame actions", async () => {
   const config = JSON.parse(await read("vercel.json"));
   const headers = Object.fromEntries(
     config.headers.flatMap((rule) => rule.headers.map(({ key, value }) => [key, value])),
@@ -23,15 +23,15 @@ test("security headers cover current origins without enabling measurement", asyn
     "default-src 'self'",
     "object-src 'none'",
     "frame-ancestors 'none'",
-    "https://challenges.cloudflare.com",
-    "https://livechat.bitsolution.ca",
-    "wss://livechat.bitsolution.ca",
+    "form-action 'none'",
+    "connect-src 'self'",
+    "frame-src 'none'",
   ]) {
     assert.match(csp, new RegExp(escapeRegExp(directive)));
   }
   assert.doesNotMatch(
     csp,
-    /fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager|google-analytics|clarity\.ms|callrail/i,
+    /https?:|wss?:|fonts\.googleapis\.com|fonts\.gstatic\.com|googletagmanager|google-analytics|clarity\.ms|callrail/i,
   );
 });
 
