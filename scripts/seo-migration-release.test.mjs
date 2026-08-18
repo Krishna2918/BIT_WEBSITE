@@ -2,14 +2,18 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-const root = resolve(new URL("..", import.meta.url).pathname.replace(/^\/(?:([A-Za-z]:))/, "$1"));
+const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const read = (path, encoding = "utf8") => readFile(join(root, path), encoding);
 const normalize = (path) => path === "/" ? "/" : path.replace(/\/+$/, "");
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex").toUpperCase();
 
 test("authoritative 42-row map is complete and mutually exclusive", async () => {
+  const encodedSpacePath = fileURLToPath(new URL("file:///C:/release%20candidate/"));
+  assert.match(encodedSpacePath, /release candidate/u);
+  assert.doesNotMatch(encodedSpacePath, /%20/u);
   const map = JSON.parse(await read("docs/seo-migration-route-map-2026-08-18.json"));
   assert.equal(map.baseline_sitemap_rows, 42);
   assert.deepEqual(map.assertion_counts, {
