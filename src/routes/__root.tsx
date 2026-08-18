@@ -30,7 +30,7 @@ function RootChrome() {
           <div id="main">
             <Outlet />
           </div>
-          <SiteFooter />
+          <SiteFooter compact={path === "/consult"} />
           <HelpSheet />
           <AskAiChat />
         </>

@@ -11,10 +11,11 @@ import {
   isOpaqueContinuationToken,
 } from "../src/lib/onboarding-contract.ts";
 
-test("Ameeta onboarding stays a service message and remains queued", () => {
+test("advisor onboarding stays a service message and remains queued", () => {
   assert.equal(AMEETA_COORDINATOR_KEY, "ameeta");
   assert.equal(ONBOARDING_SERVICE_MESSAGE_SUBJECT, "Help us understand your needs");
-  assert.match(ONBOARDING_SERVICE_MESSAGE_BODY, /Ameeta understand your needs/);
+  assert.match(ONBOARDING_SERVICE_MESSAGE_BODY, /advisor understand your needs/);
+  assert.doesNotMatch(ONBOARDING_SERVICE_MESSAGE_BODY, /Ameeta/i);
   assert.match(ONBOARDING_SERVICE_MESSAGE_BODY, /not a marketing subscription/);
   assert.equal(ONBOARDING_MESSAGE_POLICY.marketing_content_allowed, false);
   assert.equal(ONBOARDING_MESSAGE_POLICY.auto_call_allowed, false);

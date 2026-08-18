@@ -1,17 +1,17 @@
 /**
- * Website-side contract for the Ameeta-led consultation journey.
+ * Website-side contract for the consultation journey.
  *
  * This file deliberately contains no provider client, CRM write, or worker.
  * The Website may queue this intent only after a later approved binding.
  */
 
 export const AMEETA_COORDINATOR_KEY = "ameeta" as const;
-export const AMEETA_COORDINATOR_LABEL = "Ameeta" as const;
+export const PUBLIC_INTAKE_COORDINATOR_LABEL = "a BIT Solution advisor" as const;
 
 export const ONBOARDING_SERVICE_MESSAGE_SUBJECT = "Help us understand your needs" as const;
 
 export const ONBOARDING_SERVICE_MESSAGE_BODY =
-  "Thanks for contacting BIT Solution. A few quick answers will help Ameeta understand your needs and assign the right expert. Please choose every area that applies and tell us the best time to contact you. If you need help completing the details, Ameeta can call the number you provided. This message is about your request and is not a marketing subscription." as const;
+  "Thanks for contacting BIT Solution. A few quick answers will help an advisor understand your needs and assign the right expert. Please choose every area that applies and tell us the best time to contact you. If you need help completing the details, an advisor can call the number you provided. This message is about your request and is not a marketing subscription." as const;
 
 export const ONBOARDING_MESSAGE_POLICY = {
   purpose: "service_request_assistance" as const,

@@ -9,7 +9,7 @@ import {
   CONSULT_SERVICE_OPTIONS,
 } from "@/lib/consult-contract";
 import { Turnstile, TURNSTILE_ENABLED } from "@/components/site/turnstile";
-import { AMEETA_COORDINATOR_LABEL } from "@/lib/onboarding-contract";
+import { PUBLIC_INTAKE_COORDINATOR_LABEL } from "@/lib/onboarding-contract";
 
 export type ConsultIntent = "fleet" | "dental" | "general";
 
@@ -182,8 +182,8 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
         Phone
         <input name="phone" type="tel" required autoComplete="tel" maxLength={40} />
         <span className="form-fine">
-          We collect a callback number so {AMEETA_COORDINATOR_LABEL} can help complete your request
-          if needed. No automatic calls.
+          We collect a callback number so {PUBLIC_INTAKE_COORDINATOR_LABEL} can call you to book
+          your consultation. No automatic calls.
         </span>
       </label>
       <input type="hidden" name="interest" value={INTEREST[intent]} />
@@ -342,16 +342,16 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
         <input type="checkbox" name="service_inquiry_consent" value="yes" required />
         <span>
           I consent to BIT Solution contacting me about this service inquiry using my preferred
-          reply method. {AMEETA_COORDINATOR_LABEL} is the initial coordinator. No automatic calls.
-          I can withdraw consent any time. See the{" "}
+          reply method. A BIT Solution advisor will coordinate your request. No automatic calls. I
+          can withdraw consent any time. See the{" "}
           <Link to="/privacy">privacy notice</Link>.
         </span>
       </label>
       <label className="casl">
         <input type="checkbox" name="service_callback_consent" value="yes" required />
         <span>
-          I agree that Ameeta may call the number I provided to help complete this service request
-          if details are missing. This is not an automatic call or marketing consent.
+          I agree that a BIT Solution advisor may call the number I provided to book my consultation
+          or help complete this service request. This is not an automatic call or marketing consent.
         </span>
       </label>
       <label className="casl">
@@ -387,8 +387,7 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
         {status === "sending" ? "Sending…" : "Book a consultation"}
       </button>
       <p className="form-fine">
-        Service, callback, email-update, WhatsApp-update, website-review, and marketing permissions
-        are recorded separately. We do not sell your information.
+        Your permissions stay separate. We never sell your information.
       </p>
     </form>
   );

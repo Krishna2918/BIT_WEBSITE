@@ -22,7 +22,7 @@ function ThankYou() {
           Received
         </p>
         <h1 className="text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em] text-ink">
-          Thanks—BIT Solution will review your request and contact you at your preferred time.
+          Thanks—an advisor will call you to book your consultation.
         </h1>
         <p className="mt-4 text-[16px] leading-relaxed text-muted">
           If your request is urgent, call{" "}

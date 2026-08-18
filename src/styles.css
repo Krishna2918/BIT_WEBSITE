@@ -2337,6 +2337,53 @@ textarea {
   padding: 2rem 1.25rem 1.25rem;
 }
 
+.site-footer-compact-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-block: 1rem;
+}
+
+.site-footer-compact-help,
+.site-footer-compact-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.site-footer-compact-help > span {
+  color: var(--color-ink);
+  font-weight: 650;
+}
+
+.site-footer-compact-help a,
+.site-footer-compact-legal a,
+.site-footer-compact-legal button {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.45rem;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--color-link);
+  font: inherit;
+  text-decoration: none;
+}
+
+.site-footer-compact-help a:hover,
+.site-footer-compact-help a:focus-visible,
+.site-footer-compact-legal a:hover,
+.site-footer-compact-legal a:focus-visible,
+.site-footer-compact-legal button:hover,
+.site-footer-compact-legal button:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .site-footer-brand h2,
 .site-footer-sectors h2,
 .site-footer-nav h2 {
@@ -2513,6 +2560,13 @@ textarea {
 
   .site-footer-inner {
     padding: 2.25rem 1.5rem 1.5rem;
+  }
+
+  .site-footer-compact-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1rem;
   }
 
   .site-footer-brand h2,

@@ -39,7 +39,30 @@ const COLS = [
   },
 ] as const;
 
-export function SiteFooter() {
+export function SiteFooter({ compact = false }: { compact?: boolean }) {
+  if (compact) {
+    return (
+      <footer className="site-footer site-footer--compact">
+        <div className="site-footer-inner site-footer-compact-inner">
+          <div className="site-footer-compact-help">
+            <span>Need help booking?</span>
+            <a className="callrail rTapNumber" href={SITE.phoneHref}>
+              <Phone aria-hidden="true" size={18} />
+              <span>Call {SITE.phoneDisplay}</span>
+            </a>
+          </div>
+          <div className="site-footer-compact-legal">
+            <span>Copyright © {new Date().getFullYear()} BIT Solution.</span>
+            <Link to="/privacy">Privacy</Link>
+            <button type="button" onClick={openConsentPreferences}>
+              Cookie preferences
+            </button>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">

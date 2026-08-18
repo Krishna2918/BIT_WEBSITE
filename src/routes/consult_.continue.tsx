@@ -36,8 +36,8 @@ function ConsultationContinuation() {
             aria-live="polite"
           >
             <p className="text-[16px] leading-relaxed text-muted">
-              This secure continuation step is staged for Ameeta’s review. It is not connected yet,
-              so no information has been requested or sent.
+              This secure continuation step is staged for an advisor’s review. It is not connected
+              yet, so no information has been requested or sent.
             </p>
             <p className="mt-4 text-[14px] leading-relaxed text-muted">
               When the approved server binding is ready, this link will continue the same request
