@@ -42,8 +42,10 @@ function PrivacyPage() {
           telematics provider and the main dispatch bottleneck. Dental requests also ask for the
           number of operatories, practice-management software and backup frequency. We also store
           advertising click identifiers (such as GCLID or UTM values) if they are present in the
-          page address, plus the page you came from. We do not ask for health records, driver files,
-          or payment card numbers on this website.
+          page address, plus the page you came from. Consultation notes and Ask AI are free-text
+          fields. Do not include patient or health information, driver files, passwords, access
+          codes, credentials, payment information, private client records, or sensitive security
+          details.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Why we collect it</h2>
@@ -70,18 +72,33 @@ function PrivacyPage() {
 
         <h2 className="mt-10 text-[22px] font-semibold">Ask AI and human live chat</h2>
         <p className="mt-3 text-muted">
-          When you submit text to Ask AI, we process the submitted chat text and limited technical
-          routing information to answer a general public question or decide that a person should
-          help. Processing may involve our website-hosting provider, approved AI Gateway and model
-          processing providers, and the approved public-information service. If you explicitly ask
-          for a person, the question requires human support, or the automated service cannot safely
-          answer, the conversation can be handed to our authorized support team through Chatwoot.
-          An authorized team member can review the conversation, reply, and take over from the
-          automated service. Chat information is used to answer and support your request, not for
-          marketing reuse. Do not enter passwords, access codes, tokens, private keys, payment or
-          health information, client records, or other sensitive information. Chat retention and
-          the exact legal retention period remain subject to the approved privacy policy; this
-          feature will not be activated until Privacy approves those terms.
+          Ask AI is off until you affirm its separate service-processing consent. When you consent
+          and submit a question, our server FAQ service processes the submitted chat text and limited
+          technical routing information to find approved public information. Vercel AI Gateway and
+          OpenAI then process the question and grounded result only to make a limited answer-or-human
+          handoff decision. This service processing is not marketing consent and the content is not
+          reused for marketing.
+        </p>
+        <p className="mt-3 text-muted">
+          Human live chat is a separate Chatwoot service. If you choose live chat or Ask AI cannot
+          safely answer, the Ask AI transcript is not transferred to Chatwoot. You must repeat your
+          question in live chat. An authorized support team member can review and reply only to the
+          information you submit in that separate live-chat conversation. Do not include patient or
+          health information, driver files, passwords, access codes, credentials, payment
+          information, private client records, or sensitive security details in Ask AI or live chat.
+        </p>
+        <p className="mt-3 text-muted">
+          Attribution, Ask AI and Chatwoot, CRM, and other provider retention rules, plus provider
+          and cross-border processing review, remain unresolved authoritative Privacy and Legal
+          gates. No exact period is stated here. Production activation remains on hold until those
+          gates are approved.
+        </p>
+
+        <h2 className="mt-10 text-[22px] font-semibold">Automated-abuse prevention</h2>
+        <p className="mt-3 text-muted">
+          When consultation-form abuse protection is enabled, Cloudflare Turnstile processes the
+          verification token and request IP to prevent automated abuse. Its provider and
+          cross-border processing terms remain part of the unresolved Privacy and Legal review.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Cookies and measurement</h2>
@@ -95,12 +112,14 @@ function PrivacyPage() {
 
         <h2 className="mt-10 text-[22px] font-semibold">Retention</h2>
         <p className="mt-3 text-muted">
-          Failed or unsubmitted intake data is kept for 30 days. Service-inquiry and CRM records are
-          kept for 24 months after the last activity. Consent and suppression evidence is kept for
-          the active period plus 24 months after withdrawal. Send and audit metadata is kept for 24
-          months, and raw analytics identifiers are kept for 14 months. Call recording is off. A
-          legal hold may pause scheduled deletion when required by law. Access remains limited to
-          staff who need the information for the stated purpose.
+          The owner-directed operational schedule keeps failed or unsubmitted intake data for 30
+          days, service-inquiry records for 24 months after the last activity, consent and
+          suppression evidence for the active period plus 24 months after withdrawal, send and
+          audit metadata for 24 months, and raw analytics identifiers for 14 months. Call recording
+          is off. A legal hold may pause scheduled deletion when required by law. This operational
+          schedule does not settle the authoritative retention terms for attribution data, chat,
+          CRM, or external providers; those terms remain subject to Privacy and Legal approval.
+          Access remains limited to staff who need the information for the stated purpose.
         </p>
       </article>
     </main>

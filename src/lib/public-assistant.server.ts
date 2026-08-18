@@ -172,8 +172,10 @@ async function getFaqGrounding(
     if (body.status === "answer" && answer) return { kind: "answer", text: answer };
     if (body.status === "handoff") {
       return {
-        kind: "handoff",
-        text: answer || "This question needs a person. I’ll open human support.",
+      kind: "handoff",
+      text:
+        answer ||
+        "This question needs a person. Open live chat and repeat your question; the Ask AI transcript is not transferred.",
       };
     }
     throw new Error("FAQ response is invalid");
@@ -223,7 +225,9 @@ export async function handlePublicAssistantRequest(
     );
   }
   if (HUMAN_REQUEST.test(message)) {
-    return handoff("A person should help with that. I’ll open human support.");
+    return handoff(
+      "A person should help with that. Open live chat and repeat your question; the Ask AI transcript is not transferred.",
+    );
   }
   const config = getPublicAssistantServerConfig(dependencies.environment ?? process.env);
   if (!config.enabled) return handoff("Live AI is not configured. Please use human support.", 503);
@@ -257,7 +261,9 @@ export async function handlePublicAssistantRequest(
     if (decision === "ANSWER") {
       return json({ status: "answer", mode: "ai", answer: grounding.text });
     }
-    return handoff("This question needs a person. I’ll open human support.");
+    return handoff(
+      "This question needs a person. Open live chat and repeat your question; the Ask AI transcript is not transferred.",
+    );
   } catch {
     return json({ status: "answer", mode: "faq", answer: grounding.text });
   }

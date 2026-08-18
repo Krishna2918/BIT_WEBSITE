@@ -245,7 +245,16 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
       ) : null}
       <label>
         Anything we should know
-        <textarea name="message" rows={4} maxLength={2000} />
+        <textarea
+          name="message"
+          rows={4}
+          maxLength={2000}
+          aria-describedby="consult-message-sensitive-warning"
+        />
+        <span id="consult-message-sensitive-warning" className="form-fine">
+          Do not include patient or health information, driver files, passwords, access codes,
+          credentials, payment information, private client records, or sensitive security details.
+        </span>
       </label>
       <fieldset className="consult-qualification">
         <legend>Website review (optional)</legend>
@@ -316,6 +325,10 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
         </label>
       </div>
       <Turnstile onToken={receiveTurnstileToken} />
+      <p className="form-fine">
+        When enabled, Cloudflare Turnstile processes its verification token and the request IP to
+        prevent automated abuse.
+      </p>
       <input type="hidden" name="turnstile_token" value={turnstileToken} readOnly />
       <label className="casl">
         <input type="checkbox" name="service_inquiry_consent" value="yes" required />

@@ -43,11 +43,13 @@ test("mobile navigation hides the phone pill below the small breakpoint", async 
 test("privacy route carries the owner-approved retention schedule", async () => {
   const privacy = await read("src/routes/privacy.tsx");
 
-  assert.match(privacy, /30 days/);
+  assert.match(privacy, /30\s+days/u);
   assert.match(privacy, /24 months after the last activity/);
   assert.match(privacy, /24 months after withdrawal/);
-  assert.match(privacy, /raw analytics identifiers are kept for 14 months/);
-  assert.match(privacy, /Call recording is off/);
+  assert.match(privacy, /raw analytics identifiers for 14 months/u);
+  assert.match(privacy, /Call recording\s+is off/u);
   assert.match(privacy, /legal hold may pause scheduled deletion/i);
+  assert.match(privacy, /does not settle the authoritative retention terms for attribution data, chat,\s+CRM, or external providers/u);
+  assert.match(privacy, /remain subject to Privacy and Legal approval/u);
   assert.match(privacy, /rel: "canonical", href: `\$\{SITE\.url\}\/privacy`/);
 });

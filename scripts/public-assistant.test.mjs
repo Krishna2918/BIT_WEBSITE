@@ -18,6 +18,7 @@ test("browser request sends only the strict public payload", async () => {
   let observed;
   const result = await askPublicAssistant(
     "  What services do you offer?  ",
+    true,
     { VITE_ASK_AI_ENABLED: "true" },
     async (input, init) => {
       observed = { input, init };
@@ -34,15 +35,34 @@ test("browser request sends only the strict public payload", async () => {
   assert.deepEqual(result, { kind: "answer", mode: "ai", text: "Verified." });
 });
 
+test("browser fails closed before fetch when service-processing consent is absent", async () => {
+  let called = false;
+  await assert.rejects(
+    askPublicAssistant(
+      "What services do you offer?",
+      false,
+      { VITE_ASK_AI_ENABLED: "true" },
+      async () => {
+        called = true;
+        throw new Error("must not run");
+      },
+    ),
+    /processing consent is required/u,
+  );
+  assert.equal(called, false);
+});
+
 test("browser accepts grounded FAQ fallback and human handoff only", async () => {
   const faq = await askPublicAssistant(
     "question",
+    true,
     { VITE_ASK_AI_ENABLED: "true" },
     async () =>
       new Response(JSON.stringify({ status: "answer", mode: "faq", answer: "FAQ answer." })),
   );
   const handoff = await askPublicAssistant(
     "question",
+    true,
     { VITE_ASK_AI_ENABLED: "true" },
     async () => new Response(JSON.stringify({ status: "handoff", answer: "Use a person." })),
   );

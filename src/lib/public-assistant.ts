@@ -54,7 +54,9 @@ function readResult(value: unknown): PublicAssistantResult {
   if (response.status === "handoff") {
     return {
       kind: "handoff",
-      text: text || "This needs a person. I’ll open the support chat.",
+      text:
+        text ||
+        "This needs a person. Open live chat and repeat your question; the Ask AI transcript is not transferred.",
     };
   }
   throw new Error("Public assistant returned an unsupported response");
@@ -62,11 +64,13 @@ function readResult(value: unknown): PublicAssistantResult {
 
 export async function askPublicAssistant(
   message: string,
+  consent: boolean,
   environment: PublicEnvironment = import.meta.env,
   fetchImplementation: typeof fetch = fetch,
 ): Promise<PublicAssistantResult> {
   const config = getPublicAssistantConfig(environment);
   if (!config.enabled) throw new Error("Public assistant is disabled");
+  if (consent !== true) throw new Error("Public assistant processing consent is required");
   const cleanMessage = message.trim();
   if (!cleanMessage || cleanMessage.length > MAX_MESSAGE_LENGTH) {
     throw new Error("Public assistant message is invalid");
@@ -81,7 +85,7 @@ export async function askPublicAssistant(
       headers: { Accept: "application/json", "Content-Type": "application/json" },
       body: JSON.stringify({
         source: "bitsolution-homepage",
-        consent: true,
+        consent,
         message: cleanMessage,
       }),
       signal: controller.signal,

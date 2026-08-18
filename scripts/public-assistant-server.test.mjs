@@ -13,7 +13,7 @@ const enabledEnvironment = {
   AI_GATEWAY_API_KEY: "test-only-placeholder",
 };
 
-function request(message, headers = {}) {
+function request(message, headers = {}, consent = true) {
   const requestHeaders = new Headers({
     "Content-Type": "application/json",
     Origin: "https://www.bitsolution.ca",
@@ -21,10 +21,12 @@ function request(message, headers = {}) {
     "X-Vercel-Forwarded-For": "203.0.113.10",
     ...headers,
   });
+  const body = { source: "bitsolution-homepage", message };
+  if (consent !== "omit") body.consent = consent;
   return new Request("https://www.bitsolution.ca/api/assistant", {
     method: "POST",
     headers: requestHeaders,
-    body: JSON.stringify({ source: "bitsolution-homepage", consent: true, message }),
+    body: JSON.stringify(body),
   });
 }
 
@@ -50,6 +52,30 @@ test("server AI is default-off and performs no dependency call", async () => {
     status: 503,
     body: { status: "handoff", answer: "Live AI is not configured. Please use human support." },
   });
+});
+
+test("server rejects absent or false processing consent before upstream work", async () => {
+  let called = false;
+  const dependencies = {
+    environment: enabledEnvironment,
+    fetchImplementation: async () => {
+      called = true;
+      throw new Error("must not run");
+    },
+    generateImplementation: async () => {
+      called = true;
+      throw new Error("must not run");
+    },
+  };
+  for (const consent of [false, "omit"]) {
+    const response = await handlePublicAssistantRequest(
+      request("What services do you offer?", {}, consent),
+      dependencies,
+    );
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).status, "handoff");
+  }
+  assert.equal(called, false);
 });
 
 test("verified FAQ grounding precedes exact Luna Gateway decision", async () => {

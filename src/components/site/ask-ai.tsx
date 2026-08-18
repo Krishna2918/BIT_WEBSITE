@@ -225,6 +225,7 @@ export function HelpSheet() {
 export function AskAiChat() {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
+  const [assistantConsent, setAssistantConsent] = useState(false);
   const [waiting, setWaiting] = useState(false);
   const [supportNote, setSupportNote] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>(() => [
@@ -322,6 +323,10 @@ export function AskAiChat() {
   const ask = async (text: string) => {
     const clean = text.trim();
     if (!clean || waiting || !PUBLIC_ASSISTANT_CONFIG.enabled) return;
+    if (!assistantConsent) {
+      setSupportNote("Choose the Ask AI service-processing consent before sending a question.");
+      return;
+    }
     push("you", clean);
     setWaiting(true);
     setSupportNote("");
@@ -331,7 +336,7 @@ export function AskAiChat() {
         if (!opened) push("bot", "A person should handle this, but live chat could not be opened.");
         return;
       }
-      const result = await askPublicAssistant(clean);
+      const result = await askPublicAssistant(clean, assistantConsent);
       push(
         "bot",
         result.kind === "answer" && result.mode === "faq"
@@ -403,7 +408,8 @@ export function AskAiChat() {
             <p className="help-lead">
               The server-side AI service is not configured for this website. No AI answer was
               generated. Choose a human support option and do not send passwords, access codes,
-              payment details, or other secrets.
+              payment details, or other secrets. Live chat is separate: no Ask AI transcript is
+              transferred, so repeat your question there.
             </p>
             <button
               type="button"
@@ -528,12 +534,41 @@ export function AskAiChat() {
         {!started ? (
           <div className="ask-ai-chips" aria-label="Suggested questions">
             {STARTERS.map((starter) => (
-              <button key={starter.id} type="button" onClick={() => void ask(starter.label)}>
+              <button
+                key={starter.id}
+                type="button"
+                disabled={!assistantConsent || waiting}
+                onClick={() => void ask(starter.label)}
+              >
                 {starter.label}
               </button>
             ))}
           </div>
         ) : null}
+
+        <div className="ask-ai-consent">
+          <label>
+            <input
+              type="checkbox"
+              checked={assistantConsent}
+              onChange={(event) => {
+                setAssistantConsent(event.currentTarget.checked);
+                setSupportNote("");
+              }}
+            />
+            <span>
+              I agree that BIT Solution may process my question through its server FAQ service and
+              use Vercel AI Gateway and OpenAI for a limited answer-or-handoff decision. This is
+              service processing, not marketing consent.
+            </span>
+          </label>
+          <p id="ask-ai-sensitive-warning">
+            Do not include patient or health information, driver files, passwords, access codes,
+            credentials, payment information, private client records, or sensitive security
+            details. Human live chat uses Chatwoot separately. Your Ask AI transcript is not
+            transferred; repeat your question in live chat.
+          </p>
+        </div>
 
         <form className="ask-ai-form" onSubmit={onSubmit}>
           <label className="sr-only" htmlFor="ask-ai-input">
@@ -547,8 +582,14 @@ export function AskAiChat() {
             placeholder="Ask a general question…"
             autoComplete="off"
             maxLength={2000}
+            disabled={!assistantConsent || waiting}
+            aria-describedby="ask-ai-sensitive-warning"
           />
-          <button type="submit" aria-label="Send" disabled={!draft.trim() || waiting}>
+          <button
+            type="submit"
+            aria-label="Send"
+            disabled={!assistantConsent || !draft.trim() || waiting}
+          >
             <ArrowUp size={16} strokeWidth={2.4} />
           </button>
         </form>
