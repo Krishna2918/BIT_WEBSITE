@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { OFFICES } from "@/data/locations";
 import { ContactActions } from "@/components/site/contact-actions";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/service-areas")({
   component: ServiceAreasPage,
   head: () => ({
+    links: [canonicalLink("/service-areas")],
     meta: [
       { title: "Service areas — BIT Solution" },
       {

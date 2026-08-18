@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { INSIGHTS } from "@/data/insights";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/")({
   component: InsightsIndex,
   head: () => ({
+    links: [canonicalLink("/insights")],
     meta: [
       { title: "Insights — BIT Solution" },
       {

@@ -11,8 +11,12 @@ import { FAQS } from "@/data/faqs";
 import { INSIGHTS } from "@/data/insights";
 import { GALLERY_HOME } from "@/data/gallery";
 import { SITE } from "@/lib/site";
+import { canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  component: Home,
+  head: () => ({ links: [canonicalLink("/")] }),
+});
 
 const PILLARS = [
   {
@@ -137,15 +141,15 @@ function Home() {
       <section id="partners" className="border-t border-hairline bg-bg-muted px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
-            Who we partner with
+            Technology platforms
           </p>
           <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
             The stack behind the stack.
           </h2>
           <p className="mx-auto mt-2 max-w-2xl text-center text-[16px] leading-snug text-muted">
-            Microsoft Cloud Solution Provider. CRTC regulated wholesaler.
-            Product solutions from every major IT vendor — the same names on
-            bitsolution.ca — with government pricing when the job needs it.
+            We source and support solutions across established technology
+            platforms. Product availability, vendor status, and eligibility
+            are confirmed for each engagement.
           </p>
           <ul className="partner-field">
             {PARTNERS.map((p) => (

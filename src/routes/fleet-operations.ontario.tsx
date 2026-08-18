@@ -62,9 +62,8 @@ function FleetOntario() {
           <article>
             <h2>Dispatch that the shop can trust</h2>
             <p>
-              Loads, hours, and the shop should not live in three apps and a
-              group chat. We already run fleet software — or we build a desk in
-              1 if your lanes will not fit a box.
+              We support fleet software—and can design custom workflows when
+              off-the-shelf tools do not fit your operation.
             </p>
           </article>
           <article>

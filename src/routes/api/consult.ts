@@ -177,6 +177,11 @@ async function verifyTurnstile(token: string | undefined, request: Request) {
 export const Route = createFileRoute("/api/consult")({
   server: {
     handlers: {
+      GET: () =>
+        Response.json(
+          { ok: false, error: "method_not_allowed" },
+          { status: 405, headers: { Allow: "POST" } },
+        ),
       POST: async ({ request }) => {
         if (
           request.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() !==

@@ -2,10 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 import { ContactActions } from "@/components/site/contact-actions";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/support")({
   component: SupportPage,
   head: () => ({
+    links: [canonicalLink("/support")],
     meta: [
       { title: "Support — BIT Solution" },
       {

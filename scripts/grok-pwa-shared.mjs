@@ -132,13 +132,6 @@ export function grokPwaHeadTags(appName = DEFAULT_APP_NAME) {
   ];
 }
 
-export const GROK_EXTENSIONS_SCRIPT_SRC = "https://grok.com/grok-app-builder/extensions.js";
-
-export function readGrokProjectId() {
-  const fromProcess = typeof process !== "undefined" ? process.env?.VITE_PROJECT_ID : "";
-  return String(fromProcess ?? "").trim();
-}
-
 export function readXCreator() {
   const fromProcess = typeof process !== "undefined" ? process.env?.X_CREATOR : "";
   return String(fromProcess ?? "").trim();
@@ -159,25 +152,10 @@ export function grokXCreatorHeadTags(creator = readXCreator(), creatorId = readX
   ];
 }
 
-/** Platform "Created with Grok" banner — injected into every HTML document. */
-export function grokExtensionsHeadTags(projectId = readGrokProjectId()) {
-  const id = escapeHtml(projectId);
-  const tags = [];
-  if (projectId) {
-    tags.push(`<meta name="grok-project-id" content="${id}">`);
-  }
-  tags.push(
-    `<script src="${GROK_EXTENSIONS_SCRIPT_SRC}"${
-      projectId ? ` data-project-id="${id}"` : ""
-    } defer></script>`,
-  );
-  return tags;
-}
-
 export function injectGrokPwaHead(
   html,
   appName = DEFAULT_APP_NAME,
-  projectId = readGrokProjectId(),
+  _projectId = "",
   creator = readXCreator(),
   creatorId = readXCreatorId(),
 ) {
@@ -196,18 +174,6 @@ export function injectGrokPwaHead(
       return !html.includes(`name="${key}"`);
     })
     .map(([, tag]) => tag);
-  if (!html.includes("/grok-app-builder/extensions.js")) {
-    missing.push(...grokExtensionsHeadTags(projectId));
-  } else if (projectId && !html.includes('name="grok-project-id"')) {
-    missing.push(`<meta name="grok-project-id" content="${escapeHtml(projectId)}">`);
-  }
-  if (
-    projectId &&
-    !html.includes('property="grok:app_id"') &&
-    !html.includes("property='grok:app_id'")
-  ) {
-    missing.push(`<meta property="grok:app_id" content="${escapeHtml(projectId)}">`);
-  }
   const creatorTags = grokXCreatorHeadTags(creator, creatorId);
   if (creatorTags.length > 0) {
     const hasCreator =
@@ -237,7 +203,7 @@ const HEAD_CLOSE = Buffer.from("</head>");
  */
 export function createHeadInjector(
   appName = DEFAULT_APP_NAME,
-  projectId = readGrokProjectId(),
+  projectId = "",
   creator = readXCreator(),
   creatorId = readXCreatorId(),
 ) {

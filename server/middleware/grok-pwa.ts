@@ -34,6 +34,21 @@ function requestHost(event: GrokPwaEvent): string {
   );
 }
 
+function withRobotsHeader(response: Response): Response {
+  const headers = new Headers(response.headers);
+  headers.set(
+    "x-robots-tag",
+    process.env.VITE_SITE_INDEXABLE === "1"
+      ? "index, follow"
+      : "noindex, nofollow, noarchive",
+  );
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 function injectHeadStreaming(response: Response, appName: string): Response {
   const injector = createHeadInjector(appName);
   const transformed = response.body!.pipeThrough(
@@ -83,12 +98,12 @@ export default async function grokPwaMiddleware(
       host: requestHost(event),
       url: urlWithQuery,
     });
-    return new Response(html, {
+    return withRobotsHeader(new Response(html, {
       headers: {
         "content-type": "text/html; charset=utf-8",
         "cache-control": "no-cache",
       },
-    });
+    }));
   }
 
   if (!isDocumentPath(path)) return next();
@@ -96,11 +111,13 @@ export default async function grokPwaMiddleware(
   const result = await next();
   if (
     result instanceof Response &&
-    result.body &&
-    String(result.headers.get("content-type") ?? "").includes("text/html") &&
-    !result.headers.get("content-encoding")
+    String(result.headers.get("content-type") ?? "").includes("text/html")
   ) {
-    return injectHeadStreaming(result, appNameFromHost(requestHost(event)));
+    const injected =
+      result.body && !result.headers.get("content-encoding")
+        ? injectHeadStreaming(result, appNameFromHost(requestHost(event)))
+        : result;
+    return withRobotsHeader(injected);
   }
   return result;
 }

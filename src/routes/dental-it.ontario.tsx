@@ -62,9 +62,8 @@ function DentalOntario() {
           <article>
             <h2>Clinic software at the desk</h2>
             <p>
-              Charts, billing, and the chair should agree. We run clinic
-              software built for the floor — or a custom build in 1 if the box
-              will not fit.
+              We support clinic software—and can design custom workflows when
+              off-the-shelf tools do not fit your practice.
             </p>
           </article>
           <article>

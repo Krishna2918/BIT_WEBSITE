@@ -86,7 +86,7 @@ export const INDUSTRIES: Industry[] = [
       "transportation",
       [
         "Loads, hours, and the shop live in three apps and a group chat. Nobody trusts the live truck.",
-        "Samsara, Motive, Geotab, Verizon Connect — fleet desks we already run. Or a custom board in 1 if your lanes will not fit a box.",
+        "Samsara, Motive, Geotab, Verizon Connect — fleet platforms we support, with custom workflows when off-the-shelf tools do not fit.",
         "Dispatch desk buried in printouts, radios, and three fleet apps that do not agree",
       ],
       [
@@ -121,7 +121,7 @@ export const INDUSTRIES: Industry[] = [
       "construction",
       [
         "Crews, change orders, and drawings live in five tools. Nobody trusts the live number.",
-        "Procore, Autodesk Construction Cloud, Buildertrend, Sage 300 CRE — we keep the job file honest, or custom-build it in 1.",
+        "Procore, Autodesk Construction Cloud, Buildertrend, Sage 300 CRE — we support the job file and can design custom workflows where needed.",
         "Site trailer desk with rolled drawings, change-order paper, and a laptop nobody trusts",
       ],
       [
@@ -156,7 +156,7 @@ export const INDUSTRIES: Industry[] = [
       "accounting",
       [
         "Tax season is a pile of portals. Staff copy files onto desktops to finish faster.",
-        "QuickBooks, Xero, Sage 50, TaxCycle — we tidy the firm’s desk, or edit what you have. Ready in 1.",
+        "QuickBooks, Xero, Sage 50, TaxCycle — we help organize the firm’s workflow and adapt the systems you already use.",
         "Tax-season desk with USB sticks, printed returns, and three client portals open",
       ],
       [
@@ -296,7 +296,7 @@ export const INDUSTRIES: Industry[] = [
       "colleges",
       [
         "Registrar, finance, and housing still do not agree on a student.",
-        "Ellucian Banner, PeopleSoft, Colleague — college ERP ready now. Custom modules in 1 if the campus does something the box will not.",
+        "Ellucian Banner, PeopleSoft, Colleague — college ERP support with custom modules when standard tools do not fit the campus workflow.",
         "Registrar counter with three systems that disagree on the same student file",
       ],
       [
@@ -366,7 +366,7 @@ export const INDUSTRIES: Industry[] = [
       "dental",
       [
         "Charts, billing, and the chair do not agree. Staff keep a paper side list.",
-        "Dentrix, Eaglesoft, Open Dental, AbelDent, ClearDent — clinic desks we already run. Or a custom build in 1 if the chair will not fit a box.",
+        "Dentrix, Eaglesoft, Open Dental, AbelDent, ClearDent — clinic platforms we support, with custom workflows when standard tools do not fit.",
         "Dental front desk with a paper side list beside a frozen chart screen",
       ],
       [
@@ -436,7 +436,7 @@ export const INDUSTRIES: Industry[] = [
       "airports",
       [
         "Ops, tenants, and maintenance each have a tool. The live picture is a radio.",
-        "Amadeus, SITA, Veoci — a single ops view we build to the airport. Custom in 1 if the box will not do the gate.",
+        "Amadeus, SITA, Veoci — airport operations platforms we can connect through a workflow designed for the site.",
         "Airport ops desk with three tenant tools and a radio as the live picture",
       ],
       [
@@ -541,7 +541,7 @@ export const INDUSTRIES: Industry[] = [
       "industrial",
       [
         "Production numbers live on a PC next to the line. The office has a different story.",
-        "SAP, Ignition, FactoryTalk — a modern ops layer, or a custom build that talks to what you already run. In 1.",
+        "SAP, Ignition, FactoryTalk — a modern operations layer that can connect with the systems you already run.",
         "Line-side PC with production numbers the office screen does not match",
       ],
       [
@@ -611,7 +611,7 @@ export const INDUSTRIES: Industry[] = [
       "hospitality",
       [
         "Rooms, the kitchen, and payroll do not agree. Staff keep a paper side list.",
-        "Oracle Opera, Toast, Lightspeed, Cloudbeds — a modern desk and floor layer, or a custom build in 1 if the property will not fit a box.",
+        "Oracle Opera, Toast, Lightspeed, Cloudbeds — a modern desk and floor layer with custom workflows when standard tools do not fit the property.",
         "Hotel desk with a paper room list that does not match the kitchen ticket",
       ],
       [

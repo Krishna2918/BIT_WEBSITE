@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { INDUSTRIES } from "@/data/industries";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/industries/")({
   component: IndustriesIndex,
+  head: () => ({ links: [canonicalLink("/industries")] }),
 });
 
 function IndustriesIndex() {

@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { GALLERY } from "@/data/gallery";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
   head: () => ({
+    links: [canonicalLink("/gallery")],
     meta: [
       { title: "Gallery — BIT Solution" },
       {

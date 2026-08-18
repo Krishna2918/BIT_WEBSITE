@@ -20,6 +20,6 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How secure is your cloud service?",
-    a: "Canadian private cloud and data centres. CRTC regulated wholesaler. Microsoft Cloud Solution Provider. Personal information under PIPEDA. We do not sell your information.",
+    a: "Security and hosting are scoped to each engagement. We confirm the selected platform, data location, controls, and applicable privacy requirements before implementation. We do not sell your information.",
   },
 ];

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { IndustryPage } from "@/components/site/industry-page";
 import { getIndustry } from "@/data/industries";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/industries/$slug")({
   loader: ({ params }) => {
@@ -8,6 +9,15 @@ export const Route = createFileRoute("/industries/$slug")({
     if (!industry) throw notFound();
     return industry;
   },
+  head: ({ loaderData }) => ({
+    links: loaderData ? [canonicalLink(`/industries/${loaderData.slug}`)] : [],
+    meta: loaderData
+      ? [
+          { title: `${loaderData.name} IT solutions — BIT Solution` },
+          { name: "description", content: loaderData.line },
+        ]
+      : [],
+  }),
   component: IndustryRoute,
   notFoundComponent: MissingIndustry,
 });

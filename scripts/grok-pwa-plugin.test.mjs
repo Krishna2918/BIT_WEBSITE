@@ -21,30 +21,21 @@ test("injects before </head>", () => {
   const out = injectGrokPwaHead("<html><head><title>x</title></head><body></body></html>");
   assert.match(out, /rel="manifest"/);
   assert.match(out, /apple-touch-icon/);
-  assert.match(out, /grok-app-builder\/extensions\.js/);
+  assert.doesNotMatch(out, /grok\.com|grok-app-builder|extensions\.js/);
   assert.ok(out.indexOf("manifest") < out.indexOf("</head>"));
 });
 
-test("injects the extensions script without a project id", () => {
+test("does not inject an external builder script or project metadata", () => {
   const out = injectGrokPwaHead("<html><head></head></html>", "Demo", "");
-  assert.match(out, /src="https:\/\/grok\.com\/grok-app-builder\/extensions\.js" defer/);
+  assert.doesNotMatch(out, /grok\.com|grok-app-builder|extensions\.js/);
   assert.doesNotMatch(out, /grok-project-id/);
   assert.doesNotMatch(out, /data-project-id/);
   assert.doesNotMatch(out, /property="grok:app_id"/);
 });
 
-test("injects project id on the script and meta when provided", () => {
+test("ignores legacy project id input", () => {
   const out = injectGrokPwaHead("<html><head></head></html>", "Demo", "proj-123");
-  assert.match(out, /name="grok-project-id" content="proj-123"/);
-  assert.match(out, /data-project-id="proj-123"/);
-  assert.match(out, /property="grok:app_id" content="proj-123"/);
-});
-
-test("does not duplicate grok:app_id", () => {
-  const once = injectGrokPwaHead("<html><head></head></html>", "Demo", "proj-123");
-  const twice = injectGrokPwaHead(once, "Demo", "proj-123");
-  assert.equal(once, twice);
-  assert.equal(twice.split('property="grok:app_id"').length - 1, 1);
+  assert.doesNotMatch(out, /proj-123|grok-project-id|grok:app_id/);
 });
 
 test("omits x:creator tags without both creator values", () => {
@@ -101,11 +92,11 @@ test("leaves an existing twitter:card alone", () => {
   assert.equal(out.split('name="twitter:card"').length - 1, 1);
 });
 
-test("does not duplicate the extensions script", () => {
+test("remains free of external builder references after repeated injection", () => {
   const once = injectGrokPwaHead("<html><head></head></html>", "Demo", "proj-123");
   const twice = injectGrokPwaHead(once, "Demo", "proj-123");
   assert.equal(once, twice);
-  assert.equal(twice.split("extensions.js").length - 1, 1);
+  assert.doesNotMatch(twice, /grok\.com|grok-app-builder|extensions\.js/);
 });
 
 test("is idempotent", () => {

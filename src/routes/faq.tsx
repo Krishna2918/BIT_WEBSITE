@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { FAQS } from "@/data/faqs";
 import { ContactActions } from "@/components/site/contact-actions";
+import { canonicalLink } from "@/lib/seo";
 
 export const Route = createFileRoute("/faq")({
   component: FaqPage,
   head: () => ({
+    links: [canonicalLink("/faq")],
     meta: [
       { title: "FAQs — BIT Solution" },
       {

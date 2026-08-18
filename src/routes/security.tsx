@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/security")({ component: SecurityPage });
+export const Route = createFileRoute("/security")({
+  component: SecurityPage,
+  head: () => ({ links: [canonicalLink("/security")] }),
+});
 
 const BEATS = [
   { n: "01", title: "Watches around the clock" },

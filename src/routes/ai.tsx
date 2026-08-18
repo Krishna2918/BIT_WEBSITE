@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/ai")({ component: AiPage });
+export const Route = createFileRoute("/ai")({
+  component: AiPage,
+  head: () => ({ links: [canonicalLink("/ai")] }),
+});
 
 const BEATS = [
   { n: "01", title: "Help that is always on", note: "Available now" },

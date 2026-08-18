@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonicalLink } from "@/lib/seo";
 
-export const Route = createFileRoute("/software")({ component: SoftwarePage });
+export const Route = createFileRoute("/software")({
+  component: SoftwarePage,
+  head: () => ({ links: [canonicalLink("/software")] }),
+});
 
 const PRODUCTS = [
   { name: "Fleet", line: "Run the road side of the business." },
@@ -38,8 +42,8 @@ function SoftwarePage() {
         <div className="border-t border-hairline py-8">
           <h2 className="text-[28px] font-semibold tracking-[-0.02em] text-ink">Custom</h2>
           <p className="mt-2 text-[17px] text-muted">
-            Need something that doesn’t exist yet? We build it in 1 — or you
-            don’t pay for three.
+            Need something that doesn’t exist yet? We design custom software
+            around the workflow, constraints, and systems you already use.
           </p>
         </div>
         <div className="border-t border-b border-hairline py-8">

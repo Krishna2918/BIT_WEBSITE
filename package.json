@@ -8,8 +8,9 @@
   },
   "scripts": {
     "dev": "vite dev --host 0.0.0.0 --port 8080",
-    "build": "vite build && npm run db:migrate",
-    "build:preview": "vite build",
+    "build": "vite build && node scripts/migrate.mjs",
+    "build:preview": "vite build && node scripts/vercel-output-regression.mjs",
+    "test:vercel-output": "node scripts/vercel-output-regression.mjs",
     "db:migrate": "node scripts/migrate.mjs",
     "build:dev": "vite build --mode development",
     "preview": "vite preview --host 0.0.0.0 --port 8080",
