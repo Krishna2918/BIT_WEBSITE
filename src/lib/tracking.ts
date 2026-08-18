@@ -1,4 +1,9 @@
-import { readAnalyticsConsent } from "@/lib/consent";
+import { readMeasurementConsent } from "./consent.ts";
+import {
+  isSafeTransactionId,
+  parseConsultBrowserSuccess,
+  type ConsultBrowserSuccess,
+} from "./consultation-conversion.ts";
 
 const KEYS = [
   "gclid",
@@ -16,6 +21,10 @@ export type Attribution = Record<(typeof KEYS)[number], string> & {
   referrer: string;
 };
 
+const ADS_MEASUREMENT_EVENTS = new Set(["consultation_form_submit", "phone_click"]);
+
+const emittedConsultationTransactions = new Set<string>();
+
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
@@ -32,7 +41,7 @@ export function captureAttribution(): Attribution {
     return { ...empty, landing_page: "", referrer: "" };
   }
   const params = new URLSearchParams(window.location.search);
-  const mayPersist = readAnalyticsConsent() === "granted";
+  const mayPersist = readMeasurementConsent()?.analytics === true;
   let stored: Partial<Attribution> = {};
   if (mayPersist) {
     try {
@@ -62,16 +71,19 @@ const EVENT_ALIASES: Record<string, string> = {
 };
 
 export function track(event: string, payload: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
-  if (readAnalyticsConsent() !== "granted") return;
+  if (typeof window === "undefined") return false;
+  const normalizedEvent = EVENT_ALIASES[event] ?? event;
+  const consent = readMeasurementConsent();
+  const permitted = ADS_MEASUREMENT_EVENTS.has(normalizedEvent)
+    ? consent?.adsMeasurement === true
+    : consent?.analytics === true;
+  if (!permitted) return false;
   const safe: Record<string, unknown> = {
-    event: EVENT_ALIASES[event] ?? event,
+    event: normalizedEvent,
     event_time: Date.now(),
   };
   for (const [key, value] of Object.entries(payload)) {
-    if (
-      /email|phone|message|name|company|q\b|query|content|body/i.test(key)
-    ) {
+    if (/email|phone|message|name|company|q\b|query|content|body/i.test(key)) {
       continue;
     }
     if (typeof value === "string" && value.length > 80) continue;
@@ -79,4 +91,30 @@ export function track(event: string, payload: Record<string, unknown> = {}) {
   }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(safe);
+  return true;
+}
+
+export function trackConsultationFormSubmitOnce(
+  transactionId: string,
+  payload: { intent: string; source: string },
+) {
+  if (!isSafeTransactionId(transactionId)) return false;
+  if (emittedConsultationTransactions.has(transactionId)) return false;
+  emittedConsultationTransactions.add(transactionId);
+  const emitted = track("consultation_form_submit", {
+    intent: payload.intent,
+    source: payload.source,
+    transaction_id: transactionId,
+  });
+  return emitted;
+}
+
+export function recordCommittedConsultation(
+  value: unknown,
+  payload: { intent: string; source: string },
+): ConsultBrowserSuccess | null {
+  const result = parseConsultBrowserSuccess(value);
+  if (!result) return null;
+  trackConsultationFormSubmitOnce(result.transaction_id, payload);
+  return result;
 }

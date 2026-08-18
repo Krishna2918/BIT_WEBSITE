@@ -2,55 +2,52 @@ import { useEffect, useState } from "react";
 import { TRACKING } from "@/lib/site";
 import { captureAttribution, track } from "@/lib/tracking";
 import {
+  buildConsentModeState,
   CONSENT_CHANGED_EVENT,
-  readAnalyticsConsent,
-  type AnalyticsConsent,
+  readMeasurementConsent,
+  type MeasurementConsent,
 } from "@/lib/consent";
 
 export function TrackingHooks() {
-  const [consent, setConsent] = useState<AnalyticsConsent>(null);
+  const [consent, setConsent] = useState<MeasurementConsent | null>(null);
 
   useEffect(() => {
     window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer.push({ arguments: args }));
-    const initial = readAnalyticsConsent();
+    window.gtag =
+      window.gtag || ((...args: unknown[]) => window.dataLayer.push({ arguments: args }));
+    const initial = readMeasurementConsent();
     setConsent(initial);
     window.gtag("consent", "default", {
-      ad_storage: "denied",
-      analytics_storage: "denied",
-      ad_user_data: "denied",
-      ad_personalization: "denied",
+      ...buildConsentModeState(null),
       wait_for_update: 500,
     });
-    if (initial === "granted") {
-      window.gtag("consent", "update", {
-        ad_storage: "granted",
-        analytics_storage: "granted",
-        ad_user_data: "granted",
-        ad_personalization: "granted",
-      });
+    if (initial) {
+      window.gtag("consent", "update", buildConsentModeState(initial));
+    }
+    if (initial?.analytics) {
       captureAttribution();
     }
 
     const sync = (event: Event) => {
-      const value = (event as CustomEvent<"granted" | "denied">).detail;
+      const value = (event as CustomEvent<MeasurementConsent>).detail;
       setConsent(value);
-      window.gtag?.("consent", "update", {
-        ad_storage: value,
-        analytics_storage: value,
-        ad_user_data: value,
-        ad_personalization: value,
+      window.gtag?.("consent", "update", buildConsentModeState(value));
+      if (value.analytics) captureAttribution();
+      track(value.analytics || value.adsMeasurement ? "consent_granted" : "consent_denied", {
+        analytics: value.analytics,
+        ads_measurement: value.adsMeasurement,
       });
-      if (value === "granted") captureAttribution();
-      track(value === "granted" ? "consent_granted" : "consent_denied");
     };
     window.addEventListener(CONSENT_CHANGED_EVENT, sync);
     return () => window.removeEventListener(CONSENT_CHANGED_EVENT, sync);
   }, []);
 
-  const mayLoad = TRACKING.measurementOn && consent === "granted";
-  const useGtm = mayLoad && Boolean(TRACKING.gtmId);
-  const useDirectGa4 = mayLoad && !TRACKING.gtmId && Boolean(TRACKING.ga4Id);
+  const analyticsAllowed = consent?.analytics === true;
+  const adsMeasurementAllowed = consent?.adsMeasurement === true;
+  const mayLoadMeasurement = TRACKING.measurementOn && (analyticsAllowed || adsMeasurementAllowed);
+  const useGtm = mayLoadMeasurement && Boolean(TRACKING.gtmId);
+  const useDirectGa4 =
+    TRACKING.measurementOn && analyticsAllowed && !TRACKING.gtmId && Boolean(TRACKING.ga4Id);
 
   return (
     <>
@@ -91,7 +88,7 @@ export function TrackingHooks() {
       ) : (
         <meta name="bit-ga4-hook" content="ready" />
       )}
-      {mayLoad && TRACKING.clarityId ? (
+      {TRACKING.measurementOn && analyticsAllowed && TRACKING.clarityId ? (
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","${TRACKING.clarityId}");`,
@@ -100,12 +97,8 @@ export function TrackingHooks() {
       ) : (
         <meta name="bit-clarity-hook" content="ready" />
       )}
-      {mayLoad && TRACKING.callrailSwap ? (
-        <script
-          src={TRACKING.callrailSwap}
-          async
-          data-callrail="swap"
-        />
+      {TRACKING.measurementOn && adsMeasurementAllowed && TRACKING.callrailSwap ? (
+        <script src={TRACKING.callrailSwap} async data-callrail="swap" />
       ) : (
         <meta name="bit-callrail-hook" content="ready" />
       )}

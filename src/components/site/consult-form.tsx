@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { captureAttribution, track, type Attribution } from "@/lib/tracking";
+import {
+  captureAttribution,
+  recordCommittedConsultation,
+  track,
+  type Attribution,
+} from "@/lib/tracking";
 import { SITE } from "@/lib/site";
 import {
   CONSULT_CONTACT_TIMES,
@@ -26,6 +31,7 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
   const servicesRef = useRef<HTMLFieldSetElement>(null);
   const websiteRef = useRef<HTMLInputElement>(null);
   const submissionId = useRef("");
+  const submissionInFlight = useRef(false);
   const [attr, setAttr] = useState<Attribution | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState("");
@@ -52,6 +58,7 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submissionInFlight.current) return;
     const form = e.currentTarget;
     const data = new FormData(form);
     if (String(data.get("company_website") || "").trim()) {
@@ -107,6 +114,7 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
     setWebsiteError(false);
     setStatus("sending");
     setError("");
+    submissionInFlight.current = true;
     const body: Record<string, unknown> = Object.fromEntries(data.entries());
     body.services = selectedServices;
     body.service_inquiry_consent = true;
@@ -125,15 +133,17 @@ export function ConsultForm({ intent, source }: { intent: ConsultIntent; source:
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const result = (await res.json().catch(() => null)) as {
-        ok?: boolean;
-        qualified?: boolean;
-      } | null;
-      if (!res.ok || !result?.ok) throw new Error("send");
-      track("consultation_form_submit", { intent, source });
+      const responseBody = await res.json().catch(() => null);
+      if (!res.ok) throw new Error("send");
+      const result = recordCommittedConsultation(responseBody, {
+        intent,
+        source,
+      });
+      if (!result) throw new Error("send");
       if (result.qualified) track("qualified_form_submit", { intent, source });
       window.location.assign(`/thank-you?intent=${intent}`);
     } catch {
+      submissionInFlight.current = false;
       setStatus("error");
       setError("We could not deliver your request. Nothing was recorded. Please call us.");
       track("form_error", { intent, source, reason: "delivery" });

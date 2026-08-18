@@ -3,6 +3,7 @@ import { z } from "zod";
 import { CONSULT_CONTRACT_VERSION } from "@/lib/consult-contract";
 import { ConsultIntakeSchema } from "@/lib/consult-intake-schema";
 import { buildFormAiCrmPayload } from "@/lib/form-ai-payload.server";
+import { buildConsultBrowserSuccess } from "@/lib/consultation-conversion";
 
 const CrmResponse = z
   .object({
@@ -275,7 +276,7 @@ export const Route = createFileRoute("/api/consult")({
           ) {
             return Response.json({ ok: false, error: "invalid_delivery_receipt" }, { status: 502 });
           }
-          return Response.json({ ok: true, qualified: receipt.data.qualified });
+          return Response.json(buildConsultBrowserSuccess(idempotencyKey, receipt.data.qualified));
         } catch {
           return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
         }

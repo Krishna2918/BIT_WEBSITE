@@ -61,6 +61,16 @@ function PrivacyPage() {
           page or advertisement brought you here. We do not sell personal information.
         </p>
 
+        <h2 className="mt-10 text-[22px] font-semibold">Optional measurement choices</h2>
+        <p className="mt-3 text-muted">
+          Analytics and Ads conversion/call measurement are separate, initially unchecked choices.
+          Analytics consent permits analytics storage only. Ads measurement consent permits Ads
+          storage and Ads user-data signals needed for conversion and call measurement only. Ads
+          personalization remains denied in every state. An earlier analytics choice does not grant
+          Ads measurement, and neither measurement choice replaces service-contact or marketing
+          consent.
+        </p>
+
         <h2 className="mt-10 text-[22px] font-semibold">CASL</h2>
         <p className="mt-3 text-muted">
           Contact about the service inquiry requires its own consent. Email service updates and
