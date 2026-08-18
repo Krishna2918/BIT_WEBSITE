@@ -1,0 +1,7 @@
+{
+  "expectedCount": 233,
+  "filesOnDisk": 0,
+  "status": "BLOCKED",
+  "reason": "The 233 authoritative legacy media files are not in this repository or any approved local source. They were not fetched from live WordPress.",
+  "items": []
+}

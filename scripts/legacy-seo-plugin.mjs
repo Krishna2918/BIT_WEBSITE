@@ -20,7 +20,7 @@ export function applyLegacyToNodeResponse(req, res, resolve, robots, sitemap) {
     res.end(sitemap());
     return true;
   }
-  const result = resolve(path);
+  const result = resolve(rawUrl);
   if (result.status === 410) {
     res.statusCode = 410;
     res.setHeader("content-type", "text/plain; charset=utf-8");

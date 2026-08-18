@@ -2,6 +2,7 @@ import { CANONICAL_ORIGIN, KEEP_200 } from "@/data/legacy-migration";
 import { INDUSTRIES } from "@/data/industries";
 import { INSIGHTS } from "@/data/insights";
 import { SITE } from "@/lib/site";
+import { PRODUCTION_ROBOTS } from "@/data/robots-production";
 
 export { CANONICAL_ORIGIN };
 
@@ -330,18 +331,7 @@ Disallow: /
 # Preview hosts stay dark. Production robots ship after domain cutover.
 `;
   }
-  return `User-agent: *
-Allow: /
-Disallow: /login
-Disallow: /thank-you
-Disallow: /api/
-Disallow: /__grok/
-
-# Content-Signal policy (preserve)
-Content-Signal: search=yes, ai-train=no, use=reference
-
-Sitemap: ${CANONICAL_ORIGIN}/sitemap.xml
-`;
+  return PRODUCTION_ROBOTS;
 }
 
 export const LEGACY_KEEP = KEEP_200;

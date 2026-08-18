@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { describe, it } from "node:test";
 import { fileURLToPath } from "node:url";
 import plan from "../src/data/legacy-migration.json" with { type: "json" };
+import { inventoryMedia } from "./legacy-media-inventory.mjs";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -14,16 +15,19 @@ function normalizePath(pathname) {
 }
 
 function resolveLegacy(pathname) {
-  const raw = (pathname.split("?")[0] ?? "/") || "/";
-  const path = normalizePath(raw);
+  const [rawPath = "/", qs] = pathname.split("?");
+  const path = normalizePath(rawPath);
+  const query = qs ? `?${qs}` : "";
+  const key = `${path}${query}`;
+  if (plan.goneQueries.includes(key)) return { status: 410 };
   if (plan.gone410.includes(path)) return { status: 410 };
   for (const prefix of plan.gonePrefixes) {
-    if (path === prefix.slice(0, -1) || path.startsWith(prefix) || raw.startsWith(prefix)) {
+    if (path === prefix.slice(0, -1) || path.startsWith(prefix) || rawPath.startsWith(prefix)) {
       return { status: 410 };
     }
   }
   if (plan.redirects301[path]) return { status: 301, to: plan.redirects301[path] };
-  if (raw !== path && raw !== "/") return { status: 301, to: path };
+  if (rawPath !== path && rawPath !== "/") return { status: 301, to: path };
   return { status: 200 };
 }
 
@@ -51,24 +55,77 @@ describe("one-hop legacy plan", () => {
     }
   });
 
-  it("301s aliases in one hop and 410s retirements", () => {
-    assert.deepEqual(resolveLegacy("/about"), { status: 301, to: "/about-us" });
-    assert.deepEqual(resolveLegacy("/about/"), { status: 301, to: "/about-us" });
-    assert.deepEqual(resolveLegacy("/services"), { status: 301, to: "/solutions" });
-    assert.deepEqual(resolveLegacy("/contact-us"), { status: 301, to: "/consult" });
-    assert.deepEqual(resolveLegacy("/help-centre"), { status: 410 });
-    assert.deepEqual(resolveLegacy("/author/admin"), { status: 410 });
-    assert.deepEqual(resolveLegacy("/category/it"), { status: 410 });
+  it("301s every mapped redirect in one hop, including slash variants", () => {
+    for (const [from, to] of Object.entries(plan.redirects301)) {
+      assert.deepEqual(resolveLegacy(from), { status: 301, to }, from);
+      if (!from.endsWith(".xml") && !from.endsWith(".xsl")) {
+        assert.deepEqual(resolveLegacy(`${from}/`), { status: 301, to }, `${from}/`);
+      }
+    }
+  });
+
+  it("410s every approved retirement path", () => {
+    for (const path of plan.gone410) {
+      assert.equal(resolveLegacy(path).status, 410, path);
+      assert.equal(resolveLegacy(`${path}/`).status, 410, `${path}/`);
+    }
+  });
+
+  it("410s known Elementor/WPR query variants only", () => {
+    for (const q of plan.goneQueries) {
+      assert.equal(resolveLegacy(q).status, 410, q);
+    }
+    assert.equal(resolveLegacy("/?utm_source=ad").status, 200);
+    assert.equal(resolveLegacy("/about-us?elementskit_template=header").status, 200);
+  });
+
+  it("maps the six live article slugs to /insights/*", () => {
+    const six = {
+      "/why-businesses-need-reliable-cloud-backup-services-in-canada": "/insights/why-cloud-backup",
+      "/top-cybersecurity-mistakes-businesses-make-and-how-to-avoid-them": "/insights/cyber-mistakes",
+      "/managed-it-services-brampton-save-time-money": "/insights/managed-it-time",
+      "/cloud-backup-vs-local-storage-brampton": "/insights/backup-vs-local",
+      "/struggling-with-cyber-attacks-protect-your-business": "/insights/protect-your-business",
+      "/easy-cloud-migration-for-businesses": "/insights/cloud-migration",
+    };
+    for (const [from, to] of Object.entries(six)) {
+      assert.deepEqual(resolveLegacy(from), { status: 301, to });
+    }
+  });
+
+  it("maps category/author to /insights", () => {
+    assert.deepEqual(resolveLegacy("/category/it"), { status: 301, to: "/insights" });
+    assert.deepEqual(resolveLegacy("/author/admin"), { status: 301, to: "/insights" });
   });
 });
 
 describe("robots and sitemap files", () => {
-  it("production robots preserve Content-Signal and exclusions", () => {
-    const txt = readFileSync(join(root, "public/robots.txt"), "utf8");
-    assert.match(txt, /Content-Signal: search=yes, ai-train=no, use=reference/);
+  const txt = readFileSync(join(root, "public/robots.txt"), "utf8");
+
+  it("preserves Content-Signal and Cloudflare bot blocks", () => {
+    assert.match(txt, /Content-Signal: search=yes,ai-train=no,use=reference/);
+    for (const bot of [
+      "Amazonbot",
+      "Applebot-Extended",
+      "Bytespider",
+      "CCBot",
+      "ClaudeBot",
+      "CloudflareBrowserRenderingCrawler",
+      "Google-Extended",
+      "GPTBot",
+      "meta-externalagent",
+    ]) {
+      assert.match(txt, new RegExp(`User-agent: ${bot}\\nDisallow: /`));
+    }
+  });
+
+  it("adds API, thank-you, and consult-continue exclusions", () => {
     assert.match(txt, /Disallow: \/api\//);
     assert.match(txt, /Disallow: \/thank-you/);
+    assert.match(txt, /Disallow: \/consult-continue/);
+    assert.match(txt, /Disallow: \/login/);
     assert.match(txt, /Sitemap: https:\/\/bitsolution\.ca\/sitemap\.xml/);
+    assert.doesNotMatch(txt, /wp-sitemap\.xml/);
   });
 
   it("sitemap is bitsolution.ca only and includes the nine pages", () => {
@@ -80,6 +137,24 @@ describe("robots and sitemap files", () => {
     assert.doesNotMatch(xml, /\/api\//);
     for (const path of plan.keep200) {
       assert.match(xml, new RegExp(`https://bitsolution\\.ca${path.replaceAll("/", "\\/")}<`));
+    }
+  });
+
+  it("every WP child sitemap endpoint is mapped one hop to /sitemap.xml", () => {
+    const children = [
+      "/wp-sitemap.xml",
+      "/wp-sitemap-posts-post-1.xml",
+      "/wp-sitemap-posts-page-1.xml",
+      "/wp-sitemap-posts-elementskit_content-1.xml",
+      "/wp-sitemap-posts-elementskit_template-1.xml",
+      "/wp-sitemap-posts-wpr_templates-1.xml",
+      "/wp-sitemap-posts-metform-form-1.xml",
+      "/wp-sitemap-taxonomies-category-1.xml",
+      "/wp-sitemap-users-1.xml",
+      "/sitemap",
+    ];
+    for (const from of children) {
+      assert.deepEqual(resolveLegacy(from), { status: 301, to: "/sitemap.xml" }, from);
     }
   });
 });
@@ -101,5 +176,21 @@ describe("source gates", () => {
       const file = join(root, "src/routes", `${path.slice(1)}.tsx`);
       assert.equal(readFileSync(file, "utf8").includes("legacyRoute"), true, file);
     }
+  });
+});
+
+describe("legacy media inventory", () => {
+  it("records the 233-asset blocker and hashes any files that exist", () => {
+    const report = inventoryMedia();
+    assert.equal(report.expectedCount, 233);
+    assert.equal(report.filesOnDisk, report.items.length);
+    for (const item of report.items) {
+      assert.match(item.sha256, /^[a-f0-9]{64}$/);
+      assert.equal(item.readable, true);
+      assert.ok(item.bytes > 0);
+    }
+    assert.notEqual(report.filesOnDisk, 233);
+    assert.equal(report.status, "BLOCKED");
+    assert.match(report.reason, /not in this repository/i);
   });
 });

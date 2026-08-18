@@ -5,6 +5,7 @@ export const CANONICAL_ORIGIN = "https://bitsolution.ca";
 export const KEEP_200 = plan.keep200 as readonly string[];
 export const REDIRECTS_301 = plan.redirects301 as Record<string, string>;
 export const GONE_410 = plan.gone410 as readonly string[];
+export const GONE_QUERIES = plan.goneQueries as readonly string[];
 export const GONE_PREFIXES = plan.gonePrefixes as readonly string[];
 
 export function normalizePath(pathname: string): string {

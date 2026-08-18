@@ -1,4 +1,4 @@
-# As a condition of accessing this website, you agree to abide by the following
+export const PRODUCTION_ROBOTS = `# As a condition of accessing this website, you agree to abide by the following
 # content signals:
 
 # (a)  If a Content-Signal = yes, you may collect content for the corresponding
@@ -69,3 +69,4 @@ Disallow: /__grok/
 Disallow: /consult-continue
 
 Sitemap: https://bitsolution.ca/sitemap.xml
+`;

@@ -1,6 +1,7 @@
 import {
   GONE_410,
   GONE_PREFIXES,
+  GONE_QUERIES,
   KEEP_200,
   REDIRECTS_301,
   normalizePath,
@@ -12,14 +13,23 @@ export type LegacyResult =
   | { status: 410 };
 
 const GONE = new Set<string>(GONE_410);
+const GONE_Q = new Set<string>(GONE_QUERIES);
+
+function exactKey(pathname: string): { path: string; rawPath: string; key: string } {
+  const [rawPath = "/", qs] = pathname.split("?");
+  const path = normalizePath(rawPath);
+  const query = qs ? `?${qs}` : "";
+  return { path, rawPath, key: `${path}${query}` };
+}
 
 export function resolveLegacy(pathname: string): LegacyResult {
-  const raw = (pathname.split("?")[0] ?? "/") || "/";
-  const path = normalizePath(raw);
+  const { path, rawPath, key } = exactKey(pathname);
+
+  if (GONE_Q.has(key)) return { status: 410 };
 
   if (GONE.has(path)) return { status: 410 };
   for (const prefix of GONE_PREFIXES) {
-    if (path === prefix.slice(0, -1) || path.startsWith(prefix) || raw.startsWith(prefix)) {
+    if (path === prefix.slice(0, -1) || path.startsWith(prefix) || rawPath.startsWith(prefix)) {
       return { status: 410 };
     }
   }
@@ -27,7 +37,7 @@ export function resolveLegacy(pathname: string): LegacyResult {
   const dest = REDIRECTS_301[path];
   if (dest) return { status: 301, to: dest };
 
-  if (raw !== path && raw !== "/") {
+  if (rawPath !== path && rawPath !== "/" && !rawPath.includes("?")) {
     return { status: 301, to: path };
   }
 
@@ -41,9 +51,7 @@ export function assertOneHop(): string[] {
     if (from === to) errors.push(`${from} redirects to itself`);
     if (froms.has(to)) errors.push(`${from} → ${to} is a two-hop (to is also a from)`);
     if (GONE.has(to)) errors.push(`${from} → ${to} lands on a 410`);
-    if (KEEP_200.includes(from as (typeof KEEP_200)[number])) {
-      errors.push(`${from} is KEEP_200 and also a redirect`);
-    }
+    if (KEEP_200.includes(from)) errors.push(`${from} is KEEP_200 and also a redirect`);
   }
   for (const keep of KEEP_200) {
     if (GONE.has(keep)) errors.push(`${keep} is both 200 and 410`);

@@ -1,0 +1,8 @@
+{
+  "expectedCount": 233,
+  "source": "Independent SEO audit of production bitsolution.ca /wp-content/uploads",
+  "localRoot": "public/wp-content/uploads",
+  "status": "BLOCKED",
+  "reason": "The 233 authoritative legacy media files are not in this repository or any approved local source. They were not fetched from live WordPress.",
+  "filesOnDisk": 0
+}

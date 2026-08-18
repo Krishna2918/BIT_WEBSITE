@@ -26,6 +26,7 @@ export default function legacySeoMiddleware(event: Ev, next: () => unknown) {
   if (method !== "GET" && method !== "HEAD") return next();
 
   const path = event.url.pathname;
+  const loc = path + event.url.search;
   if (path === "/robots.txt") {
     return new Response(robotsTxt(previewHost(event)), {
       headers: { "content-type": "text/plain; charset=utf-8", "cache-control": "no-cache" },
@@ -37,7 +38,7 @@ export default function legacySeoMiddleware(event: Ev, next: () => unknown) {
     });
   }
 
-  const result = resolveLegacy(path);
+  const result = resolveLegacy(loc);
   if (result.status === 410) {
     return new Response("Gone", {
       status: 410,
