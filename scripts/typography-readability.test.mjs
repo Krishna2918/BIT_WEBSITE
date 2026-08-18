@@ -57,3 +57,11 @@ test("owned body-copy groups are 16px mobile and 18px desktop", () => {
   assert.doesNotMatch(industry, /text-\[15px\][^\n]*\{pillar\.(?:pain|solve)\}/u);
   assert.doesNotMatch(legacy, /text-\[15px\][^\n]*\{section\.body\}/u);
 });
+
+test("business-service cards use a compact local type scale", () => {
+  const css = read("src/styles.css");
+
+  assert.match(css, /#pillars \.extra-tile h3\s*\{[^}]*font-size:\s*clamp\(1\.2rem, 2vw, 1\.5rem\);/su);
+  assert.match(css, /#pillars \.extra-tile p:not\(\.extra-kicker\),[\s\S]*?#pillars \.extra-tile span\s*\{[^}]*font-size:\s*0\.95rem !important;/u);
+  assert.match(css, /#pillars \.extra-tile \.extra-kicker\s*\{[^}]*font-size:\s*0\.75rem !important;/su);
+});

@@ -1992,6 +1992,23 @@ svg {
   color: var(--color-link) !important;
   line-height: 1.2 !important;
 }
+
+/* Keep the compact three-card business-services row visually distinct. */
+#pillars .extra-tile h3 {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.2;
+}
+
+#pillars .extra-tile p:not(.extra-kicker),
+#pillars .extra-tile span {
+  font-size: 0.95rem !important;
+  line-height: 1.5;
+}
+
+#pillars .extra-tile .extra-kicker {
+  font-size: 0.75rem !important;
+  line-height: 1.3 !important;
+}
 @media (min-width: 640px) {
   .extra-grid {
     grid-template-columns: 1fr 1fr 1fr;
