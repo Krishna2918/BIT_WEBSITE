@@ -9,6 +9,7 @@ import { TESTIMONIALS } from "@/data/testimonials";
 import { FAQS } from "@/data/faqs";
 import { INSIGHTS } from "@/data/insights";
 import { GALLERY_HOME } from "@/data/gallery";
+import { CLIENTS } from "@/data/clients";
 import { SITE } from "@/lib/site";
 import { canonicalLink } from "@/lib/seo";
 
@@ -47,6 +48,25 @@ const PILLARS = [
     image: "/images/home/security.jpg",
     video: "/videos/security.mp4",
     alt: "Glass security shell turning in a white studio",
+  },
+];
+
+const CLIENT_GROUPS = [
+  { label: "Dental", slug: "dental", clients: CLIENTS.dental },
+  {
+    label: "Transportation",
+    slug: "transportation",
+    clients: CLIENTS.transportation,
+  },
+  {
+    label: "Construction",
+    slug: "construction",
+    clients: CLIENTS.construction,
+  },
+  {
+    label: "Warehousing",
+    slug: "warehouses",
+    clients: CLIENTS.warehouses,
   },
 ];
 
@@ -157,6 +177,50 @@ function Home() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section id="client-companies" className="border-t border-hairline bg-bg px-5 py-16">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-3 text-center text-[14px] font-semibold uppercase tracking-[0.14em] text-link">
+            Client companies
+          </p>
+          <h2 className="text-center text-[clamp(1.75rem,4.5vw,2.5rem)] font-semibold tracking-[-0.03em] text-ink">
+            Companies across the floors we support.
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-[16px] leading-relaxed text-muted sm:text-[18px]">
+            The approved client names already featured on our sector pages, collected in one place.
+          </p>
+          <div className="client-company-groups">
+            {CLIENT_GROUPS.map((group) => (
+              <section key={group.label} className="client-company-group" aria-labelledby={`client-group-${group.label.toLowerCase()}`}>
+                <h3 id={`client-group-${group.label.toLowerCase()}`}>
+                  <Link to="/industries/$slug" params={{ slug: group.slug }}>
+                    {group.label}
+                  </Link>
+                </h3>
+                <ul>
+                  {group.clients.map((client) => (
+                    <li key={client.name}>
+                      {client.logo ? (
+                        <img src={client.logo} alt="" width={96} height={40} loading="lazy" />
+                      ) : null}
+                      <span className="client-company-copy">
+                        {client.href ? (
+                          <a href={client.href} rel="noopener noreferrer">
+                            {client.name}
+                          </a>
+                        ) : (
+                          <strong>{client.name}</strong>
+                        )}
+                        <span>{client.city}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
         </div>
       </section>
 
