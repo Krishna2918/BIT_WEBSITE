@@ -25,7 +25,7 @@ export function LegacyPreservedPage({ page }: { page: LegacyPageContent }) {
               <h2 className="text-[20px] font-semibold tracking-[-0.02em] text-ink">
                 {section.title}
               </h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted">{section.body}</p>
+              <p className="mt-3 text-[16px] leading-relaxed text-muted">{section.body}</p>
             </section>
           ))}
         </div>

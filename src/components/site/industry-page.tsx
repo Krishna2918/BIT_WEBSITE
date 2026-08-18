@@ -172,8 +172,8 @@ function PillarCard({
           ))}
         </ul>
       ) : null}
-      <p className="mt-3 text-[15px] leading-relaxed text-muted">{pillar.pain}</p>
-      <p className="mt-3 text-[15px] leading-relaxed text-ink">{pillar.solve}</p>
+      <p className="mt-3 text-[16px] leading-relaxed text-muted">{pillar.pain}</p>
+      <p className="mt-3 text-[16px] leading-relaxed text-ink">{pillar.solve}</p>
       <Link
         to={pillar.to}
         className="mt-4 inline-block text-[16px] text-link no-underline hover:underline"

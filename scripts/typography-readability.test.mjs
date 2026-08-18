@@ -41,3 +41,19 @@ test("Ask AI and shared footer use readable controls and link grids", () => {
   assert.match(footer, /className="site-footer-legal"/u);
   assert.match(nav, /text-\[16px\]/u);
 });
+
+test("owned body-copy groups are 16px mobile and 18px desktop", () => {
+  const css = read("src/styles.css");
+  const home = read("src/routes/index.tsx");
+  const industry = read("src/components/site/industry-page.tsx");
+  const legacy = read("src/components/site/legacy-preserved-page.tsx");
+
+  assert.match(css, /@media \(min-width: 768px\)[\s\S]*?\[class~="text-\[16px\]"\][\s\S]*?font-size:\s*1\.125rem;/u);
+  assert.match(home, /item\.excerpt[\s\S]*?text-\[16px\]|text-\[16px\][^\n]*\{item\.excerpt\}/u);
+  assert.match(industry, /text-\[16px\][^\n]*\{pillar\.pain\}/u);
+  assert.match(industry, /text-\[16px\][^\n]*\{pillar\.solve\}/u);
+  assert.match(legacy, /text-\[16px\][^\n]*\{section\.body\}/u);
+  assert.doesNotMatch(home, /text-\[15px\][^\n]*\{item\.excerpt\}/u);
+  assert.doesNotMatch(industry, /text-\[15px\][^\n]*\{pillar\.(?:pain|solve)\}/u);
+  assert.doesNotMatch(legacy, /text-\[15px\][^\n]*\{section\.body\}/u);
+});

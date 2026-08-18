@@ -284,7 +284,7 @@ function Home() {
                     {item.title}
                   </Link>
                 </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-muted">{item.excerpt}</p>
+                <p className="mt-2 text-[16px] leading-relaxed text-muted">{item.excerpt}</p>
               </article>
             ))}
           </div>
