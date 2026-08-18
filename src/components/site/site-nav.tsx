@@ -52,6 +52,14 @@ export function SiteNav() {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <Link
+            to="/industries"
+            className="inline-flex h-11 items-center px-1 text-[16px] font-medium text-white no-underline lg:hidden"
+            activeProps={{ className: "text-[#8fc7ff]" }}
+            onClick={() => setOpen(false)}
+          >
+            Sectors
+          </Link>
           <a
             href={SITE.phoneHref}
             className="nav-phone cta-ghost cta-ghost--nav callrail rTapNumber"
@@ -67,7 +75,8 @@ export function SiteNav() {
               track("book_consult_click", { source: "nav" });
             }}
           >
-            Book consultation
+            <span className="sm:hidden">Book</span>
+            <span className="hidden sm:inline">Book consultation</span>
           </Link>
           <button
             type="button"
@@ -83,7 +92,7 @@ export function SiteNav() {
       {open ? (
         <div className="border-t border-white/10 bg-[#0e0e10] lg:hidden">
           <nav className="flex flex-col px-5 py-2">
-            {LINKS.map((l) => (
+            {LINKS.filter((l) => l.to !== "/industries").map((l) => (
               <Link
                 key={l.to}
                 to={l.to}

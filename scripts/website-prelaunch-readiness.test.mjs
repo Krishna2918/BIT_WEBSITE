@@ -40,6 +40,15 @@ test("mobile navigation hides the phone pill below the small breakpoint", async 
   assert.match(styles, /@media \(min-width: 640px\)[\s\S]*\.nav-phone\s*\{\s*display: inline-flex;/);
 });
 
+test("mobile header keeps Sectors directly visible without duplicating it in the drawer", async () => {
+  const nav = await read("src/components/site/site-nav.tsx");
+
+  assert.match(nav, /to="\/industries"[\s\S]*?lg:hidden[\s\S]*?>\s*Sectors\s*<\/Link>/u);
+  assert.match(nav, /LINKS\.filter\(\(l\) => l\.to !== "\/industries"\)\.map/u);
+  assert.match(nav, /sm:hidden">Book<\/span>/u);
+  assert.match(nav, /hidden sm:inline">Book consultation<\/span>/u);
+});
+
 test("privacy route records owner-attested approval and the approved retention controls", async () => {
   const privacy = await read("src/routes/privacy.tsx");
 
