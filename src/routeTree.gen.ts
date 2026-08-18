@@ -25,6 +25,7 @@ import { Route as SoftwareRouteImport } from './routes/software'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as VoipRouteImport } from './routes/voip'
+import { Route as ApiAssistantRouteImport } from './routes/api/assistant'
 import { Route as ApiConsultRouteImport } from './routes/api/consult'
 import { Route as ConsultContinueRouteImport } from './routes/consult_.continue'
 import { Route as DentalItOntarioRouteImport } from './routes/dental-it.ontario'
@@ -115,6 +116,11 @@ const VoipRoute = VoipRouteImport.update({
   path: '/voip',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAssistantRoute = ApiAssistantRouteImport.update({
+  id: '/api/assistant',
+  path: '/api/assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiConsultRoute = ApiConsultRouteImport.update({
   id: '/api/consult',
   path: '/api/consult',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
+  '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
   '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
+  '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
   '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/support': typeof SupportRoute
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
+  '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
   '/consult_/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
@@ -262,6 +271,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/thank-you'
     | '/voip'
+    | '/api/assistant'
     | '/api/consult'
     | '/consult/continue'
     | '/dental-it/ontario'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/thank-you'
     | '/voip'
+    | '/api/assistant'
     | '/api/consult'
     | '/consult/continue'
     | '/dental-it/ontario'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/support'
     | '/thank-you'
     | '/voip'
+    | '/api/assistant'
     | '/api/consult'
     | '/consult_/continue'
     | '/dental-it/ontario'
@@ -344,6 +356,7 @@ export interface RootRouteChildren {
   SupportRoute: typeof SupportRoute
   ThankYouRoute: typeof ThankYouRoute
   VoipRoute: typeof VoipRoute
+  ApiAssistantRoute: typeof ApiAssistantRoute
   ApiConsultRoute: typeof ApiConsultRoute
   ConsultContinueRoute: typeof ConsultContinueRoute
   DentalItOntarioRoute: typeof DentalItOntarioRoute
@@ -469,6 +482,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VoipRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/assistant': {
+      id: '/api/assistant'
+      path: '/api/assistant'
+      fullPath: '/api/assistant'
+      preLoaderRoute: typeof ApiAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/consult': {
       id: '/api/consult'
       path: '/api/consult'
@@ -552,6 +572,7 @@ const rootRouteChildren: RootRouteChildren = {
   SupportRoute: SupportRoute,
   ThankYouRoute: ThankYouRoute,
   VoipRoute: VoipRoute,
+  ApiAssistantRoute: ApiAssistantRoute,
   ApiConsultRoute: ApiConsultRoute,
   ConsultContinueRoute: ConsultContinueRoute,
   DentalItOntarioRoute: DentalItOntarioRoute,

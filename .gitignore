@@ -19,3 +19,4 @@ BIT-Solution-website.zip
 *.zip
 .DS_Store
 .env*
+!.env.example

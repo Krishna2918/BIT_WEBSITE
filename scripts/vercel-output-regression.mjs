@@ -35,6 +35,12 @@ for (const path of searchable) combined += `\n/* ${relative(output, path)} */\n$
 
 assert.match(combined, /method_not_allowed/);
 assert.match(combined, /delivery_not_configured/);
+assert.match(combined, /Live AI is not configured/);
+assert.match(combined, /openai\/gpt-5\.6-luna/);
+assert.doesNotMatch(
+  combined,
+  /VITE_(?:AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|BIT_PUBLIC_AI_ENABLED|BIT_PUBLIC_AI_MODEL)/i,
+);
 assert.doesNotMatch(combined, /grok\.com\/grok-app-builder|grok-app-builder\/extensions\.js/i);
 
 console.log(

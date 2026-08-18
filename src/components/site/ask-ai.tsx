@@ -1,6 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUp, CircleHelp, Mail, MessageCircle, Phone, Sparkles, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { openConfiguredChatwoot } from "@/lib/chatwoot";
+import {
+  askPublicAssistant,
+  getPublicAssistantConfig,
+  wantsHumanSupport,
+} from "@/lib/public-assistant";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
@@ -15,35 +21,9 @@ const STARTERS = [
   { id: "book", label: "Book a consult" },
 ] as const;
 
-function replyFor(input: string): string {
-  const q = input.toLowerCase();
-  if (/(book|consult|call|meeting|quote)/.test(q)) {
-    return `I can get you to a person. Book a consult, call, or WhatsApp ${SITE.phoneDisplay}. We cover all of Ontario.`;
-  }
-  if (/(software|app|fleet|erp|clinic)/.test(q)) {
-    return "Software is the first door. Fleet, college ERP, clinic systems, and custom builds — same team that runs the hardware under it.";
-  }
-  if (/(hardware|server|camera|phone|network|pc)/.test(q)) {
-    return "Hardware is the machines: cameras, private servers, PCs, network, phones. We assemble and stay with them.";
-  }
-  if (/(security|cyber|firewall|backup)/.test(q)) {
-    return "Security is the shell around the rest. Watches, locks devices, keeps copies, and recovers when something breaks.";
-  }
-  if (/(ai|bot|chat|ticket|support)/.test(q)) {
-    return "BIT AI stays on for tickets and checks. A person steps in when they should. That is the product — not a toy chatbot.";
-  }
-  if (/(price|cost|how much)/.test(q)) {
-    return "Pricing depends on the floor. Tell us the site and the stack and we will price a real consult — not a menu.";
-  }
-  if (/(where|brampton|gta|ontario|location)/.test(q)) {
-    return `${SITE.address}. We cover all of Ontario from Brampton HQ.`;
-  }
-  if (/(hipaa|phipa|pipeda|compliance|dental|fleet)/.test(q)) {
-    return "Compliance sits on the sector pages — PHIPA, PIPEDA, MTO / CVOR, and the rest. Open Sectors, or book a consult and we walk the floor.";
-  }
-  return "Four parts, one flag: software, hardware, AI, and security. Pick a door below, or book a consult and a person will take it from here.";
-}
-
+const PUBLIC_ASSISTANT_CONFIG = getPublicAssistantConfig(import.meta.env);
+const MODAL_FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 let msgSeq = 1;
 
 export function openAskAi() {
@@ -114,7 +94,7 @@ export function HeroGlobeActions() {
         icon={<Spark />}
         onClick={() => {
           openAskAi();
-          track("ask_ai_open", { source: "globe" });
+          track("ai_chat_open", { source: "globe" });
         }}
       >
         Ask AI
@@ -227,7 +207,7 @@ export function HelpSheet() {
             onClick={() => {
               setOpen(false);
               openAskAi();
-              track("ask_ai_open", { source: "help" });
+              track("ai_chat_open", { source: "help" });
             }}
           >
             <Spark />
@@ -245,73 +225,234 @@ export function HelpSheet() {
 export function AskAiChat() {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
-  const [typing, setTyping] = useState(false);
+  const [waiting, setWaiting] = useState(false);
+  const [supportNote, setSupportNote] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>(() => [
     {
       id: 0,
       from: "bot",
-      text: "Hi — I am BIT AI. I can point you to the right door. A person takes over when it matters.",
+      text: "Ask a general question. BIT AI uses approved public FAQ grounding; a person handles support.",
     },
   ]);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const timerRef = useRef<number | null>(null);
+  const panelRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const onOpen = () => setOpen(true);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
     window.addEventListener("bit-ask-ai", onOpen);
-    window.addEventListener("keydown", onKey);
     return () => {
       window.removeEventListener("bit-ask-ai", onOpen);
-      window.removeEventListener("keydown", onKey);
     };
   }, []);
 
   useEffect(() => {
     if (!open) return;
-    const id = window.setTimeout(() => inputRef.current?.focus(), 60);
-    return () => window.clearTimeout(id);
+    previousFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const focusId = window.setTimeout(() => {
+      if (PUBLIC_ASSISTANT_CONFIG.enabled) inputRef.current?.focus();
+      else closeButtonRef.current?.focus();
+    }, 0);
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setOpen(false);
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const panel = panelRef.current;
+      if (!panel) return;
+      const focusable = Array.from(panel.querySelectorAll<HTMLElement>(MODAL_FOCUSABLE)).filter(
+        (element) => element.tabIndex >= 0 && element.getAttribute("aria-hidden") !== "true",
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        panel.focus();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+      if (event.shiftKey && (active === first || !panel.contains(active))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (active === last || !panel.contains(active))) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(focusId);
+      window.removeEventListener("keydown", onKeyDown);
+      const previousFocus = previousFocusRef.current;
+      previousFocusRef.current = null;
+      if (previousFocus?.isConnected) previousFocus.focus();
+    };
   }, [open]);
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
-  }, [msgs, typing, open]);
-
-  useEffect(() => {
-    return () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-    };
-  }, []);
+  }, [msgs, waiting, open]);
 
   const push = (from: Msg["from"], text: string) => {
-    setMsgs((m) => [...m, { id: msgSeq++, from, text }]);
+    setMsgs((current) => [...current, { id: msgSeq++, from, text }]);
   };
 
-  const ask = (text: string) => {
+  const openHumanChat = async (source: string): Promise<boolean> => {
+    setSupportNote("");
+    try {
+      const opened = await openConfiguredChatwoot();
+      if (!opened) {
+        setSupportNote("Live chat is not configured here yet. Please call, WhatsApp, or email us.");
+        return false;
+      }
+      setOpen(false);
+      track("ai_chat_handoff_request", { source });
+      return true;
+    } catch {
+      setSupportNote("Live chat is unavailable right now. Please call, WhatsApp, or email us.");
+      return false;
+    }
+  };
+
+  const ask = async (text: string) => {
     const clean = text.trim();
-    if (!clean || typing) return;
+    if (!clean || waiting || !PUBLIC_ASSISTANT_CONFIG.enabled) return;
     push("you", clean);
-    setTyping(true);
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-    timerRef.current = window.setTimeout(() => {
-      push("bot", replyFor(clean));
-      setTyping(false);
-    }, 480);
-    track("ask_ai", { source: "widget" });
+    setWaiting(true);
+    setSupportNote("");
+    try {
+      if (wantsHumanSupport(clean)) {
+        const opened = await openHumanChat("ask-ai-explicit-human-request");
+        if (!opened) push("bot", "A person should handle this, but live chat could not be opened.");
+        return;
+      }
+      const result = await askPublicAssistant(clean);
+      push(
+        "bot",
+        result.kind === "answer" && result.mode === "faq"
+          ? `Live AI could not decide, so this is the verified FAQ fallback: ${result.text}`
+          : result.text,
+      );
+      if (result.kind === "handoff") {
+        const opened = await openHumanChat("ask-ai-backend-handoff");
+        if (!opened) push("bot", "Use one of the human support options below.");
+      }
+    } catch {
+      push("bot", "The verified AI service is unavailable. No answer was generated.");
+      const opened = await openHumanChat("ask-ai-request-error");
+      if (!opened) push("bot", "Use one of the human support options below.");
+    } finally {
+      setWaiting(false);
+    }
   };
 
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    ask(draft);
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    const question = draft;
     setDraft("");
+    void ask(question);
   };
 
-  const started = msgs.some((m) => m.from === "you");
+  const started = msgs.some((message) => message.from === "you");
 
   if (!open) return null;
+
+  if (!PUBLIC_ASSISTANT_CONFIG.enabled) {
+    return (
+      <div className="ask-ai ask-ai-open">
+        <button
+          type="button"
+          className="ask-ai-scrim"
+          aria-label="Close chat"
+          onClick={() => setOpen(false)}
+        />
+        <section
+          ref={panelRef}
+          className="ask-ai-panel help-panel"
+          role="dialog"
+          aria-label="AI support unavailable"
+          aria-modal="true"
+          tabIndex={-1}
+        >
+          <header className="ask-ai-head">
+            <div className="ask-ai-brand">
+              <span className="ask-ai-avatar" aria-hidden>
+                <img src="/images/bit-mark-official.png" alt="" width={22} height={22} />
+              </span>
+              <div>
+                <p className="ask-ai-kicker">BIT AI</p>
+                <p className="ask-ai-sub">Live AI is not active here yet</p>
+              </div>
+            </div>
+            <button
+              ref={closeButtonRef}
+              type="button"
+              className="ask-ai-close"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+            >
+              <X size={16} strokeWidth={2.25} />
+            </button>
+          </header>
+          <div className="help-body">
+            <p className="help-lead">
+              The server-side AI service is not configured for this website. No AI answer was
+              generated. Choose a human support option and do not send passwords, access codes,
+              payment details, or other secrets.
+            </p>
+            <button
+              type="button"
+              className="help-row"
+              onClick={() => void openHumanChat("ask-ai-disabled-explicit-human-request")}
+            >
+              <MessageCircle size={16} strokeWidth={2.1} />
+              <span>
+                <strong>Live chat</strong>
+                Talk to a person
+              </span>
+            </button>
+            {supportNote ? <p className="help-lead" role="status">{supportNote}</p> : null}
+            <a
+              href={SITE.whatsappHref}
+              className="help-row"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => track("whatsapp_click", { source: "ask-ai-fallback" })}
+            >
+              <MessageCircle size={16} strokeWidth={2.1} />
+              <span>
+                <strong>WhatsApp</strong>
+                {SITE.whatsappDisplay}
+              </span>
+            </a>
+            <a
+              href={SITE.phoneHref}
+              className="help-row callrail rTapNumber"
+              onClick={() => track("click_to_call", { source: "ask-ai-fallback" })}
+            >
+              <Phone size={16} strokeWidth={2.1} />
+              <span>
+                <strong>Call</strong>
+                {SITE.phoneDisplay}
+              </span>
+            </a>
+            <a href={`mailto:${SITE.supportEmail}`} className="help-row">
+              <Mail size={16} strokeWidth={2.1} />
+              <span>
+                <strong>Email support</strong>
+                {SITE.supportEmail}
+              </span>
+            </a>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="ask-ai ask-ai-open">
@@ -321,7 +462,14 @@ export function AskAiChat() {
         aria-label="Close chat"
         onClick={() => setOpen(false)}
       />
-      <section className="ask-ai-panel" role="dialog" aria-label="Ask BIT AI" aria-modal="true">
+      <section
+        ref={panelRef}
+        className="ask-ai-panel"
+        role="dialog"
+        aria-label="Ask BIT AI"
+        aria-modal="true"
+        tabIndex={-1}
+      >
         <header className="ask-ai-head">
           <div className="ask-ai-brand">
             <span className="ask-ai-avatar" aria-hidden>
@@ -329,38 +477,44 @@ export function AskAiChat() {
             </span>
             <div>
               <p className="ask-ai-kicker">BIT AI</p>
-              <p className="ask-ai-sub">
-                <span className="ask-ai-live" />
-                Online · a person when it matters
-              </p>
+              <p className="ask-ai-sub">FAQ-grounded AI · human handoff available</p>
             </div>
           </div>
-          <button type="button" className="ask-ai-close" onClick={() => setOpen(false)} aria-label="Close">
+          <button
+            ref={closeButtonRef}
+            type="button"
+            className="ask-ai-close"
+            onClick={() => setOpen(false)}
+            aria-label="Close"
+          >
             <X size={16} strokeWidth={2.25} />
           </button>
         </header>
 
-        <div className="ask-ai-log" ref={listRef}>
-          {msgs.map((m) =>
-            m.from === "bot" ? (
-              <div key={m.id} className="ask-ai-row ask-ai-row-bot">
+        <div className="ask-ai-log" ref={listRef} aria-live="polite">
+          {msgs.map((message) =>
+            message.from === "bot" ? (
+              <div key={message.id} className="ask-ai-row ask-ai-row-bot">
                 <span className="ask-ai-mini" aria-hidden>
                   <img src="/images/bit-mark-official.png" alt="" width={14} height={14} />
                 </span>
-                <p className="ask-ai-msg ask-ai-msg-bot">{m.text}</p>
+                <p className="ask-ai-msg ask-ai-msg-bot">{message.text}</p>
               </div>
             ) : (
-              <div key={m.id} className="ask-ai-row ask-ai-row-you">
-                <p className="ask-ai-msg ask-ai-msg-you">{m.text}</p>
+              <div key={message.id} className="ask-ai-row ask-ai-row-you">
+                <p className="ask-ai-msg ask-ai-msg-you">{message.text}</p>
               </div>
             ),
           )}
-          {typing ? (
+          {waiting ? (
             <div className="ask-ai-row ask-ai-row-bot">
               <span className="ask-ai-mini" aria-hidden>
                 <img src="/images/bit-mark-official.png" alt="" width={14} height={14} />
               </span>
-              <p className="ask-ai-msg ask-ai-msg-bot ask-ai-typing" aria-label="BIT AI is typing">
+              <p
+                className="ask-ai-msg ask-ai-msg-bot ask-ai-typing"
+                aria-label="Waiting for the verified assistant"
+              >
                 <i />
                 <i />
                 <i />
@@ -369,11 +523,13 @@ export function AskAiChat() {
           ) : null}
         </div>
 
+        {supportNote ? <p className="help-lead" role="status">{supportNote}</p> : null}
+
         {!started ? (
           <div className="ask-ai-chips" aria-label="Suggested questions">
-            {STARTERS.map((s) => (
-              <button key={s.id} type="button" onClick={() => ask(s.label)}>
-                {s.label}
+            {STARTERS.map((starter) => (
+              <button key={starter.id} type="button" onClick={() => void ask(starter.label)}>
+                {starter.label}
               </button>
             ))}
           </div>
@@ -387,23 +543,24 @@ export function AskAiChat() {
             id="ask-ai-input"
             ref={inputRef}
             value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder="Ask about software, hardware, AI…"
+            onChange={(event) => setDraft(event.target.value)}
+            placeholder="Ask a general question…"
             autoComplete="off"
+            maxLength={2000}
           />
-          <button type="submit" aria-label="Send" disabled={!draft.trim() || typing}>
+          <button type="submit" aria-label="Send" disabled={!draft.trim() || waiting}>
             <ArrowUp size={16} strokeWidth={2.4} />
           </button>
         </form>
 
         <footer className="ask-ai-foot">
-          <Link
-            to="/consult"
-            className="ask-ai-book"
-            onClick={() => track("book_consult_click", { source: "ask-ai" })}
+          <button
+            type="button"
+            className="ask-ai-book ask-ai-human"
+            onClick={() => void openHumanChat("ask-ai-explicit-human-button")}
           >
-            Book a consultation
-          </Link>
+            Chat with a person
+          </button>
           <span className="ask-ai-dot" aria-hidden>
             ·
           </span>

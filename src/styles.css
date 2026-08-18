@@ -1684,6 +1684,11 @@ svg {
 .ask-ai-call:hover {
   color: var(--color-link-hover);
 }
+.ask-ai-human {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
 .ask-ai-dot {
   color: var(--color-hairline);
 }
