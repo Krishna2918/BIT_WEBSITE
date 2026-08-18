@@ -2160,3 +2160,389 @@ svg {
     mask-image: none;
   }
 }
+
+/* Global readable type scale and shared footer. */
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+li,
+dd,
+dt,
+label,
+legend,
+input,
+select,
+textarea,
+button {
+  line-height: 1.62;
+}
+
+h1,
+h2,
+h3 {
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 6vw, 4.75rem);
+  line-height: 1.04;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3.8vw, 3rem);
+  line-height: 1.12;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  line-height: 1.25;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 1rem;
+}
+
+[class~="text-[11px]"],
+[class~="text-[12px]"] {
+  font-size: 0.875rem;
+}
+
+[class~="text-[13px]"] {
+  font-size: 0.9375rem;
+}
+
+[class~="text-[14px]"],
+[class~="text-[15px]"],
+[class~="text-[16px]"],
+[class~="text-[17px]"] {
+  font-size: 1rem;
+}
+
+.cover-card-kicker,
+.partner-field span,
+.cookie-consent-kicker,
+.industry-tools-label,
+.lp-kicker,
+.extra-kicker,
+.support-kicker,
+.office-kind,
+.gallery-tile span,
+.client-ticker > p {
+  font-size: 0.875rem !important;
+  line-height: 1.45;
+}
+
+.cover-card-meta p,
+.cover-card-meta span,
+.pillar-tile p,
+.pillar-tile span,
+.cookie-consent p:not(.cookie-consent-kicker),
+.industry-tools li,
+.industry-tool-row li,
+.consult-form label,
+.consult-form .form-fine,
+.consult-form .form-err,
+.lp-lede,
+.lp-grid p,
+.globe-btn-inner,
+.ask-ai-kicker,
+.ask-ai-msg,
+.ask-ai-form input,
+.help-lead,
+.help-row span,
+.help-row strong,
+.faq-item p,
+.quote-card blockquote,
+.support-card p:last-child,
+.office-list p,
+.gallery-lightbox strong,
+.gallery-lightbox em,
+.client-ticker li {
+  font-size: 1rem !important;
+  line-height: 1.6;
+}
+
+.help-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.help-row {
+  min-height: 2.75rem;
+}
+
+.globe-pin-copy strong,
+.globe-pin-copy em {
+  font-size: 0.9375rem;
+  line-height: 1.25;
+}
+
+.cookie-consent-actions button,
+.cta-book,
+.cta-ghost,
+.consult-form button[type="submit"],
+.cta-book--nav,
+.cta-ghost--nav,
+.lp-brand,
+.lp-phone,
+.lp-book,
+.lp-phone-btn,
+.gallery-filters button,
+.ask-ai-chips button,
+.ask-ai-book,
+.ask-ai-call {
+  font-size: 1rem;
+}
+
+.lp-grid h2,
+.lp-download h2,
+.lp-form-wrap h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  line-height: 1.18;
+}
+
+.compliance-bar {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.ask-ai-sub,
+.ask-ai-consent label,
+.ask-ai-consent p,
+.ask-ai-foot,
+.quote-card figcaption {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.site-footer {
+  background: var(--color-bg-muted);
+  color: #515154;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.site-footer-inner {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 1.25rem;
+}
+
+.site-footer-brand h2,
+.site-footer-sectors h2,
+.site-footer-nav h2 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.site-footer-brand > p {
+  max-width: 55rem;
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  line-height: 1.62;
+}
+
+.site-footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1rem;
+  font-style: normal;
+}
+
+.site-footer-contact > a,
+.site-footer-contact > span {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-ink);
+  font-size: 1rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.site-footer-contact a:hover,
+.site-footer-contact a:focus-visible {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer-nav,
+.site-footer-sectors,
+.site-footer-legal {
+  border-top: 1px solid var(--color-hairline);
+}
+
+.site-footer-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.site-footer-nav ul,
+.site-footer-sectors ul {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-footer-nav li + li {
+  margin-top: 0.15rem;
+}
+
+.site-footer-nav a,
+.site-footer-sectors a,
+.site-footer-legal a,
+.site-footer-legal button {
+  color: #454548;
+  font-size: 1rem;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.site-footer-nav a,
+.site-footer-sectors a {
+  display: flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.site-footer-nav a:hover,
+.site-footer-nav a:focus-visible,
+.site-footer-sectors a:hover,
+.site-footer-sectors a:focus-visible,
+.site-footer-legal a:hover,
+.site-footer-legal a:focus-visible,
+.site-footer-legal button:hover,
+.site-footer-legal button:focus-visible {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer-sectors {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.site-footer-sectors ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.site-footer-sectors a {
+  min-width: 0;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #c8c8cc;
+  border-radius: 0.7rem;
+  background: #fff;
+  overflow-wrap: anywhere;
+}
+
+.site-footer-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.site-footer-legal > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+
+.site-footer-legal button {
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+@media (min-width: 520px) {
+  .site-footer-nav,
+  .site-footer-sectors ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.125rem;
+    line-height: 1.62;
+  }
+
+  [class~="text-[16px]"],
+  [class~="text-[17px]"] {
+    font-size: 1.125rem;
+  }
+
+  .cover-card-meta p,
+  .pillar-tile p,
+  .cookie-consent p:not(.cookie-consent-kicker),
+  .lp-lede,
+  .lp-grid p,
+  .faq-item p,
+  .quote-card blockquote,
+  .support-card p:last-child,
+  .office-list p {
+    font-size: 1.125rem !important;
+  }
+
+  .site-footer-inner {
+    padding: 2.25rem 1.5rem 1.5rem;
+  }
+
+  .site-footer-brand h2,
+  .site-footer-sectors h2,
+  .site-footer-nav h2 {
+    font-size: 1.125rem;
+  }
+
+  .site-footer-brand > p,
+  .site-footer-contact > a,
+  .site-footer-contact > span,
+  .site-footer-nav a,
+  .site-footer-sectors a,
+  .site-footer-legal a,
+  .site-footer-legal button {
+    font-size: 1rem;
+  }
+
+  .site-footer-nav {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .site-footer-sectors ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .site-footer-legal {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

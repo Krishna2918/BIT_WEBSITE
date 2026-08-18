@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
+import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { INDUSTRIES } from "@/data/industries";
 import { SITE } from "@/lib/site";
 import { openConsentPreferences } from "@/lib/consent";
 
 const COLS = [
   {
-    title: "Explore",
+    title: "Core services",
     links: [
       { to: "/software", label: "Software" },
       { to: "/hardware", label: "Hardware" },
@@ -14,7 +15,7 @@ const COLS = [
     ],
   },
   {
-    title: "Also",
+    title: "Business services",
     links: [
       { to: "/digital-marketing", label: "Digital marketing" },
       { to: "/procurement", label: "Procurement" },
@@ -34,86 +35,79 @@ const COLS = [
   },
   {
     title: "Contact",
-    links: [
-      { to: "/consult", label: "Book consultation" },
-      { to: "/privacy", label: "Privacy" },
-    ],
+    links: [{ to: "/consult", label: "Book consultation" }],
   },
 ] as const;
 
 export function SiteFooter() {
   return (
-    <footer className="bg-bg-muted text-muted">
-      <div className="mx-auto max-w-5xl px-5 py-12">
-        <p className="mb-3 text-[13px] font-medium text-ink">
-          Intelligent Infrastructure, Custom B2B Software & AI Workflows —
-          Under One Flag.
-        </p>
-        <p className="mb-2 text-[12px] leading-5">
-          <a className="callrail rTapNumber text-ink no-underline" href={SITE.phoneHref}>
-            {SITE.phoneDisplay}
-          </a>
-          {" · "}
-          <a
-            className="text-ink no-underline"
-            href={SITE.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp
-          </a>
-          {" · "}
-          <a className="text-ink no-underline" href={`mailto:${SITE.email}`}>
-            {SITE.email}
-          </a>
-          {" · "}
-          {SITE.address}
-        </p>
-        <p className="mb-8 text-[12px] leading-5">
-          Your ONE stop IT solution. BIT Solution connects software, hardware,
-          AI, security, digital marketing, procurement, and VoIP for every
-          sector we cover — across all of Ontario, from Brampton HQ.
-        </p>
-        <div className="grid grid-cols-2 gap-8 border-t border-hairline pt-8 sm:grid-cols-4">
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        <section className="site-footer-brand" aria-labelledby="footer-value-heading">
+          <h2 id="footer-value-heading">
+            Intelligent Infrastructure, Custom B2B Software & AI Workflows — Under One Flag.
+          </h2>
+          <p>
+            Your ONE stop IT solution. BIT Solution connects software, hardware, AI,
+            security, digital marketing, procurement, and VoIP across Ontario from
+            Brampton HQ.
+          </p>
+          <address className="site-footer-contact" aria-label="BIT Solution contact details">
+            <a className="callrail rTapNumber" href={SITE.phoneHref}>
+              <Phone aria-hidden="true" size={18} />
+              <span>{SITE.phoneDisplay}</span>
+            </a>
+            <a href={SITE.whatsappHref} target="_blank" rel="noreferrer">
+              <MessageCircle aria-hidden="true" size={18} />
+              <span>WhatsApp</span>
+            </a>
+            <a href={`mailto:${SITE.email}`}>
+              <Mail aria-hidden="true" size={18} />
+              <span>{SITE.email}</span>
+            </a>
+            <span>
+              <MapPin aria-hidden="true" size={18} />
+              <span>{SITE.address}</span>
+            </span>
+          </address>
+        </section>
+
+        <nav className="site-footer-nav" aria-label="Footer navigation">
           {COLS.map((col) => (
-            <div key={col.title}>
-              <h3 className="mb-2 text-[12px] font-semibold text-ink">{col.title}</h3>
-              <ul className="space-y-1.5">
+            <section key={col.title}>
+              <h2>{col.title}</h2>
+              <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="text-[12px] text-muted no-underline hover:underline"
-                    >
-                      {l.label}
-                    </Link>
+                    <Link to={l.to}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
           ))}
-        </div>
-        <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 border-t border-hairline pt-6">
-          {INDUSTRIES.map((item) => (
-            <Link
-              key={item.slug}
-              to="/industries/$slug"
-              params={{ slug: item.slug }}
-              className="text-[12px] text-muted no-underline hover:underline"
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-        <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 text-[11px] text-muted">
+        </nav>
+
+        <section className="site-footer-sectors" aria-labelledby="footer-sectors-heading">
+          <h2 id="footer-sectors-heading">Sectors</h2>
+          <ul>
+            {INDUSTRIES.map((item) => (
+              <li key={item.slug}>
+                <Link to="/industries/$slug" params={{ slug: item.slug }}>
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <div className="site-footer-legal">
           <span>Copyright © {new Date().getFullYear()} BIT Solution. All rights reserved.</span>
-          <button
-            type="button"
-            className="text-link underline underline-offset-2"
-            onClick={openConsentPreferences}
-          >
-            Cookie preferences
-          </button>
+          <div>
+            <Link to="/privacy">Privacy</Link>
+            <button type="button" onClick={openConsentPreferences}>
+              Cookie preferences
+            </button>
+          </div>
         </div>
       </div>
     </footer>

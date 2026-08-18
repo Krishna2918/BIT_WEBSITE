@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
-import { openConsentPreferences } from "@/lib/consent";
+import { SiteFooter } from "@/components/site/site-footer";
 
 export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
   return (
@@ -31,28 +31,5 @@ export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
 }
 
 export function LpFooter() {
-  return (
-    <footer className="lp-foot">
-      <p>
-        {SITE.name} · {SITE.address}
-      </p>
-      <p>
-        <a className="callrail rTapNumber" href={SITE.phoneHref}>
-          {SITE.phoneDisplay}
-        </a>
-        {" · "}
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-        {" · "}
-        <Link to="/privacy">Privacy</Link>
-        {" · "}
-        <button type="button" onClick={openConsentPreferences}>
-          Cookie preferences
-        </button>
-      </p>
-      <p className="lp-fine">
-        {SITE.positioning} No testimonials or performance claims are shown here
-        that we cannot verify.
-      </p>
-    </footer>
-  );
+  return <SiteFooter />;
 }

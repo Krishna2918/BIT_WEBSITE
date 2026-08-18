@@ -13,7 +13,7 @@ const LINKS = [
 ] as const;
 
 const linkClass =
-  "text-[13px] tracking-[0.01em] text-nav-muted no-underline transition-colors duration-150 hover:text-white";
+  "text-[16px] tracking-[0.01em] text-nav-muted no-underline transition-colors duration-150 hover:text-white";
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
@@ -31,7 +31,7 @@ export function SiteNav() {
             alt=""
             className="h-6 w-6 object-contain"
           />
-          <span className="text-[12px] font-semibold tracking-[0.14em] text-white">
+          <span className="hidden text-[15px] font-semibold tracking-[0.12em] text-white sm:inline sm:text-[16px]">
             BIT SOLUTION
           </span>
         </Link>
@@ -87,7 +87,7 @@ export function SiteNav() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="flex h-12 items-center text-[15px] text-white no-underline"
+                className="flex h-12 items-center text-[16px] text-white no-underline"
                 onClick={() => setOpen(false)}
               >
                 {l.label}

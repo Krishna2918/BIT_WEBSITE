@@ -34,6 +34,23 @@ const searchable = (await walk(output)).filter((path) => /\.(?:css|html|js|json|
 let combined = "";
 for (const path of searchable) combined += `\n/* ${relative(output, path)} */\n${await readFile(path, "utf8")}`;
 
+const iconRoot = join(output, "static", "brand-icons");
+const iconPaths = [
+  "bit-mark-v20260818.svg",
+  "bit-mark-v20260818-16.png",
+  "bit-mark-v20260818-32.png",
+  "bit-mark-v20260818-48.png",
+  "bit-mark-v20260818.ico",
+  "bit-mark-v20260818-180.png",
+  "bit-mark-v20260818-192.png",
+  "bit-mark-v20260818-512.png",
+];
+for (const name of iconPaths) {
+  assert.equal(await stat(join(iconRoot, name)).then((item) => item.isFile()), true, `${name} must exist`);
+}
+await assert.rejects(stat(join(output, "static", "favicon.svg")), { code: "ENOENT" });
+assert.equal(await stat(join(output, "static", "site-v20260818.webmanifest")).then((item) => item.isFile()), true);
+
 assert.match(combined, /method_not_allowed/);
 assert.match(combined, /delivery_not_configured/);
 assert.match(combined, /Live AI is not configured/);
@@ -44,6 +61,10 @@ assert.doesNotMatch(
 );
 assert.doesNotMatch(combined, /app-builder\/extensions\.js|external-builder/i);
 assert.doesNotMatch(combined, /hostingersite\.com/i);
+assert.doesNotMatch(combined, /href:\s*["']\/favicon\.svg["']/i);
+assert.match(combined, /bit-mark-v20260818\.svg/);
+assert.match(combined, /bit-mark-v20260818-180\.png/);
+assert.match(combined, /site-v20260818\.webmanifest/);
 
 console.log(
   JSON.stringify({
@@ -52,6 +73,8 @@ console.log(
     serverFunction: "functions/__server.func/index.mjs",
     searchedFiles: searchable.length,
     externalBuilderReferences: 0,
+    verifiedBrandIcons: iconPaths.length,
+    legacyFaviconPresent: false,
     measurementActivation: "verified by rendered-response smoke with empty preview IDs",
   }),
 );

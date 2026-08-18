@@ -67,7 +67,34 @@ export const Route = createRootRoute({
         : []),
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      {
+        rel: "icon",
+        type: "image/svg+xml",
+        href: "/brand-icons/bit-mark-v20260818.svg",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/brand-icons/bit-mark-v20260818-32.png",
+      },
+      {
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/brand-icons/bit-mark-v20260818-16.png",
+      },
+      {
+        rel: "shortcut icon",
+        type: "image/x-icon",
+        href: "/brand-icons/bit-mark-v20260818.ico",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/brand-icons/bit-mark-v20260818-180.png",
+      },
+      { rel: "manifest", href: "/site-v20260818.webmanifest" },
       { rel: "stylesheet", href: appCss },
     ],
     scripts: [
