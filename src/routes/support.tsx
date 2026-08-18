@@ -3,18 +3,11 @@ import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 import { ContactActions } from "@/components/site/contact-actions";
 
+import { pageHead } from "@/lib/seo";
+
 export const Route = createFileRoute("/support")({
   component: SupportPage,
-  head: () => ({
-    meta: [
-      { title: "Support — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "24/7 BIT Solution support across Ontario. Call or WhatsApp +1 905-867-6574. Ticket desk coming.",
-      },
-    ],
-  }),
+  head: () => pageHead("/support"),
 });
 
 function SupportPage() {

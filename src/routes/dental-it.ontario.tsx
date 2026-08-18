@@ -4,21 +4,11 @@ import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
+import { pageHead } from "@/lib/seo";
+
 export const Route = createFileRoute("/dental-it/ontario")({
   component: DentalOntario,
-  head: () => ({
-    meta: [
-      { title: "Ontario Dental IT — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "Clinic software, private servers, cameras, and 24/7 help for Ontario dental practices. Book a consultation with BIT Solution.",
-      },
-      { property: "og:title", content: "Ontario Dental IT — BIT Solution" },
-      { name: "robots", content: "index,follow" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE.url}/dental-it/ontario` }],
-  }),
+  head: () => pageHead("/dental-it/ontario"),
 });
 
 function DentalOntario() {

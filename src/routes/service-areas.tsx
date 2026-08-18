@@ -1,19 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { OFFICES } from "@/data/locations";
 import { ContactActions } from "@/components/site/contact-actions";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/service-areas")({
   component: ServiceAreasPage,
-  head: () => ({
-    meta: [
-      { title: "Service areas — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "BIT Solution covers all of Ontario from Brampton HQ, with offices in Ottawa, Kitchener, Brantford, Montreal, and Australia.",
-      },
-    ],
-  }),
+  head: () => pageHead("/service-areas"),
 });
 
 function ServiceAreasPage() {

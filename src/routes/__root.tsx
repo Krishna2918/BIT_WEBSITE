@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site/site-footer";
 import { TrackingHooks } from "@/components/site/tracking";
 import { AskAiChat, HelpSheet } from "@/components/site/ask-ai";
 import { SITE } from "@/lib/site";
+import { organizationJsonLd, robotsContent } from "@/lib/seo";
 import appCss from "../styles.css?url";
 
 const APP_NAME = "BIT Solution";
@@ -51,6 +52,7 @@ export const Route = createRootRoute({
       },
       { name: "apple-mobile-web-app-title", content: APP_NAME },
       { name: "theme-color", content: "#161617" },
+      { name: "robots", content: robotsContent() },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: APP_NAME },
@@ -64,10 +66,6 @@ export const Route = createRootRoute({
     ],
     links: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@500;600;700&display=swap",
-      },
       { rel: "stylesheet", href: appCss },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
@@ -75,23 +73,7 @@ export const Route = createRootRoute({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          name: SITE.name,
-          telephone: SITE.phoneTel,
-          email: SITE.email,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "373 Steeles Ave W",
-            addressLocality: "Brampton",
-            addressRegion: "ON",
-            postalCode: "L6Y 0P8",
-            addressCountry: "CA",
-          },
-          url: SITE.url,
-          description: SITE.positioning,
-        }),
+        children: JSON.stringify(organizationJsonLd()),
       },
     ],
   }),

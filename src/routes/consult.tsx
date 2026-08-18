@@ -3,19 +3,11 @@ import { ConsultForm } from "@/components/site/consult-form";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
+import { pageHead } from "@/lib/seo";
+
 export const Route = createFileRoute("/consult")({
   component: ConsultPage,
-  head: () => ({
-    meta: [
-      { title: "Book a consultation — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "Book a consultation with BIT Solution. Intelligent infrastructure across all of Ontario. Call or WhatsApp +1 905-867-6574.",
-      },
-      { name: "robots", content: "index,follow" },
-    ],
-  }),
+  head: () => pageHead("/consult"),
 });
 
 function ConsultPage() {

@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 type Search = { intent?: string };
 
@@ -8,12 +9,7 @@ export const Route = createFileRoute("/thank-you")({
     intent: typeof s.intent === "string" ? s.intent : undefined,
   }),
   component: ThankYou,
-  head: () => ({
-    meta: [
-      { title: "Request received — BIT Solution" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  head: () => pageHead("/thank-you"),
 });
 
 function ThankYou() {

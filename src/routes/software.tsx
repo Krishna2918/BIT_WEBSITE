@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/software")({ component: SoftwarePage });
+export const Route = createFileRoute("/software")({
+  component: SoftwarePage,
+  head: () => pageHead("/software"),
+});
 
 const PRODUCTS = [
   { name: "Fleet", line: "Run the road side of the business." },

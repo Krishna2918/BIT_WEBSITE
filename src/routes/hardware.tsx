@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/hardware")({ component: HardwarePage });
+export const Route = createFileRoute("/hardware")({
+  component: HardwarePage,
+  head: () => pageHead("/hardware"),
+});
 
 const ITEMS = [
   { name: "Cameras", line: "Eyes on site.", image: "/images/home/camera.jpg" },

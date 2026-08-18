@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { IndustryPage } from "@/components/site/industry-page";
 import { getIndustry } from "@/data/industries";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/industries/$slug")({
   loader: ({ params }) => {
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/industries/$slug")({
   },
   component: IndustryRoute,
   notFoundComponent: MissingIndustry,
+  head: ({ loaderData }) => pageHead(`/industries/${loaderData?.slug ?? ""}`),
 });
 
 function IndustryRoute() {

@@ -24,6 +24,8 @@ const COLS = [
   {
     title: "Company",
     links: [
+      { to: "/about-us", label: "About" },
+      { to: "/solutions", label: "Solutions" },
       { to: "/service-areas", label: "Service areas" },
       { to: "/insights", label: "Insights" },
       { to: "/gallery", label: "Gallery" },
@@ -36,6 +38,7 @@ const COLS = [
     links: [
       { to: "/consult", label: "Book consultation" },
       { to: "/privacy", label: "Privacy" },
+      { to: "/accessibility-statement", label: "Accessibility" },
     ],
   },
 ] as const;

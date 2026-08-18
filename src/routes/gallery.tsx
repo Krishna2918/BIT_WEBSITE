@@ -1,19 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { GALLERY } from "@/data/gallery";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/gallery")({
   component: GalleryPage,
-  head: () => ({
-    meta: [
-      { title: "Gallery — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "Floors BIT Solution walks: hardware, sectors, and the desk — across Ontario.",
-      },
-    ],
-  }),
+  head: () => pageHead("/gallery"),
 });
 
 function GalleryPage() {

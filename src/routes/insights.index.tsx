@@ -1,18 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { INSIGHTS } from "@/data/insights";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/")({
   component: InsightsIndex,
-  head: () => ({
-    meta: [
-      { title: "Insights — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "Notes from BIT Solution on cloud, backup, managed IT, and security for Ontario businesses.",
-      },
-    ],
-  }),
+  head: () => pageHead("/insights"),
 });
 
 function InsightsIndex() {

@@ -1,0 +1,2 @@
+# Place legacy WordPress uploads here so /wp-content/uploads/* keeps working.
+# Website Manager copies original media; this repo does not fetch the live site.

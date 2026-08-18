@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { INDUSTRIES } from "@/data/industries";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/industries/")({
   component: IndustriesIndex,
+  head: () => pageHead("/industries"),
 });
 
 function IndustriesIndex() {

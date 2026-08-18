@@ -4,21 +4,11 @@ import { LpFooter, LpHeader } from "@/components/site/lp-chrome";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
+import { pageHead } from "@/lib/seo";
+
 export const Route = createFileRoute("/fleet-operations/ontario")({
   component: FleetOntario,
-  head: () => ({
-    meta: [
-      { title: "Ontario Fleet Operations IT — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "Dispatch, telematics, cameras, and private servers for Ontario commercial fleets. Book a consultation with BIT Solution in Brampton.",
-      },
-      { property: "og:title", content: "Ontario Fleet Operations IT — BIT Solution" },
-      { name: "robots", content: "index,follow" },
-    ],
-    links: [{ rel: "canonical", href: `${SITE.url}/fleet-operations/ontario` }],
-  }),
+  head: () => pageHead("/fleet-operations/ontario"),
 });
 
 function FleetOntario() {

@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getInsight } from "@/data/insights";
 import { ContactActions } from "@/components/site/contact-actions";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/insights/$slug")({
   component: InsightPage,
@@ -9,12 +10,7 @@ export const Route = createFileRoute("/insights/$slug")({
     if (!item) throw notFound();
     return item;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData?.title ?? "Insight"} — BIT Solution` },
-      { name: "description", content: loaderData?.excerpt ?? "" },
-    ],
-  }),
+  head: ({ loaderData }) => pageHead(`/insights/${loaderData?.slug ?? ""}`),
 });
 
 function InsightPage() {

@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/security")({ component: SecurityPage });
+export const Route = createFileRoute("/security")({
+  component: SecurityPage,
+  head: () => pageHead("/security"),
+});
 
 const BEATS = [
   { n: "01", title: "Watches around the clock" },

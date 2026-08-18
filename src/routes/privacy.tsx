@@ -1,18 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
-  head: () => ({
-    meta: [
-      { title: "Privacy notice — BIT Solution" },
-      {
-        name: "description",
-        content:
-          "How BIT Solution collects and uses consultation information under PIPEDA and CASL.",
-      },
-    ],
-  }),
+  head: () => pageHead("/privacy"),
 });
 
 function PrivacyPage() {

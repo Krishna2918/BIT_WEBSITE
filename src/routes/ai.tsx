@@ -1,6 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/ai")({ component: AiPage });
+export const Route = createFileRoute("/ai")({
+  component: AiPage,
+  head: () => pageHead("/ai"),
+});
 
 const BEATS = [
   { n: "01", title: "Help that is always on", note: "Available now" },

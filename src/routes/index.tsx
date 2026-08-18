@@ -11,8 +11,12 @@ import { FAQS } from "@/data/faqs";
 import { INSIGHTS } from "@/data/insights";
 import { GALLERY_HOME } from "@/data/gallery";
 import { SITE } from "@/lib/site";
+import { pageHead } from "@/lib/seo";
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute("/")({
+  component: Home,
+  head: () => pageHead("/"),
+});
 
 const PILLARS = [
   {
@@ -66,19 +70,19 @@ function Home() {
     <main>
       <section className="hero-frame">
         <div className="relative z-10 px-5 pb-8 pt-8 text-center sm:pb-10 sm:pt-12">
-          <h1 className="hero-lockup">
+          <p className="hero-lockup">
             <img
               className="hero-official"
               src="/images/bit-lockup-official.png"
-              alt="BIT Solution — Delivering your technology solutions"
+              alt=""
               width={1914}
               height={383}
             />
-          </h1>
-          <p className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] text-ink sm:text-[20px]">
+          </p>
+          <h1 className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] text-ink sm:text-[20px]">
             Intelligent Infrastructure, Custom B2B Software & AI Workflows —
             Under One Flag.
-          </p>
+          </h1>
           <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug text-muted sm:text-[17px]">
             Your ONE stop IT solution. Across all of Ontario — from Brampton HQ
             to every site we run.
