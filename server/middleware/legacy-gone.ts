@@ -11,8 +11,6 @@ const GONE_PATHS = new Set([
   "/metform-form/ad-form",
   "/metform-form/contact-form",
   "/metform-form/servies",
-  "/consult/continue",
-  "/thank-you",
 ]);
 
 const GONE_HOME_QUERY_KEYS = new Set(["elementskit_template", "wpr_templates"]);

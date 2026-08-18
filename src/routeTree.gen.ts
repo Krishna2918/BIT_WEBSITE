@@ -30,10 +30,12 @@ import { Route as ServiceAreasRouteImport } from './routes/service-areas'
 import { Route as SoftwareRouteImport } from './routes/software'
 import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as SupportRouteImport } from './routes/support'
+import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025RouteImport } from './routes/top-7-cyber-security-solutions-every-business-needs-in-2025'
 import { Route as VoipRouteImport } from './routes/voip'
 import { Route as ApiAssistantRouteImport } from './routes/api/assistant'
 import { Route as ApiConsultRouteImport } from './routes/api/consult'
+import { Route as ConsultContinueRouteImport } from './routes/consult_.continue'
 import { Route as DentalItOntarioRouteImport } from './routes/dental-it.ontario'
 import { Route as FleetOperationsOntarioRouteImport } from './routes/fleet-operations.ontario'
 import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
@@ -150,6 +152,11 @@ const SupportRoute = SupportRouteImport.update({
   path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThankYouRoute = ThankYouRouteImport.update({
+  id: '/thank-you',
+  path: '/thank-you',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route =
   Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025RouteImport.update({
     id: '/top-7-cyber-security-solutions-every-business-needs-in-2025',
@@ -169,6 +176,11 @@ const ApiAssistantRoute = ApiAssistantRouteImport.update({
 const ApiConsultRoute = ApiConsultRouteImport.update({
   id: '/api/consult',
   path: '/api/consult',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConsultContinueRoute = ConsultContinueRouteImport.update({
+  id: '/consult_/continue',
+  path: '/consult/continue',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DentalItOntarioRoute = DentalItOntarioRouteImport.update({
@@ -224,10 +236,12 @@ export interface FileRoutesByFullPath {
   '/software': typeof SoftwareRoute
   '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -257,10 +271,12 @@ export interface FileRoutesByTo {
   '/software': typeof SoftwareRoute
   '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -291,10 +307,12 @@ export interface FileRoutesById {
   '/software': typeof SoftwareRoute
   '/solutions': typeof SolutionsRoute
   '/support': typeof SupportRoute
+  '/thank-you': typeof ThankYouRoute
   '/top-7-cyber-security-solutions-every-business-needs-in-2025': typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   '/voip': typeof VoipRoute
   '/api/assistant': typeof ApiAssistantRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult_/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -326,10 +344,12 @@ export interface FileRouteTypes {
     | '/software'
     | '/solutions'
     | '/support'
+    | '/thank-you'
     | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
+    | '/consult/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -359,10 +379,12 @@ export interface FileRouteTypes {
     | '/software'
     | '/solutions'
     | '/support'
+    | '/thank-you'
     | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
+    | '/consult/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -392,10 +414,12 @@ export interface FileRouteTypes {
     | '/software'
     | '/solutions'
     | '/support'
+    | '/thank-you'
     | '/top-7-cyber-security-solutions-every-business-needs-in-2025'
     | '/voip'
     | '/api/assistant'
     | '/api/consult'
+    | '/consult_/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -426,10 +450,12 @@ export interface RootRouteChildren {
   SoftwareRoute: typeof SoftwareRoute
   SolutionsRoute: typeof SolutionsRoute
   SupportRoute: typeof SupportRoute
+  ThankYouRoute: typeof ThankYouRoute
   Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route: typeof Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route
   VoipRoute: typeof VoipRoute
   ApiAssistantRoute: typeof ApiAssistantRoute
   ApiConsultRoute: typeof ApiConsultRoute
+  ConsultContinueRoute: typeof ConsultContinueRoute
   DentalItOntarioRoute: typeof DentalItOntarioRoute
   FleetOperationsOntarioRoute: typeof FleetOperationsOntarioRoute
   IndustriesSlugRoute: typeof IndustriesSlugRoute
@@ -587,6 +613,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/thank-you': {
+      id: '/thank-you'
+      path: '/thank-you'
+      fullPath: '/thank-you'
+      preLoaderRoute: typeof ThankYouRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/top-7-cyber-security-solutions-every-business-needs-in-2025': {
       id: '/top-7-cyber-security-solutions-every-business-needs-in-2025'
       path: '/top-7-cyber-security-solutions-every-business-needs-in-2025'
@@ -613,6 +646,13 @@ declare module '@tanstack/react-router' {
       path: '/api/consult'
       fullPath: '/api/consult'
       preLoaderRoute: typeof ApiConsultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/consult_/continue': {
+      id: '/consult_/continue'
+      path: '/consult/continue'
+      fullPath: '/consult/continue'
+      preLoaderRoute: typeof ConsultContinueRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dental-it/ontario': {
@@ -685,11 +725,13 @@ const rootRouteChildren: RootRouteChildren = {
   SoftwareRoute: SoftwareRoute,
   SolutionsRoute: SolutionsRoute,
   SupportRoute: SupportRoute,
+  ThankYouRoute: ThankYouRoute,
   Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route:
     Top7CyberSecuritySolutionsEveryBusinessNeedsIn2025Route,
   VoipRoute: VoipRoute,
   ApiAssistantRoute: ApiAssistantRoute,
   ApiConsultRoute: ApiConsultRoute,
+  ConsultContinueRoute: ConsultContinueRoute,
   DentalItOntarioRoute: DentalItOntarioRoute,
   FleetOperationsOntarioRoute: FleetOperationsOntarioRoute,
   IndustriesSlugRoute: IndustriesSlugRoute,

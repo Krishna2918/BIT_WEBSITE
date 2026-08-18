@@ -1,22 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { handlePublicAssistantRequest } from "@/lib/public-assistant.server";
 
-const gone = () =>
+const methodNotAllowed = () =>
   Response.json(
-    { ok: false, error: "gone" },
+    { status: "handoff", answer: "Method not allowed." },
     {
-      status: 410,
-      headers: {
-        "Cache-Control": "no-store",
-        "X-Robots-Tag": "noindex, nofollow, noarchive",
-      },
+      status: 405,
+      headers: { Allow: "POST", "Cache-Control": "no-store" },
     },
   );
 
 export const Route = createFileRoute("/api/assistant")({
   server: {
     handlers: {
-      GET: gone,
-      POST: gone,
+      GET: methodNotAllowed,
+      POST: ({ request }) => handlePublicAssistantRequest(request),
     },
   },
 });

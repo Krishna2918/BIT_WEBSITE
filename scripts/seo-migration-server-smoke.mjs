@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 
 delete process.env.VITE_SITE_INDEXABLE;
 const { default: server } = await import("../.vercel/output/functions/__server.func/index.mjs");
@@ -29,23 +28,6 @@ for (const [path, marker, canonical] of preserved) {
   }
 }
 
-const sitemap = await readFile(new URL("../public/sitemap.xml", import.meta.url), "utf8");
-const sitemapPaths = [...sitemap.matchAll(/<loc>https:\/\/bitsolution\.ca([^<]*)<\/loc>/g)].map(
-  (match) => match[1] || "/",
-);
-assert.equal(sitemapPaths.length, 49);
-for (const path of sitemapPaths) {
-  const response = await fetchLocal(path);
-  const body = await response.text();
-  assert.equal(response.status, 200, path);
-  assert.doesNotMatch(body, /<(?:form|input|textarea|select)\b/i, path);
-  assert.doesNotMatch(
-    body,
-    /mailto:|wa\.me|info@bitsolution\.ca|support@bitsolution\.ca|Chatwoot|Turnstile|FORM_AI|CRM_ADAPTER|googletagmanager|google-analytics|clarity\.ms|callrail/i,
-    path,
-  );
-}
-
 const gone = [
   "/sample-page/",
   "/404-2/",
@@ -58,8 +40,6 @@ const gone = [
   "/?wpr_templates=user-footer-footer",
   "/?wpr_templates=user-header-header",
   "/?wpr_templates=user-single-single",
-  "/consult/continue",
-  "/thank-you",
 ];
 for (const path of gone) {
   const response = await fetchLocal(path);
@@ -68,38 +48,9 @@ for (const path of gone) {
   assert.match(await response.text(), /<h1>Content removed<\/h1>/);
 }
 
-for (const path of ["/api/consult", "/api/assistant"]) {
-  for (const method of ["GET", "POST"]) {
-    const response = await server.fetch(
-      new Request(`https://preview.invalid${path}`, {
-        method,
-        headers: { "content-type": "application/json" },
-        body: method === "POST" ? JSON.stringify({ should_not_be_read: true }) : undefined,
-      }),
-      {},
-    );
-    assert.equal(response.status, 410, `${method} ${path}`);
-    assert.equal(response.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
-    assert.equal(response.headers.get("cache-control"), "no-store");
-    assert.deepEqual(await response.json(), { ok: false, error: "gone" });
-  }
-}
-
-process.env.VITE_SITE_INDEXABLE = "1";
-const productionIndexing = await server.fetch(new Request("https://bitsolution.ca/privacy"), {});
-const wwwIndexing = await server.fetch(new Request("https://www.bitsolution.ca/privacy"), {});
-const previewIndexing = await server.fetch(new Request("https://candidate.vercel.app/privacy"), {});
-assert.equal(productionIndexing.headers.get("x-robots-tag"), "index, follow");
-assert.equal(wwwIndexing.headers.get("x-robots-tag"), "index, follow");
-assert.equal(previewIndexing.headers.get("x-robots-tag"), "noindex, nofollow, noarchive");
-delete process.env.VITE_SITE_INDEXABLE;
-
 console.log(JSON.stringify({
   status: "PASS",
   preserve200Assertions: preserved.length * 2 - 1,
   gone410Assertions: gone.length,
-  apiGoneAssertions: 4,
-  sitemapPhoneOnlyAssertions: sitemapPaths.length,
-  exactHostIndexingAssertions: 3,
   previewIndexing: "noindex,nofollow,noarchive",
 }));

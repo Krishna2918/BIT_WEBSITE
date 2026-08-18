@@ -1,6 +1,9 @@
 import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
+import { TrackingHooks } from "@/components/site/tracking";
+import { CookieConsent } from "@/components/site/cookie-consent";
+import { AskAiChat, HelpSheet } from "@/components/site/ask-ai";
 import { SITE, SITE_INDEXABLE } from "@/lib/site";
 import appCss from "../styles.css?url";
 
@@ -14,6 +17,8 @@ function RootChrome() {
     path.startsWith("/fleet-operations") || path.startsWith("/dental-it");
   return (
     <>
+      <TrackingHooks />
+      <CookieConsent />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -26,6 +31,8 @@ function RootChrome() {
             <Outlet />
           </div>
           <SiteFooter />
+          <HelpSheet />
+          <AskAiChat />
         </>
       )}
     </>
@@ -71,6 +78,7 @@ export const Route = createRootRoute({
           "@type": "ProfessionalService",
           name: SITE.name,
           telephone: SITE.phoneTel,
+          email: SITE.email,
           address: {
             "@type": "PostalAddress",
             streetAddress: "373 Steeles Ave W",

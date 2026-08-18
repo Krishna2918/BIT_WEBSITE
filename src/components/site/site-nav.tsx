@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
+import { track } from "@/lib/tracking";
 
 const LINKS = [
   { to: "/software", label: "Software" },
@@ -53,16 +54,21 @@ export function SiteNav() {
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           <a
             href={SITE.phoneHref}
-            className="nav-phone cta-ghost cta-ghost--nav"
+            className="nav-phone cta-ghost cta-ghost--nav callrail rTapNumber"
+            onClick={() => track("click_to_call", { source: "nav" })}
           >
             {SITE.phoneDisplay}
           </a>
-          <a
-            href={SITE.phoneHref}
+          <Link
+            to="/consult"
             className="cta-book cta-book--nav"
+            onClick={() => {
+              setOpen(false);
+              track("book_consult_click", { source: "nav" });
+            }}
           >
-            Call now
-          </a>
+            Book consultation
+          </Link>
           <button
             type="button"
             className="inline-flex h-12 w-11 items-center justify-center text-nav-fg lg:hidden"
@@ -90,16 +96,20 @@ export function SiteNav() {
             <div className="cta-pair justify-start py-3">
               <a
                 href={SITE.phoneHref}
-                className="cta-ghost cta-ghost--nav"
+                className="cta-ghost cta-ghost--nav callrail rTapNumber"
               >
                 {SITE.phoneDisplay}
               </a>
-              <a
-                href={SITE.phoneHref}
+              <Link
+                to="/consult"
                 className="cta-book"
+                onClick={() => {
+                  setOpen(false);
+                  track("book_consult_click", { source: "nav-mobile" });
+                }}
               >
-                Call now
-              </a>
+                Book consultation
+              </Link>
             </div>
           </nav>
         </div>

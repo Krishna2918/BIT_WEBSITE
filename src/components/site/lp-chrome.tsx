@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
+import { track } from "@/lib/tracking";
+import { openConsentPreferences } from "@/lib/consent";
 
-export function LpHeader() {
+export function LpHeader({ consultTo = "/consult" }: { consultTo?: string }) {
   return (
     <header className="lp-bar">
       <Link to="/" className="lp-brand" aria-label="BIT Solution home">
@@ -10,16 +12,18 @@ export function LpHeader() {
       </Link>
       <div className="lp-actions">
         <a
-          className="lp-phone"
+          className="lp-phone callrail rTapNumber"
           href={SITE.phoneHref}
+          onClick={() => track("click_to_call", { source: "lp-header" })}
         >
           {SITE.phoneDisplay}
         </a>
         <a
           className="lp-book"
-          href={SITE.phoneHref}
+          href={consultTo}
+          onClick={() => track("book_consult_click", { source: "lp-header" })}
         >
-          Call now
+          Book consultation
         </a>
       </div>
     </header>
@@ -33,11 +37,17 @@ export function LpFooter() {
         {SITE.name} · {SITE.address}
       </p>
       <p>
-        <a href={SITE.phoneHref}>
+        <a className="callrail rTapNumber" href={SITE.phoneHref}>
           {SITE.phoneDisplay}
         </a>
         {" · "}
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        {" · "}
         <Link to="/privacy">Privacy</Link>
+        {" · "}
+        <button type="button" onClick={openConsentPreferences}>
+          Cookie preferences
+        </button>
       </p>
       <p className="lp-fine">
         {SITE.positioning} No testimonials or performance claims are shown here
