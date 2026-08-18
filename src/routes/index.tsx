@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type ComponentType } from "react";
-import { CoverReel } from "@/components/site/cover-reel";
 import { HeroGlobeActions } from "@/components/site/ask-ai";
 import { ContactActions } from "@/components/site/contact-actions";
 import { GalleryGrid } from "@/components/site/gallery-grid";
@@ -116,8 +115,6 @@ function Home() {
           </div>
         </div>
       </section>
-
-      <CoverReel />
 
       <section id="gallery" className="border-t border-hairline bg-bg px-5 py-16">
         <div className="mx-auto max-w-5xl">

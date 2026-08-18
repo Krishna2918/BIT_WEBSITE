@@ -92,7 +92,7 @@ test("verified FAQ grounding precedes exact Luna Gateway decision", async () => 
       return "ANSWER";
     },
   });
-  assert.equal(faqRequest.input, "https://livechat.bitsolution.ca/v1/public/assistant");
+  assert.equal(faqRequest.input, "https://ai.bitsolution.ca/v1/public/assistant");
   assert.equal(faqRequest.init.headers.Origin, "https://bitsolution.ca");
   assert.notEqual(faqRequest.init.headers.Origin, request("ignored").headers.get("origin"));
   assert.equal(modelRequest.model, "openai/gpt-5.6-luna");
@@ -102,6 +102,51 @@ test("verified FAQ grounding precedes exact Luna Gateway decision", async () => 
     status: 200,
     body: { status: "answer", mode: "ai", answer: "Verified FAQ answer." },
   });
+});
+
+test("server-only assistant URL accepts the approved endpoint and rejects arbitrary or private origins", async () => {
+  let called = false;
+  for (const publicAssistantUrl of [
+    "https://example.com/v1/public/assistant",
+    "http://127.0.0.1/v1/public/assistant",
+    "https://ai.bitsolution.ca/private",
+    "https://ai.bitsolution.ca/v1/public/assistant?target=other",
+  ]) {
+    const response = await handlePublicAssistantRequest(
+      request("What services do you offer?", {
+        "X-Vercel-Forwarded-For": `203.0.113.${60 + Number(called)}`,
+      }),
+      {
+        environment: { ...enabledEnvironment, BIT_PUBLIC_ASSISTANT_URL: publicAssistantUrl },
+        fetchImplementation: async () => {
+          called = true;
+          throw new Error("must not run");
+        },
+      },
+    );
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).status, "handoff");
+  }
+  assert.equal(called, false);
+
+  let approvedInput;
+  const approved = await handlePublicAssistantRequest(
+    request("What services do you offer?", {
+      "X-Vercel-Forwarded-For": "203.0.113.70",
+    }),
+    {
+      environment: {
+        ...enabledEnvironment,
+        BIT_PUBLIC_ASSISTANT_URL: "https://ai.bitsolution.ca/v1/public/assistant",
+      },
+      fetchImplementation: async (input) => {
+        approvedInput = input;
+        return new Response(JSON.stringify({ status: "handoff", answer: "Use human support." }));
+      },
+    },
+  );
+  assert.equal(approved.status, 200);
+  assert.equal(approvedInput, "https://ai.bitsolution.ca/v1/public/assistant");
 });
 
 test("contact, secret, human, and cross-origin inputs fail to handoff without upstream work", async () => {

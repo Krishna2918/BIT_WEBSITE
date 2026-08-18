@@ -35,6 +35,10 @@ test("tracked defaults contain no Chatwoot token or browser-side AI secret", asy
   assert.match(template, /^VITE_CHATWOOT_WEBSITE_TOKEN=$/mu);
   assert.match(template, /^BIT_PUBLIC_AI_ENABLED=false$/mu);
   assert.match(template, /^BIT_PUBLIC_AI_MODEL=openai\/gpt-5\.6-luna$/mu);
+  assert.match(
+    template,
+    /^BIT_PUBLIC_ASSISTANT_URL=https:\/\/ai\.bitsolution\.ca\/v1\/public\/assistant$/mu,
+  );
   assert.match(template, /^AI_GATEWAY_API_KEY=$/mu);
   assert.doesNotMatch(template, /^VITE_.*(?:SECRET|API_KEY)=.+$/mu);
 });

@@ -1,7 +1,9 @@
 import { generateText } from "ai";
 
 const PUBLIC_SOURCE = "bitsolution-homepage";
-const FAQ_ENDPOINT = "https://livechat.bitsolution.ca/v1/public/assistant";
+const DEFAULT_PUBLIC_ASSISTANT_URL = "https://ai.bitsolution.ca/v1/public/assistant";
+const APPROVED_PUBLIC_ASSISTANT_ORIGIN = "https://ai.bitsolution.ca";
+const APPROVED_PUBLIC_ASSISTANT_PATH = "/v1/public/assistant";
 const APPROVED_GROUNDING_ORIGIN = "https://bitsolution.ca";
 export const PUBLIC_AI_MODEL = "openai/gpt-5.6-luna";
 
@@ -22,7 +24,13 @@ const CONTACT_OR_SENSITIVE_INPUT =
 type RateLimitBucket = { count: number; windowStartedAt: number };
 const rateLimitBuckets = new Map<string, RateLimitBucket>();
 type Environment = Record<string, string | undefined>;
-type ServerConfig = { enabled: false } | { enabled: true; model: typeof PUBLIC_AI_MODEL };
+type ServerConfig =
+  | { enabled: false }
+  | {
+      enabled: true;
+      model: typeof PUBLIC_AI_MODEL;
+      publicAssistantUrl: string;
+    };
 
 export type GatewayGenerationRequest = {
   model: typeof PUBLIC_AI_MODEL;
@@ -43,6 +51,28 @@ function readEnvironment(environment: Environment, name: string): string {
   return typeof environment[name] === "string" ? environment[name]!.trim() : "";
 }
 
+function resolvePublicAssistantUrl(environment: Environment): string | undefined {
+  const configured = readEnvironment(environment, "BIT_PUBLIC_ASSISTANT_URL");
+  const candidate = configured || DEFAULT_PUBLIC_ASSISTANT_URL;
+  try {
+    const url = new URL(candidate);
+    if (
+      url.protocol !== "https:" ||
+      url.origin !== APPROVED_PUBLIC_ASSISTANT_ORIGIN ||
+      url.pathname !== APPROVED_PUBLIC_ASSISTANT_PATH ||
+      url.search ||
+      url.hash ||
+      url.username ||
+      url.password
+    ) {
+      return undefined;
+    }
+    return url.href;
+  } catch {
+    return undefined;
+  }
+}
+
 export function getPublicAssistantServerConfig(
   environment: Environment = process.env,
 ): ServerConfig {
@@ -61,7 +91,9 @@ export function getPublicAssistantServerConfig(
   ) {
     return { enabled: false };
   }
-  return { enabled: true, model: PUBLIC_AI_MODEL };
+  const publicAssistantUrl = resolvePublicAssistantUrl(environment);
+  if (!publicAssistantUrl) return { enabled: false };
+  return { enabled: true, model: PUBLIC_AI_MODEL, publicAssistantUrl };
 }
 
 function json(
@@ -144,11 +176,12 @@ async function readMessage(request: Request): Promise<string | undefined> {
 async function getFaqGrounding(
   message: string,
   fetchImplementation: typeof fetch,
+  publicAssistantUrl: string,
 ): Promise<GroundingResult> {
   const controller = new AbortController();
   const timeoutId = globalThis.setTimeout(() => controller.abort(), FAQ_TIMEOUT_MS);
   try {
-    const response = await fetchImplementation(FAQ_ENDPOINT, {
+    const response = await fetchImplementation(publicAssistantUrl, {
       method: "POST",
       credentials: "omit",
       headers: {
@@ -244,7 +277,11 @@ export async function handlePublicAssistantRequest(
   }
   let grounding: GroundingResult;
   try {
-    grounding = await getFaqGrounding(message, dependencies.fetchImplementation ?? fetch);
+    grounding = await getFaqGrounding(
+      message,
+      dependencies.fetchImplementation ?? fetch,
+      config.publicAssistantUrl,
+    );
   } catch {
     return handoff(
       "The verified public information service is unavailable. Please use human support.",
