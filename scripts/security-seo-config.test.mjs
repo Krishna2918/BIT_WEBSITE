@@ -45,6 +45,11 @@ test("public pages use only local system font stacks", async () => {
   assert.doesNotMatch(publicFontSource, /fonts\.googleapis\.com|fonts\.gstatic\.com/i);
   assert.doesNotMatch(publicFontSource, /Michroma|Orbitron|Bank Gothic|Eurostile Extended/i);
   assert.match(styles, /--font-mark: "Segoe UI Variable Display", "Segoe UI", Arial, sans-serif;/);
+  for (const family of ["archivo", "dmsans", "ibmplexsans", "poppins", "roboto"]) {
+    const css = await read(`public/wp-content/uploads/elementor/google-fonts/css/${family}.css`);
+    assert.match(css, /Legacy compatibility stylesheet/u);
+    assert.doesNotMatch(css, /https?:\/\/|hostingersite\.com|@font-face|url\(/iu);
+  }
 });
 
 test("legacy redirects use exact 301s and have no duplicate source", async () => {

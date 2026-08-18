@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = resolve(new URL("..", import.meta.url).pathname.replace(/^\/(?:([A-Za-z]:))/, "$1"));
+const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const output = join(root, ".vercel", "output");
 const serverFunction = join(output, "functions", "__server.func");
 
@@ -42,6 +43,7 @@ assert.doesNotMatch(
   /VITE_(?:AI_GATEWAY_API_KEY|VERCEL_OIDC_TOKEN|BIT_PUBLIC_AI_ENABLED|BIT_PUBLIC_AI_MODEL)/i,
 );
 assert.doesNotMatch(combined, /app-builder\/extensions\.js|external-builder/i);
+assert.doesNotMatch(combined, /hostingersite\.com/i);
 
 console.log(
   JSON.stringify({

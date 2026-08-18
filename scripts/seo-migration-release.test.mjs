@@ -114,18 +114,25 @@ test("robots and canonical sitemap preserve policy without redirected or gone en
   assert.match(rootRoute, /"@type": "ProfessionalService"/);
 });
 
-test("all 233 linked WordPress media resources are materialized byte-for-byte", async () => {
+test("all 233 linked WordPress media paths remain materialized with source evidence and runtime hashes", async () => {
   const inventoryBytes = await read("docs/seo-legacy-media-inventory-2026-08-18.json", null);
   const inventory = JSON.parse(inventoryBytes.toString("utf8"));
+  const runtime = JSON.parse(await read("docs/seo-runtime-media-inventory-2026-08-18.json"));
   assert.equal(sha256(inventoryBytes), "C4265233C215AE66BBAD41C40CC6B7EDBCE4437C12C4016CC3F4F6880168DF33");
   assert.equal(inventory.media_count, 233);
   assert.equal(inventory.media.reduce((sum, item) => sum + item.bytes, 0), 24_981_741);
+  assert.equal(runtime.source_inventory_sha256, sha256(inventoryBytes));
+  assert.equal(runtime.runtime_media_count, 233);
+  assert.equal(runtime.unchanged_count, 228);
+  assert.equal(runtime.transformed_count, 5);
   for (const item of inventory.media) {
     const pathname = decodeURIComponent(new URL(item.path, inventory.source_origin).pathname).replace(/^\/+/, "");
+    const runtimeItem = runtime.media.find((entry) => entry.path === item.path);
+    assert.ok(runtimeItem, item.path);
     for (const prefix of ["public", ".vercel/output/static"]) {
       const bytes = await read(`${prefix}/${pathname}`, null);
-      assert.equal(bytes.length, item.bytes, `${prefix}/${pathname}`);
-      assert.equal(sha256(bytes), item.sha256, `${prefix}/${pathname}`);
+      assert.equal(bytes.length, runtimeItem.runtime_bytes, `${prefix}/${pathname}`);
+      assert.equal(sha256(bytes), runtimeItem.runtime_sha256, `${prefix}/${pathname}`);
     }
   }
 });

@@ -1,0 +1,1876 @@
+{
+  "schema": "bit.website.runtime-media-inventory:v1",
+  "source_inventory_path": "docs/seo-legacy-media-inventory-2026-08-18.json",
+  "source_inventory_sha256": "C4265233C215AE66BBAD41C40CC6B7EDBCE4437C12C4016CC3F4F6880168DF33",
+  "source_media_count": 233,
+  "runtime_media_count": 233,
+  "unchanged_count": 228,
+  "transformed_count": 5,
+  "transformation": "Five legacy Elementor font CSS resources retain their exact public paths but contain a local system-font compatibility notice, preventing external Hostinger font requests. The immutable source inventory remains preserved separately.",
+  "media": [
+    {
+      "path": "/wp-content/uploads/2025/05/cropped-logo-dark-180x180.png",
+      "source_bytes": 6946,
+      "source_sha256": "650CC322CFE8B7F5627B1F25E7F4861A597B07AA9EFCCF0CDB5E1C0A25D4C390",
+      "runtime_bytes": 6946,
+      "runtime_sha256": "650CC322CFE8B7F5627B1F25E7F4861A597B07AA9EFCCF0CDB5E1C0A25D4C390",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/cropped-logo-dark-192x192.png",
+      "source_bytes": 5494,
+      "source_sha256": "4EAA9F8CBD172A5F8228AAADB5A37058FD77492C3A2865EB9EA2ABFCEF2531C0",
+      "runtime_bytes": 5494,
+      "runtime_sha256": "4EAA9F8CBD172A5F8228AAADB5A37058FD77492C3A2865EB9EA2ABFCEF2531C0",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/cropped-logo-dark-32x32.png",
+      "source_bytes": 1227,
+      "source_sha256": "3A502A9A0C7F5184F637C95DFB8F0A678576D35299202AC4F871420C4E33EF67",
+      "runtime_bytes": 1227,
+      "runtime_sha256": "3A502A9A0C7F5184F637C95DFB8F0A678576D35299202AC4F871420C4E33EF67",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/group-of-happy-business-people-working-as-a-team-at-the-office-on-meeting--1024x682.jpg",
+      "source_bytes": 98031,
+      "source_sha256": "41F0CEAB40BA59A9BB6ECBCD556AF4005009354F40D775F76E468BE39D3BF0FC",
+      "runtime_bytes": 98031,
+      "runtime_sha256": "41F0CEAB40BA59A9BB6ECBCD556AF4005009354F40D775F76E468BE39D3BF0FC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/group-of-happy-business-people-working-as-a-team-at-the-office-on-meeting--1536x1024.jpg",
+      "source_bytes": 178901,
+      "source_sha256": "01B5C7D5D3649BF93D481E38A5BAABC2C0F538ED9AB4BC53D84F324D019894CF",
+      "runtime_bytes": 178901,
+      "runtime_sha256": "01B5C7D5D3649BF93D481E38A5BAABC2C0F538ED9AB4BC53D84F324D019894CF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/group-of-happy-business-people-working-as-a-team-at-the-office-on-meeting--300x200.jpg",
+      "source_bytes": 16905,
+      "source_sha256": "61BF3A8DE3C712BBB36C27FE225CC41AC9F432BDCADE069CA79C71B437847A2D",
+      "runtime_bytes": 16905,
+      "runtime_sha256": "61BF3A8DE3C712BBB36C27FE225CC41AC9F432BDCADE069CA79C71B437847A2D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/group-of-happy-business-people-working-as-a-team-at-the-office-on-meeting--768x512.jpg",
+      "source_bytes": 64255,
+      "source_sha256": "37DB9A465734B34B6C350CB50E8436037A31CC057E34924C18BAAD21D9BA6571",
+      "runtime_bytes": 64255,
+      "runtime_sha256": "37DB9A465734B34B6C350CB50E8436037A31CC057E34924C18BAAD21D9BA6571",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/group-of-happy-business-people-working-as-a-team-at-the-office-on-meeting-.jpg",
+      "source_bytes": 351325,
+      "source_sha256": "0CCF5E1BD7DF0D864C97180154F21206E48E97DA400D8E75052451BF6725031B",
+      "runtime_bytes": 351325,
+      "runtime_sha256": "0CCF5E1BD7DF0D864C97180154F21206E48E97DA400D8E75052451BF6725031B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/logo-dark-1.svg",
+      "source_bytes": 10341,
+      "source_sha256": "A209E32EB70CD8389904F453FE550F300A2CB27662E9FB6608366707DF695E8C",
+      "runtime_bytes": 10341,
+      "runtime_sha256": "A209E32EB70CD8389904F453FE550F300A2CB27662E9FB6608366707DF695E8C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/logo-light.svg",
+      "source_bytes": 10338,
+      "source_sha256": "C868EFB2485B4ECFA653188B8B757298550421BF83281E4E4144AB387A5195B4",
+      "runtime_bytes": 10338,
+      "runtime_sha256": "C868EFB2485B4ECFA653188B8B757298550421BF83281E4E4144AB387A5195B4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi1-150x150.jpg",
+      "source_bytes": 4832,
+      "source_sha256": "4D95C6E67395E5DDEF8FFB28923488FFBD5BF8AB82C8DEA56F35A85365FCD6C2",
+      "runtime_bytes": 4832,
+      "runtime_sha256": "4D95C6E67395E5DDEF8FFB28923488FFBD5BF8AB82C8DEA56F35A85365FCD6C2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi1-300x300.jpg",
+      "source_bytes": 12361,
+      "source_sha256": "9889A3152C61AEB9DDC909BB096ED6434AF6E73D481AEB143761B687DCC77F20",
+      "runtime_bytes": 12361,
+      "runtime_sha256": "9889A3152C61AEB9DDC909BB096ED6434AF6E73D481AEB143761B687DCC77F20",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi1-768x768.jpg",
+      "source_bytes": 53626,
+      "source_sha256": "F31225F04C351C80F87FE948C68E730A9E42AAFB719D799C38A457D7A64F6862",
+      "runtime_bytes": 53626,
+      "runtime_sha256": "F31225F04C351C80F87FE948C68E730A9E42AAFB719D799C38A457D7A64F6862",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi1.jpg",
+      "source_bytes": 74240,
+      "source_sha256": "78F4A9A580645F6A79BEA0668C7CCBA91E061AFA99EBFF99D5E797F4F121A8CD",
+      "runtime_bytes": 74240,
+      "runtime_sha256": "78F4A9A580645F6A79BEA0668C7CCBA91E061AFA99EBFF99D5E797F4F121A8CD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi3-150x150.jpg",
+      "source_bytes": 6450,
+      "source_sha256": "2C7F33042B7B6BA163B8007E56C77457C903D48478381EA604B46606F5CAD5E6",
+      "runtime_bytes": 6450,
+      "runtime_sha256": "2C7F33042B7B6BA163B8007E56C77457C903D48478381EA604B46606F5CAD5E6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi3-300x300.jpg",
+      "source_bytes": 17391,
+      "source_sha256": "E37FA0906F49C5BB02778698AEB53C446B0441FBF18965B1C4A8620EECD0C0D8",
+      "runtime_bytes": 17391,
+      "runtime_sha256": "E37FA0906F49C5BB02778698AEB53C446B0441FBF18965B1C4A8620EECD0C0D8",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi3-768x768.jpg",
+      "source_bytes": 71187,
+      "source_sha256": "B8FBBC750BA4E38DD87EF9FB86161982DF19B3BC6011A04AD00EE097ABC39FFB",
+      "runtime_bytes": 71187,
+      "runtime_sha256": "B8FBBC750BA4E38DD87EF9FB86161982DF19B3BC6011A04AD00EE097ABC39FFB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/testi3.jpg",
+      "source_bytes": 99987,
+      "source_sha256": "AE1DC65AF4D710ED83CF00FF8F859F9596B16A4336DE02774D4335B8302B40CE",
+      "runtime_bytes": 99987,
+      "runtime_sha256": "AE1DC65AF4D710ED83CF00FF8F859F9596B16A4336DE02774D4335B8302B40CE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-5-150x150.jpg",
+      "source_bytes": 5681,
+      "source_sha256": "42361F969019708C675F7A0E66311CDD5EAAA0FB729848C00F6143D269993AD7",
+      "runtime_bytes": 5681,
+      "runtime_sha256": "42361F969019708C675F7A0E66311CDD5EAAA0FB729848C00F6143D269993AD7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-5-300x300.jpg",
+      "source_bytes": 16167,
+      "source_sha256": "FFD21CBAA29DA75816B2B6BFDBCC621A99E731F2E270391059683D48DDDD5D15",
+      "runtime_bytes": 16167,
+      "runtime_sha256": "FFD21CBAA29DA75816B2B6BFDBCC621A99E731F2E270391059683D48DDDD5D15",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-5-768x768.jpg",
+      "source_bytes": 74519,
+      "source_sha256": "109FF3542E985E64C683F7859D089F1361BE97D20166C725CAB356AC508EF515",
+      "runtime_bytes": 74519,
+      "runtime_sha256": "109FF3542E985E64C683F7859D089F1361BE97D20166C725CAB356AC508EF515",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-5.jpg",
+      "source_bytes": 104222,
+      "source_sha256": "4CDD8CA7A657DCED78A3019CF00653CE642A11AAEA2B2A5BDFC6777212541F2F",
+      "runtime_bytes": 104222,
+      "runtime_sha256": "4CDD8CA7A657DCED78A3019CF00653CE642A11AAEA2B2A5BDFC6777212541F2F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-6-1-150x150.jpg",
+      "source_bytes": 4712,
+      "source_sha256": "432762052031C9A851CB013CF7371E72D324C337FEFBADAD8D42280581C27E00",
+      "runtime_bytes": 4712,
+      "runtime_sha256": "432762052031C9A851CB013CF7371E72D324C337FEFBADAD8D42280581C27E00",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-6-1-300x300.jpg",
+      "source_bytes": 15335,
+      "source_sha256": "53476B2C2775A8B3DEF768CD8158A3E0D2EF1597F8EF203E94412D87201912B2",
+      "runtime_bytes": 15335,
+      "runtime_sha256": "53476B2C2775A8B3DEF768CD8158A3E0D2EF1597F8EF203E94412D87201912B2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-6-1-768x768.jpg",
+      "source_bytes": 74558,
+      "source_sha256": "6AAE27B8843FE82446698886A0864ED6246E95983A720A5DE281161D7F1A8939",
+      "runtime_bytes": 74558,
+      "runtime_sha256": "6AAE27B8843FE82446698886A0864ED6246E95983A720A5DE281161D7F1A8939",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-6-1.jpg",
+      "source_bytes": 109331,
+      "source_sha256": "B8A25FDC545C4F532C1117B369EC0E2630D5ED735C86261EF4605709626C08F0",
+      "runtime_bytes": 109331,
+      "runtime_sha256": "B8A25FDC545C4F532C1117B369EC0E2630D5ED735C86261EF4605709626C08F0",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-8-150x150.jpg",
+      "source_bytes": 3814,
+      "source_sha256": "38B08DBFD2CADC38096B21DD1BDD26BFEA20BE596E3B2FDABCDB5F7E4714B434",
+      "runtime_bytes": 3814,
+      "runtime_sha256": "38B08DBFD2CADC38096B21DD1BDD26BFEA20BE596E3B2FDABCDB5F7E4714B434",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-8-300x300.jpg",
+      "source_bytes": 9815,
+      "source_sha256": "15AE7165A927F6EA5D38963C224F71A2E846063A22BAB476849EB690682918E9",
+      "runtime_bytes": 9815,
+      "runtime_sha256": "15AE7165A927F6EA5D38963C224F71A2E846063A22BAB476849EB690682918E9",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-8-768x768.jpg",
+      "source_bytes": 43219,
+      "source_sha256": "27F9904E5EED8B953A855BD05B4412D2C074570AFFC2FAC78185569900EC07BE",
+      "runtime_bytes": 43219,
+      "runtime_sha256": "27F9904E5EED8B953A855BD05B4412D2C074570AFFC2FAC78185569900EC07BE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user-8.jpg",
+      "source_bytes": 59653,
+      "source_sha256": "78D3D8D48C1AFB9B43CC00FA90E6A514CAA02D778A635DB537582CB9F1C78374",
+      "runtime_bytes": 59653,
+      "runtime_sha256": "78D3D8D48C1AFB9B43CC00FA90E6A514CAA02D778A635DB537582CB9F1C78374",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user4-150x150.jpg",
+      "source_bytes": 4851,
+      "source_sha256": "6B422DA4CC8442EC2F20BC9DC211545E7CBCB78A12B35960C63F86F03FE17418",
+      "runtime_bytes": 4851,
+      "runtime_sha256": "6B422DA4CC8442EC2F20BC9DC211545E7CBCB78A12B35960C63F86F03FE17418",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user4-300x300.jpg",
+      "source_bytes": 12552,
+      "source_sha256": "81F250AE4172777D930DA6423B482A264144540565EB6AFC6A3166831461F302",
+      "runtime_bytes": 12552,
+      "runtime_sha256": "81F250AE4172777D930DA6423B482A264144540565EB6AFC6A3166831461F302",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user4-768x768.jpg",
+      "source_bytes": 51733,
+      "source_sha256": "A5ED363FCCF0968AA0C99B6C2C0B5B4565E658D555684F20DC6AC5C502CEB9ED",
+      "runtime_bytes": 51733,
+      "runtime_sha256": "A5ED363FCCF0968AA0C99B6C2C0B5B4565E658D555684F20DC6AC5C502CEB9ED",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/05/user4.jpg",
+      "source_bytes": 70653,
+      "source_sha256": "E84DB7BE0A99354C381BD1F7CD774D30C3A86A9F9DF7F30510533E62C87A6B7B",
+      "runtime_bytes": 70653,
+      "runtime_sha256": "E84DB7BE0A99354C381BD1F7CD774D30C3A86A9F9DF7F30510533E62C87A6B7B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/1-1024x336.jpg",
+      "source_bytes": 25197,
+      "source_sha256": "05A0236C55D413609A6561532380EE9D502C07276943E64D6A1EF86A777C3C67",
+      "runtime_bytes": 25197,
+      "runtime_sha256": "05A0236C55D413609A6561532380EE9D502C07276943E64D6A1EF86A777C3C67",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/1-1536x504.jpg",
+      "source_bytes": 44594,
+      "source_sha256": "B965A4DE0A0C3515B4D438FA58F982FF1D9048232826BF0583EE228FB7051616",
+      "runtime_bytes": 44594,
+      "runtime_sha256": "B965A4DE0A0C3515B4D438FA58F982FF1D9048232826BF0583EE228FB7051616",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/1-2048x672.jpg",
+      "source_bytes": 68399,
+      "source_sha256": "9BE3F0A97E2E66938774193860504ADD0685F1683BAD4955F3DD02B7E29C1162",
+      "runtime_bytes": 68399,
+      "runtime_sha256": "9BE3F0A97E2E66938774193860504ADD0685F1683BAD4955F3DD02B7E29C1162",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/1-300x98.jpg",
+      "source_bytes": 5997,
+      "source_sha256": "B05D5430118125A5697B171DB7A4B61294309530EABD4D6831F54C04E437D380",
+      "runtime_bytes": 5997,
+      "runtime_sha256": "B05D5430118125A5697B171DB7A4B61294309530EABD4D6831F54C04E437D380",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/1-768x252.jpg",
+      "source_bytes": 17325,
+      "source_sha256": "F86B268AB9C27A36A503C35BBE0AC3FD646A6A641F74D77E013421F34F804B12",
+      "runtime_bytes": 17325,
+      "runtime_sha256": "F86B268AB9C27A36A503C35BBE0AC3FD646A6A641F74D77E013421F34F804B12",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/10-1024x336.jpg",
+      "source_bytes": 25251,
+      "source_sha256": "3F5BD4385D05D9EA5B249E66AAB737DB01F47772D50EE3CF167EE4003182111A",
+      "runtime_bytes": 25251,
+      "runtime_sha256": "3F5BD4385D05D9EA5B249E66AAB737DB01F47772D50EE3CF167EE4003182111A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/10-1536x504.jpg",
+      "source_bytes": 42924,
+      "source_sha256": "749EC5A5CE1F1FE2A58EA2BDE2B39748EF81C7FC05D1008FDD5BDD5C70684F16",
+      "runtime_bytes": 42924,
+      "runtime_sha256": "749EC5A5CE1F1FE2A58EA2BDE2B39748EF81C7FC05D1008FDD5BDD5C70684F16",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/10-2048x672.jpg",
+      "source_bytes": 61527,
+      "source_sha256": "FB560F7DEEA81E4A483EAE3F4B1658482588AA2D064FEF3AEC06759DAE088B68",
+      "runtime_bytes": 61527,
+      "runtime_sha256": "FB560F7DEEA81E4A483EAE3F4B1658482588AA2D064FEF3AEC06759DAE088B68",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/10-300x98.jpg",
+      "source_bytes": 6480,
+      "source_sha256": "DADD770B4BE92467514F314837713094BBBC08E37EEDD2390C9D763D34FBB878",
+      "runtime_bytes": 6480,
+      "runtime_sha256": "DADD770B4BE92467514F314837713094BBBC08E37EEDD2390C9D763D34FBB878",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/10-768x252.jpg",
+      "source_bytes": 18962,
+      "source_sha256": "ABAC005D9F16978EE8A14B6B34A83A6FF7B069881BAFE021B9279641CAF39AB4",
+      "runtime_bytes": 18962,
+      "runtime_sha256": "ABAC005D9F16978EE8A14B6B34A83A6FF7B069881BAFE021B9279641CAF39AB4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/11-1024x336.jpg",
+      "source_bytes": 19602,
+      "source_sha256": "2B89F5F9DF4CF4B6B90E2C8484332C1A7B956BB896891591C415FA0165B126B6",
+      "runtime_bytes": 19602,
+      "runtime_sha256": "2B89F5F9DF4CF4B6B90E2C8484332C1A7B956BB896891591C415FA0165B126B6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/11-1536x504.jpg",
+      "source_bytes": 32210,
+      "source_sha256": "24054EE3CA73D7780F4963979463A86FB622FE65819FF954DB5B206441DFB031",
+      "runtime_bytes": 32210,
+      "runtime_sha256": "24054EE3CA73D7780F4963979463A86FB622FE65819FF954DB5B206441DFB031",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/11-2048x672.jpg",
+      "source_bytes": 49638,
+      "source_sha256": "B254ACCC5C79444BD3F791C70496F6AE4D1F4F7215228DC2F25CF32D966042EF",
+      "runtime_bytes": 49638,
+      "runtime_sha256": "B254ACCC5C79444BD3F791C70496F6AE4D1F4F7215228DC2F25CF32D966042EF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/11-300x98.jpg",
+      "source_bytes": 5816,
+      "source_sha256": "3B62756EF4C8D2189CB6033C6A443B37622869D29FD042C0E70DC2626F7891CC",
+      "runtime_bytes": 5816,
+      "runtime_sha256": "3B62756EF4C8D2189CB6033C6A443B37622869D29FD042C0E70DC2626F7891CC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/11-768x252.jpg",
+      "source_bytes": 14469,
+      "source_sha256": "A6BFAA14585E31139F0E4865C70DB327A516CC0F2F4B2C916036A0485217BBA7",
+      "runtime_bytes": 14469,
+      "runtime_sha256": "A6BFAA14585E31139F0E4865C70DB327A516CC0F2F4B2C916036A0485217BBA7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/12-1024x336.jpg",
+      "source_bytes": 30827,
+      "source_sha256": "B5AEAD9ECD372307E5754A94F136CB3A94B3D47693B836F73C8B77F9DAE1C212",
+      "runtime_bytes": 30827,
+      "runtime_sha256": "B5AEAD9ECD372307E5754A94F136CB3A94B3D47693B836F73C8B77F9DAE1C212",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/12-1536x504.jpg",
+      "source_bytes": 53534,
+      "source_sha256": "F9BA9FCE5C5924B74E4BDCED8F4CA5EE15726B0BE69B32FD64B5666CF7B5AF6E",
+      "runtime_bytes": 53534,
+      "runtime_sha256": "F9BA9FCE5C5924B74E4BDCED8F4CA5EE15726B0BE69B32FD64B5666CF7B5AF6E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/12-2048x672.jpg",
+      "source_bytes": 79041,
+      "source_sha256": "7FC0A27AFDFFDBF7E30E16A9FEB0F237B023DED31899C54F69EDBF31A3BE8B47",
+      "runtime_bytes": 79041,
+      "runtime_sha256": "7FC0A27AFDFFDBF7E30E16A9FEB0F237B023DED31899C54F69EDBF31A3BE8B47",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/12-300x98.jpg",
+      "source_bytes": 6877,
+      "source_sha256": "2C97CEAD53BB0916BF063FB11E1F7091A13ECCBD8498360A5AEEAFD0EB968DE1",
+      "runtime_bytes": 6877,
+      "runtime_sha256": "2C97CEAD53BB0916BF063FB11E1F7091A13ECCBD8498360A5AEEAFD0EB968DE1",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/12-768x252.jpg",
+      "source_bytes": 21816,
+      "source_sha256": "F96E6DF73517239C0105AFDE84067B7605F55955847C39D34BAC395D2C487E7A",
+      "runtime_bytes": 21816,
+      "runtime_sha256": "F96E6DF73517239C0105AFDE84067B7605F55955847C39D34BAC395D2C487E7A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/2-1024x336.jpg",
+      "source_bytes": 29979,
+      "source_sha256": "B32C9F30C9F6283888E9A1BE826C51973DB3D10B6893BDD7560B54B2269592BA",
+      "runtime_bytes": 29979,
+      "runtime_sha256": "B32C9F30C9F6283888E9A1BE826C51973DB3D10B6893BDD7560B54B2269592BA",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/2-1536x504.jpg",
+      "source_bytes": 48276,
+      "source_sha256": "8701B6C2234820FBD0E8515202C8E904EE53C38654F84AD7535C0A735B580D42",
+      "runtime_bytes": 48276,
+      "runtime_sha256": "8701B6C2234820FBD0E8515202C8E904EE53C38654F84AD7535C0A735B580D42",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/2-2048x672.jpg",
+      "source_bytes": 69342,
+      "source_sha256": "44056362B1640C72EADA6F38826BCF6B164B239541C72D7DF0FB5DE1D9529133",
+      "runtime_bytes": 69342,
+      "runtime_sha256": "44056362B1640C72EADA6F38826BCF6B164B239541C72D7DF0FB5DE1D9529133",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/2-300x98.jpg",
+      "source_bytes": 6959,
+      "source_sha256": "00A29DC1AC07EAC947A5C149ED8557CF6AFCDA5AEC4DDE4065919FAA01EFE7FF",
+      "runtime_bytes": 6959,
+      "runtime_sha256": "00A29DC1AC07EAC947A5C149ED8557CF6AFCDA5AEC4DDE4065919FAA01EFE7FF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/2-768x252.jpg",
+      "source_bytes": 21007,
+      "source_sha256": "CBC07EE9ACF75F1B8B9F2096778E526025B4A85AFC27A2EA4A131120CC47C07C",
+      "runtime_bytes": 21007,
+      "runtime_sha256": "CBC07EE9ACF75F1B8B9F2096778E526025B4A85AFC27A2EA4A131120CC47C07C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-1025x1536.jpg",
+      "source_bytes": 195686,
+      "source_sha256": "FFB97EBCA7F9788394451FC96C9AAD6CDB799FC228509C8569D1D6562DEC9915",
+      "runtime_bytes": 195686,
+      "runtime_sha256": "FFB97EBCA7F9788394451FC96C9AAD6CDB799FC228509C8569D1D6562DEC9915",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-1366x2048.jpg",
+      "source_bytes": 317473,
+      "source_sha256": "B7ED04585537B262F637B2DB808FFE117635FF3D04295A718CB2E28A2360AE0B",
+      "runtime_bytes": 317473,
+      "runtime_sha256": "B7ED04585537B262F637B2DB808FFE117635FF3D04295A718CB2E28A2360AE0B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-200x300.jpg",
+      "source_bytes": 15362,
+      "source_sha256": "9FEF483C9AD27AA4E798C9AD877B246A3C7213241DFDEC1D9A909AC62C379536",
+      "runtime_bytes": 15362,
+      "runtime_sha256": "9FEF483C9AD27AA4E798C9AD877B246A3C7213241DFDEC1D9A909AC62C379536",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-683x1024.jpg",
+      "source_bytes": 101698,
+      "source_sha256": "51D176FE0A76D9CD15696DEAB5B44D0E16AD844F576465EA200DE42BA919A9DC",
+      "runtime_bytes": 101698,
+      "runtime_sha256": "51D176FE0A76D9CD15696DEAB5B44D0E16AD844F576465EA200DE42BA919A9DC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-768x1151.jpg",
+      "source_bytes": 122122,
+      "source_sha256": "D156FC3F15310D8196903A5FA260B1ECA2A20DCB133F338C59A2D38E8FBBA0FE",
+      "runtime_bytes": 122122,
+      "runtime_sha256": "D156FC3F15310D8196903A5FA260B1ECA2A20DCB133F338C59A2D38E8FBBA0FE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1-scaled.jpg",
+      "source_bytes": 463254,
+      "source_sha256": "F21EA542343ABB832F054738B99A3BE55E894F85457C5D63AF574CA379BA9121",
+      "runtime_bytes": 463254,
+      "runtime_sha256": "F21EA542343ABB832F054738B99A3BE55E894F85457C5D63AF574CA379BA9121",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1024x336.jpg",
+      "source_bytes": 22698,
+      "source_sha256": "C175D42A2800FBEA9BBA81E3BA02AF8768D5EC2BBD0953709960D15AD2C9ADCF",
+      "runtime_bytes": 22698,
+      "runtime_sha256": "C175D42A2800FBEA9BBA81E3BA02AF8768D5EC2BBD0953709960D15AD2C9ADCF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-1536x504.jpg",
+      "source_bytes": 41016,
+      "source_sha256": "788FE00BB24CF6B8E1765F96084977AEF1E4FD30436A409D8F5E1841091E6A44",
+      "runtime_bytes": 41016,
+      "runtime_sha256": "788FE00BB24CF6B8E1765F96084977AEF1E4FD30436A409D8F5E1841091E6A44",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-2048x672.jpg",
+      "source_bytes": 62794,
+      "source_sha256": "6A23B58902FAB49233BB1781524E81F20D388A1ED01E37A6A014CF375DB0BCA6",
+      "runtime_bytes": 62794,
+      "runtime_sha256": "6A23B58902FAB49233BB1781524E81F20D388A1ED01E37A6A014CF375DB0BCA6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-300x98.jpg",
+      "source_bytes": 5230,
+      "source_sha256": "9642C9AFF36226E04FF4478CA90A3D7D62B07191D4D7DB409A9EDAAC501B8DC2",
+      "runtime_bytes": 5230,
+      "runtime_sha256": "9642C9AFF36226E04FF4478CA90A3D7D62B07191D4D7DB409A9EDAAC501B8DC2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/3-768x252.jpg",
+      "source_bytes": 15548,
+      "source_sha256": "DE8880019727FAE97D416ABDEEA18413FB9538B0CC18DED7A9C0B77A8AC4FBFE",
+      "runtime_bytes": 15548,
+      "runtime_sha256": "DE8880019727FAE97D416ABDEEA18413FB9538B0CC18DED7A9C0B77A8AC4FBFE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/4-1024x336.jpg",
+      "source_bytes": 31779,
+      "source_sha256": "5F4A1B5E35FD85EBB43EB1F8C25A8F5AC210214535DE8FECEE366E90C98BD777",
+      "runtime_bytes": 31779,
+      "runtime_sha256": "5F4A1B5E35FD85EBB43EB1F8C25A8F5AC210214535DE8FECEE366E90C98BD777",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/4-1536x504.jpg",
+      "source_bytes": 55414,
+      "source_sha256": "32326AB918F93523EC90D30F442C6BE7B4194CC613791E1D8C3759E70ACB5A22",
+      "runtime_bytes": 55414,
+      "runtime_sha256": "32326AB918F93523EC90D30F442C6BE7B4194CC613791E1D8C3759E70ACB5A22",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/4-2048x672.jpg",
+      "source_bytes": 83416,
+      "source_sha256": "047EB1FAD780F9B9A7E092B5C55E5330A040F3BE20B7C0F1B6CFA17ABCFFE8F4",
+      "runtime_bytes": 83416,
+      "runtime_sha256": "047EB1FAD780F9B9A7E092B5C55E5330A040F3BE20B7C0F1B6CFA17ABCFFE8F4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/4-300x98.jpg",
+      "source_bytes": 7139,
+      "source_sha256": "C02F6296C8B9C8C8AFEF214A6D097FE991E5AB41AA73E302721500D36D77941B",
+      "runtime_bytes": 7139,
+      "runtime_sha256": "C02F6296C8B9C8C8AFEF214A6D097FE991E5AB41AA73E302721500D36D77941B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/4-768x252.jpg",
+      "source_bytes": 21988,
+      "source_sha256": "7B76F4C627D5BC5D55A1C05D23819B94F574F64B09E9653A1EA75B86851BCF25",
+      "runtime_bytes": 21988,
+      "runtime_sha256": "7B76F4C627D5BC5D55A1C05D23819B94F574F64B09E9653A1EA75B86851BCF25",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/5-1024x336.jpg",
+      "source_bytes": 20785,
+      "source_sha256": "D4DE3734C620C90DE2BC610A2C9DF2A75BC92DD4BAB9375F4CBC9786CC0A58A9",
+      "runtime_bytes": 20785,
+      "runtime_sha256": "D4DE3734C620C90DE2BC610A2C9DF2A75BC92DD4BAB9375F4CBC9786CC0A58A9",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/5-1536x504.jpg",
+      "source_bytes": 37757,
+      "source_sha256": "4D397A2446AE4B564AD561F37661CF48153851D16869CB58231E8BCDB50937E6",
+      "runtime_bytes": 37757,
+      "runtime_sha256": "4D397A2446AE4B564AD561F37661CF48153851D16869CB58231E8BCDB50937E6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/5-2048x672.jpg",
+      "source_bytes": 58632,
+      "source_sha256": "85F682CECAF6A1FDF39A3843F34F84D475796863C557A2A86C23EAC4AE07EFF5",
+      "runtime_bytes": 58632,
+      "runtime_sha256": "85F682CECAF6A1FDF39A3843F34F84D475796863C557A2A86C23EAC4AE07EFF5",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/5-300x98.jpg",
+      "source_bytes": 4354,
+      "source_sha256": "DDA7D3FC8048F4CA4C6BF2CDFB2C02BB5BC108D9637612FC70DC61888D4D711E",
+      "runtime_bytes": 4354,
+      "runtime_sha256": "DDA7D3FC8048F4CA4C6BF2CDFB2C02BB5BC108D9637612FC70DC61888D4D711E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/5-768x252.jpg",
+      "source_bytes": 13928,
+      "source_sha256": "7A60B749E3B479FF3EB946AB5DDCC0C0BC837BCAD6F2D031E1CFBFC1FE44FA39",
+      "runtime_bytes": 13928,
+      "runtime_sha256": "7A60B749E3B479FF3EB946AB5DDCC0C0BC837BCAD6F2D031E1CFBFC1FE44FA39",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/6-1024x336.jpg",
+      "source_bytes": 24639,
+      "source_sha256": "86AE53659151BCADEB43562A61EF8BAE75C449DE5026721EDA31CACE613DFDD7",
+      "runtime_bytes": 24639,
+      "runtime_sha256": "86AE53659151BCADEB43562A61EF8BAE75C449DE5026721EDA31CACE613DFDD7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/6-1536x504.jpg",
+      "source_bytes": 44550,
+      "source_sha256": "7C08A5FF1C05C9372C2FBCD499AE0B2CA8C77A41355774238189FC21BFF9E9ED",
+      "runtime_bytes": 44550,
+      "runtime_sha256": "7C08A5FF1C05C9372C2FBCD499AE0B2CA8C77A41355774238189FC21BFF9E9ED",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/6-2048x672.jpg",
+      "source_bytes": 67629,
+      "source_sha256": "FE50E21CB411DD20C237DFE94AFD78A42A0A21A71F10019A2722CD15117B3428",
+      "runtime_bytes": 67629,
+      "runtime_sha256": "FE50E21CB411DD20C237DFE94AFD78A42A0A21A71F10019A2722CD15117B3428",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/6-300x98.jpg",
+      "source_bytes": 5453,
+      "source_sha256": "34A92105F7CBF830B32087398DF9F96BA529AF3F9963949415CCDB8035AB0E39",
+      "runtime_bytes": 5453,
+      "runtime_sha256": "34A92105F7CBF830B32087398DF9F96BA529AF3F9963949415CCDB8035AB0E39",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/6-768x252.jpg",
+      "source_bytes": 16972,
+      "source_sha256": "839DDC837657D9C7F0A40E1317F5CCAB45FA348204A4110C62311AD2466A9347",
+      "runtime_bytes": 16972,
+      "runtime_sha256": "839DDC837657D9C7F0A40E1317F5CCAB45FA348204A4110C62311AD2466A9347",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/7-1024x336.jpg",
+      "source_bytes": 18670,
+      "source_sha256": "177A5CA2F0AC3F899CB34AE31F81618DE32AEAE3BD8AF395CD42A976700934BA",
+      "runtime_bytes": 18670,
+      "runtime_sha256": "177A5CA2F0AC3F899CB34AE31F81618DE32AEAE3BD8AF395CD42A976700934BA",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/7-1536x504.jpg",
+      "source_bytes": 30299,
+      "source_sha256": "2EC75C20EDA362CFAC15CC05267E264ADEFE6CE482206E4B8F736F3EE5758C3E",
+      "runtime_bytes": 30299,
+      "runtime_sha256": "2EC75C20EDA362CFAC15CC05267E264ADEFE6CE482206E4B8F736F3EE5758C3E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/7-2048x672.jpg",
+      "source_bytes": 45620,
+      "source_sha256": "3411333B379A5154CB95825AC1F44E64900F065F64E5B47C74ED8D40138B8231",
+      "runtime_bytes": 45620,
+      "runtime_sha256": "3411333B379A5154CB95825AC1F44E64900F065F64E5B47C74ED8D40138B8231",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/7-300x98.jpg",
+      "source_bytes": 4946,
+      "source_sha256": "F32940A92107FC3A24A25CE5F6A90619426282970393985455824B980374CCD2",
+      "runtime_bytes": 4946,
+      "runtime_sha256": "F32940A92107FC3A24A25CE5F6A90619426282970393985455824B980374CCD2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/7-768x252.jpg",
+      "source_bytes": 13461,
+      "source_sha256": "95FD5E1AD58A15474A79DFB305A0C81E14AD28A58A9F50CA090F8814145118E1",
+      "runtime_bytes": 13461,
+      "runtime_sha256": "95FD5E1AD58A15474A79DFB305A0C81E14AD28A58A9F50CA090F8814145118E1",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/8-1024x336.jpg",
+      "source_bytes": 24265,
+      "source_sha256": "E218A2D8263863B3839C2298A0F9F52D617A69A6C90A1ECCCCA34EB585963BB2",
+      "runtime_bytes": 24265,
+      "runtime_sha256": "E218A2D8263863B3839C2298A0F9F52D617A69A6C90A1ECCCCA34EB585963BB2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/8-1536x504.jpg",
+      "source_bytes": 40178,
+      "source_sha256": "16A41D9F793C75B76F6C2B4BB53B031F0CBBB33972537EF7B086AC00D69AC80C",
+      "runtime_bytes": 40178,
+      "runtime_sha256": "16A41D9F793C75B76F6C2B4BB53B031F0CBBB33972537EF7B086AC00D69AC80C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/8-2048x672.jpg",
+      "source_bytes": 58588,
+      "source_sha256": "B8FB3D12EF55C0895BF881B93C68A97980EB20F7204AE9046CE1FBB89BE7BF6D",
+      "runtime_bytes": 58588,
+      "runtime_sha256": "B8FB3D12EF55C0895BF881B93C68A97980EB20F7204AE9046CE1FBB89BE7BF6D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/8-300x98.jpg",
+      "source_bytes": 6418,
+      "source_sha256": "605CDD173EEB35888D71C8C157E7C56EC488E6D9BC5E1206CA4EFE4196C3C8DF",
+      "runtime_bytes": 6418,
+      "runtime_sha256": "605CDD173EEB35888D71C8C157E7C56EC488E6D9BC5E1206CA4EFE4196C3C8DF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/8-768x252.jpg",
+      "source_bytes": 18106,
+      "source_sha256": "0146C78160CF446AC97CA4B43447128724726BD1A9AB94AE9AAC37125CA66230",
+      "runtime_bytes": 18106,
+      "runtime_sha256": "0146C78160CF446AC97CA4B43447128724726BD1A9AB94AE9AAC37125CA66230",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/9-1024x336.jpg",
+      "source_bytes": 32924,
+      "source_sha256": "F72FF1EFCA35D2A3477A9B77583362D7A1EFF144765930E374EFFF371527240B",
+      "runtime_bytes": 32924,
+      "runtime_sha256": "F72FF1EFCA35D2A3477A9B77583362D7A1EFF144765930E374EFFF371527240B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/9-1536x504.jpg",
+      "source_bytes": 53028,
+      "source_sha256": "4D0C0D850738D67DF2B4044D5800CB95D27588F48388BC0EC0B45E5BFCAB4458",
+      "runtime_bytes": 53028,
+      "runtime_sha256": "4D0C0D850738D67DF2B4044D5800CB95D27588F48388BC0EC0B45E5BFCAB4458",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/9-2048x672.jpg",
+      "source_bytes": 77783,
+      "source_sha256": "85FACA2810BEA107C00EFE92287175397FB51476F27CB02A249014939B373D15",
+      "runtime_bytes": 77783,
+      "runtime_sha256": "85FACA2810BEA107C00EFE92287175397FB51476F27CB02A249014939B373D15",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/9-300x98.jpg",
+      "source_bytes": 8639,
+      "source_sha256": "95A5454B285D6A56DDF07751FDB04FA103331EB900932302158E7EFCCA1E4F45",
+      "runtime_bytes": 8639,
+      "runtime_sha256": "95A5454B285D6A56DDF07751FDB04FA103331EB900932302158E7EFCCA1E4F45",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/9-768x252.jpg",
+      "source_bytes": 23685,
+      "source_sha256": "EC664F0591F5710C901D76FC7343A048AD257F2AD40056DA7F6761D5BACAE11C",
+      "runtime_bytes": 23685,
+      "runtime_sha256": "EC664F0591F5710C901D76FC7343A048AD257F2AD40056DA7F6761D5BACAE11C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/Proudly_Canadian-1024x361.webp",
+      "source_bytes": 21846,
+      "source_sha256": "E01242AADD16D556F15CD14E6C197F10B4FF4D74C3CDC0A620D95DE6B8412193",
+      "runtime_bytes": 21846,
+      "runtime_sha256": "E01242AADD16D556F15CD14E6C197F10B4FF4D74C3CDC0A620D95DE6B8412193",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/Proudly_Canadian-300x106.webp",
+      "source_bytes": 6208,
+      "source_sha256": "8212C89FF0063DDD97A6949D2250A38640AC465D9D25D1DD2301C1745601FC98",
+      "runtime_bytes": 6208,
+      "runtime_sha256": "8212C89FF0063DDD97A6949D2250A38640AC465D9D25D1DD2301C1745601FC98",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/Proudly_Canadian-768x271.webp",
+      "source_bytes": 17030,
+      "source_sha256": "C6CE0D80BCEDB26E017A4FE1FE9F802EFDBA4DA8D69D324EADEDAFE926EB77EE",
+      "runtime_bytes": 17030,
+      "runtime_sha256": "C6CE0D80BCEDB26E017A4FE1FE9F802EFDBA4DA8D69D324EADEDAFE926EB77EE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/Proudly_Canadian.webp",
+      "source_bytes": 30700,
+      "source_sha256": "375CADBAB7147A37B14096289141BDA46D9A0AE05543175DB4D88DCBED8BA238",
+      "runtime_bytes": 30700,
+      "runtime_sha256": "375CADBAB7147A37B14096289141BDA46D9A0AE05543175DB4D88DCBED8BA238",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/aws-300x189.png",
+      "source_bytes": 18312,
+      "source_sha256": "F3B1293EE59318A0D3318B824B1560F1E0BF09DCE9BC25C6A1A3EC2ECF3A2215",
+      "runtime_bytes": 18312,
+      "runtime_sha256": "F3B1293EE59318A0D3318B824B1560F1E0BF09DCE9BC25C6A1A3EC2ECF3A2215",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/aws.png",
+      "source_bytes": 11576,
+      "source_sha256": "5C8B99F7F77A653FD768015D54AC0EC1051F0C0563B13876B28A08D69D0AE764",
+      "runtime_bytes": 11576,
+      "runtime_sha256": "5C8B99F7F77A653FD768015D54AC0EC1051F0C0563B13876B28A08D69D0AE764",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/b_com2-263x300.png",
+      "source_bytes": 127464,
+      "source_sha256": "BEDD5645398DD0BEA9031B2E41922573A3B8508C07136557037919263D77E0F2",
+      "runtime_bytes": 127464,
+      "runtime_sha256": "BEDD5645398DD0BEA9031B2E41922573A3B8508C07136557037919263D77E0F2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/b_com2-768x876.png",
+      "source_bytes": 911568,
+      "source_sha256": "02799B79A8B673258D4D87086742A88366E70CECF5096124CA349050EB37AAFB",
+      "runtime_bytes": 911568,
+      "runtime_sha256": "02799B79A8B673258D4D87086742A88366E70CECF5096124CA349050EB37AAFB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/b_com2-898x1024.png",
+      "source_bytes": 1226490,
+      "source_sha256": "31E33D81651AB9A22CAD4DB0CA77FB0D5CCD9FAB3B3A06CF96ECB72C3512E5A2",
+      "runtime_bytes": 1226490,
+      "runtime_sha256": "31E33D81651AB9A22CAD4DB0CA77FB0D5CCD9FAB3B3A06CF96ECB72C3512E5A2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/b_com2.png",
+      "source_bytes": 342208,
+      "source_sha256": "E8CA3ED7C81EBB7CDA03D2F7C8BAB65E0B895F636A8C6115295E37E83AF1BC28",
+      "runtime_bytes": 342208,
+      "runtime_sha256": "E8CA3ED7C81EBB7CDA03D2F7C8BAB65E0B895F636A8C6115295E37E83AF1BC28",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/backup-cloud-storage-data-information-concept-2048x1462-1-1024x731.jpg",
+      "source_bytes": 144334,
+      "source_sha256": "9124A92CD794FB20C1172155182FE5A72B766D81DC6101F9D8A95497353E5EA6",
+      "runtime_bytes": 144334,
+      "runtime_sha256": "9124A92CD794FB20C1172155182FE5A72B766D81DC6101F9D8A95497353E5EA6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/backup-cloud-storage-data-information-concept-2048x1462-1-1536x1097.jpg",
+      "source_bytes": 255786,
+      "source_sha256": "0B7926B7E2B0031CBD916962DBC05F0642D9FE32C072B788EE3293C834BD4B87",
+      "runtime_bytes": 255786,
+      "runtime_sha256": "0B7926B7E2B0031CBD916962DBC05F0642D9FE32C072B788EE3293C834BD4B87",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/backup-cloud-storage-data-information-concept-2048x1462-1-300x214.jpg",
+      "source_bytes": 21074,
+      "source_sha256": "CF945E90361EE6399378BDBECDC2224AE80128B4494CECBC3EDEBB35A2AFCFB2",
+      "runtime_bytes": 21074,
+      "runtime_sha256": "CF945E90361EE6399378BDBECDC2224AE80128B4494CECBC3EDEBB35A2AFCFB2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/backup-cloud-storage-data-information-concept-2048x1462-1-768x548.jpg",
+      "source_bytes": 90779,
+      "source_sha256": "51FC2604B5AB444BADBFE1B527ADF63507B9DA633E97B127AEFD0414CEA13B02",
+      "runtime_bytes": 90779,
+      "runtime_sha256": "51FC2604B5AB444BADBFE1B527ADF63507B9DA633E97B127AEFD0414CEA13B02",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/backup-cloud-storage-data-information-concept-2048x1462-1.jpg",
+      "source_bytes": 509548,
+      "source_sha256": "CCDE4367EA3C4E7C9FF69AF47F5AE0F70838E86D147D941DDD8E7C7A1830E65B",
+      "runtime_bytes": 509548,
+      "runtime_sha256": "CCDE4367EA3C4E7C9FF69AF47F5AE0F70838E86D147D941DDD8E7C7A1830E65B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-corporate-protection-safety-security-concept-2048x1323-1-1024x662.jpg",
+      "source_bytes": 92214,
+      "source_sha256": "DD2496AC1DBDA4644ECA07CD2BCE7C48CB8E9B0ACABB0308DDE41720B89FD0D2",
+      "runtime_bytes": 92214,
+      "runtime_sha256": "DD2496AC1DBDA4644ECA07CD2BCE7C48CB8E9B0ACABB0308DDE41720B89FD0D2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-corporate-protection-safety-security-concept-2048x1323-1-1536x992.jpg",
+      "source_bytes": 167664,
+      "source_sha256": "5782ECE3D38F104F2C03F1F38A38F928B9979827B32F09E5620C9C3C81569AC9",
+      "runtime_bytes": 167664,
+      "runtime_sha256": "5782ECE3D38F104F2C03F1F38A38F928B9979827B32F09E5620C9C3C81569AC9",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-corporate-protection-safety-security-concept-2048x1323-1-300x194.jpg",
+      "source_bytes": 13643,
+      "source_sha256": "90F9B3C12CE6FC8632B8497EDADE4079A7DE31E98C230F3C8FA59150AFEF49D6",
+      "runtime_bytes": 13643,
+      "runtime_sha256": "90F9B3C12CE6FC8632B8497EDADE4079A7DE31E98C230F3C8FA59150AFEF49D6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-corporate-protection-safety-security-concept-2048x1323-1-768x496.jpg",
+      "source_bytes": 58659,
+      "source_sha256": "B06955C656C0A3B8BF587C9A1A0A7450943BAC4D4C20FA5693A4672F8424BE5E",
+      "runtime_bytes": 58659,
+      "runtime_sha256": "B06955C656C0A3B8BF587C9A1A0A7450943BAC4D4C20FA5693A4672F8424BE5E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-corporate-protection-safety-security-concept-2048x1323-1.jpg",
+      "source_bytes": 300827,
+      "source_sha256": "090AEA93A312FE0A3E4D1EA8341FF16166BA55EE778A0C1DE8DB0041EDF7FE3D",
+      "runtime_bytes": 300827,
+      "runtime_sha256": "090AEA93A312FE0A3E4D1EA8341FF16166BA55EE778A0C1DE8DB0041EDF7FE3D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-technology-online-backup-storage-cloud-computing-service-concept-1024x819.png",
+      "source_bytes": 193199,
+      "source_sha256": "E762211651E5D3B312C689D8BF0886402D054FE9C4DD3AFE54A858A5B3A8B62A",
+      "runtime_bytes": 193199,
+      "runtime_sha256": "E762211651E5D3B312C689D8BF0886402D054FE9C4DD3AFE54A858A5B3A8B62A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-technology-online-backup-storage-cloud-computing-service-concept-1536x1229.png",
+      "source_bytes": 360055,
+      "source_sha256": "570F9274F7465B2B196AA57FC100858BA7AB84ECE217713F8DB6175065637BD1",
+      "runtime_bytes": 360055,
+      "runtime_sha256": "570F9274F7465B2B196AA57FC100858BA7AB84ECE217713F8DB6175065637BD1",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-technology-online-backup-storage-cloud-computing-service-concept-300x240.png",
+      "source_bytes": 30697,
+      "source_sha256": "4BCF9EE467D991D43DCAA758755851A20EB6A09F7BB1B734A7AF1D1989393110",
+      "runtime_bytes": 30697,
+      "runtime_sha256": "4BCF9EE467D991D43DCAA758755851A20EB6A09F7BB1B734A7AF1D1989393110",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-technology-online-backup-storage-cloud-computing-service-concept-768x614.png",
+      "source_bytes": 125190,
+      "source_sha256": "F3DBBA246A57781E17348FB7C7739D0E00F0C755774CBED91815B63F5D35FA06",
+      "runtime_bytes": 125190,
+      "runtime_sha256": "F3DBBA246A57781E17348FB7C7739D0E00F0C755774CBED91815B63F5D35FA06",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/business-technology-online-backup-storage-cloud-computing-service-concept.png",
+      "source_bytes": 856369,
+      "source_sha256": "54C8131D5A9A50763460EB45886978F59586AB4C8A0B5779D6AE0FF780A2ADF8",
+      "runtime_bytes": 856369,
+      "runtime_sha256": "54C8131D5A9A50763460EB45886978F59586AB4C8A0B5779D6AE0FF780A2ADF8",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/cyber-crime.svg",
+      "source_bytes": 4168,
+      "source_sha256": "7319CFD4C6B68B4CE8951F381A5BF8873A61D914D1FAAD6EA74508D12995979B",
+      "runtime_bytes": 4168,
+      "runtime_sha256": "7319CFD4C6B68B4CE8951F381A5BF8873A61D914D1FAAD6EA74508D12995979B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/digital-services.svg",
+      "source_bytes": 2962,
+      "source_sha256": "7C64E9F2384B3CF3DBD96AED6AF793F3C25656C2CFEC0690365912F4C2D02C0B",
+      "runtime_bytes": 2962,
+      "runtime_sha256": "7C64E9F2384B3CF3DBD96AED6AF793F3C25656C2CFEC0690365912F4C2D02C0B",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration-1024x1024.png",
+      "source_bytes": 340130,
+      "source_sha256": "695813B1BD184687C9A033292321FF262ABD570504FAB37016D15C35E1BD61F7",
+      "runtime_bytes": 340130,
+      "runtime_sha256": "695813B1BD184687C9A033292321FF262ABD570504FAB37016D15C35E1BD61F7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration-150x150.png",
+      "source_bytes": 16158,
+      "source_sha256": "62FD9E26F1125CBA1FA6601FE735FDAB40CEEAF034E6B35CD4D4F3C3C0DE1CB3",
+      "runtime_bytes": 16158,
+      "runtime_sha256": "62FD9E26F1125CBA1FA6601FE735FDAB40CEEAF034E6B35CD4D4F3C3C0DE1CB3",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration-1536x1536.png",
+      "source_bytes": 644476,
+      "source_sha256": "FDE987B2A987D1314104397D82AEF19809E126B1D340E347F80064432BAD2EFB",
+      "runtime_bytes": 644476,
+      "runtime_sha256": "FDE987B2A987D1314104397D82AEF19809E126B1D340E347F80064432BAD2EFB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration-300x300.png",
+      "source_bytes": 47064,
+      "source_sha256": "D8950E71476AC468011B0414829E8AD58DCED979E39229C9C43B8E2AF8B93AC3",
+      "runtime_bytes": 47064,
+      "runtime_sha256": "D8950E71476AC468011B0414829E8AD58DCED979E39229C9C43B8E2AF8B93AC3",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration-768x768.png",
+      "source_bytes": 213474,
+      "source_sha256": "BFBD223DB3D6E7CB117E796A305E1752B5973D1BDA411DB0F18FDAF02C3CB57A",
+      "runtime_bytes": 213474,
+      "runtime_sha256": "BFBD223DB3D6E7CB117E796A305E1752B5973D1BDA411DB0F18FDAF02C3CB57A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-customer-support-illustration.png",
+      "source_bytes": 990826,
+      "source_sha256": "6F063D815E2C44FE21F79405780EBC349F43CFBE9FAFCFB6615057A8036580C4",
+      "runtime_bytes": 990826,
+      "runtime_sha256": "6F063D815E2C44FE21F79405780EBC349F43CFBE9FAFCFB6615057A8036580C4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support-1024x1024.png",
+      "source_bytes": 252356,
+      "source_sha256": "8FE2EA5C1AF9F108212D922D03F76ED384CF9879954DBDFD41FEE6675D3189F8",
+      "runtime_bytes": 252356,
+      "runtime_sha256": "8FE2EA5C1AF9F108212D922D03F76ED384CF9879954DBDFD41FEE6675D3189F8",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support-150x150.png",
+      "source_bytes": 12664,
+      "source_sha256": "7769D234236C0DC53575F9DC65B108A39C81A4F65975EF1EAF3180A4E49B5271",
+      "runtime_bytes": 12664,
+      "runtime_sha256": "7769D234236C0DC53575F9DC65B108A39C81A4F65975EF1EAF3180A4E49B5271",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support-1536x1536.png",
+      "source_bytes": 474015,
+      "source_sha256": "6E1B3F920B8F8400562DF891671F99CFC6E894864F65891DE1D848577EB9B271",
+      "runtime_bytes": 474015,
+      "runtime_sha256": "6E1B3F920B8F8400562DF891671F99CFC6E894864F65891DE1D848577EB9B271",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support-300x300.png",
+      "source_bytes": 36271,
+      "source_sha256": "16791F270037EBA2F1052DCC488DBC874346A0A0BB112F3658D1C9C6D1816239",
+      "runtime_bytes": 36271,
+      "runtime_sha256": "16791F270037EBA2F1052DCC488DBC874346A0A0BB112F3658D1C9C6D1816239",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support-768x768.png",
+      "source_bytes": 159643,
+      "source_sha256": "266CBE1F5BE68AEFE4E1B693920C76007509621ECDE8EB9FC225881C33D74BAC",
+      "runtime_bytes": 159643,
+      "runtime_sha256": "266CBE1F5BE68AEFE4E1B693920C76007509621ECDE8EB9FC225881C33D74BAC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/flat-design-illustration-customer-support.png",
+      "source_bytes": 742664,
+      "source_sha256": "EE1133BCAF5CF379D266CE8365161B49EE6A2726A69CA83E1ACBB804DDC2453C",
+      "runtime_bytes": 742664,
+      "runtime_sha256": "EE1133BCAF5CF379D266CE8365161B49EE6A2726A69CA83E1ACBB804DDC2453C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection-1024x1024.png",
+      "source_bytes": 247951,
+      "source_sha256": "9CA048D69C75CEFEEB4177F9E7042BBF7D38265DD04F8CBC8A3B700FB86E98C4",
+      "runtime_bytes": 247951,
+      "runtime_sha256": "9CA048D69C75CEFEEB4177F9E7042BBF7D38265DD04F8CBC8A3B700FB86E98C4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection-150x150.png",
+      "source_bytes": 13263,
+      "source_sha256": "E8736258CD42739DF6C6837FD4901544C1698DF1F8B3FFA38F466C27F09F4F3D",
+      "runtime_bytes": 13263,
+      "runtime_sha256": "E8736258CD42739DF6C6837FD4901544C1698DF1F8B3FFA38F466C27F09F4F3D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection-1536x1536.png",
+      "source_bytes": 467507,
+      "source_sha256": "EA7BCBC3BCB0970FF8D868D466E1E37427DA40EF2D91838D580071E0C3A60C5A",
+      "runtime_bytes": 467507,
+      "runtime_sha256": "EA7BCBC3BCB0970FF8D868D466E1E37427DA40EF2D91838D580071E0C3A60C5A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection-300x300.png",
+      "source_bytes": 36028,
+      "source_sha256": "6B9DCA73318C0730081E5273BBE263F5FEA831EBAA19C0F9ADB825EB1B220C3E",
+      "runtime_bytes": 36028,
+      "runtime_sha256": "6B9DCA73318C0730081E5273BBE263F5FEA831EBAA19C0F9ADB825EB1B220C3E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection-768x768.png",
+      "source_bytes": 156806,
+      "source_sha256": "C9795B3F462837E40A95A05BAE06A8C6F135D83C3F9AD6781842CCBF445E924F",
+      "runtime_bytes": 156806,
+      "runtime_sha256": "C9795B3F462837E40A95A05BAE06A8C6F135D83C3F9AD6781842CCBF445E924F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/global-data-security-personal-data-security-cyber-data-security-online-concept-illustration-internet-security-information-privacy-protection.png",
+      "source_bytes": 886857,
+      "source_sha256": "24BC26333A5258A40BA4232928593427968D2D6C365AFDD9454711CA280F979D",
+      "runtime_bytes": 886857,
+      "runtime_sha256": "24BC26333A5258A40BA4232928593427968D2D6C365AFDD9454711CA280F979D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/google_cloud-300x189.png",
+      "source_bytes": 16069,
+      "source_sha256": "0ED5967AE4C1692E30DC8DDABC22A7F07112A8521FB38EAEC1EDFADD88544937",
+      "runtime_bytes": 16069,
+      "runtime_sha256": "0ED5967AE4C1692E30DC8DDABC22A7F07112A8521FB38EAEC1EDFADD88544937",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/google_cloud.png",
+      "source_bytes": 7985,
+      "source_sha256": "EBE5F53D4FF2419835507FAE08FB6432C56694FDC13586273B3F230F9E76C4FB",
+      "runtime_bytes": 7985,
+      "runtime_sha256": "EBE5F53D4FF2419835507FAE08FB6432C56694FDC13586273B3F230F9E76C4FB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/meeting.svg",
+      "source_bytes": 15713,
+      "source_sha256": "C9B3DB07B06A991AF639FC0DED05A446EF067FB238C10CC1470E90D15FB136F4",
+      "runtime_bytes": 15713,
+      "runtime_sha256": "C9B3DB07B06A991AF639FC0DED05A446EF067FB238C10CC1470E90D15FB136F4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/ms_azure-300x189.png",
+      "source_bytes": 14896,
+      "source_sha256": "3D6B57A0233F0F9432231FC2E372AE2CF142FB24D34B0E574C5B52193A388849",
+      "runtime_bytes": 14896,
+      "runtime_sha256": "3D6B57A0233F0F9432231FC2E372AE2CF142FB24D34B0E574C5B52193A388849",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/ms_azure.png",
+      "source_bytes": 7969,
+      "source_sha256": "C90DB41C194952D8D1B2C61E7B614086C07001DBD7C55A2E84515143C89CD938",
+      "runtime_bytes": 7969,
+      "runtime_sha256": "C90DB41C194952D8D1B2C61E7B614086C07001DBD7C55A2E84515143C89CD938",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/office_365-300x189.png",
+      "source_bytes": 12162,
+      "source_sha256": "DF0C6DA74341744BE5A2DD8D427EC096C2A49837CCC9ED6BEE509D885509DFDD",
+      "runtime_bytes": 12162,
+      "runtime_sha256": "DF0C6DA74341744BE5A2DD8D427EC096C2A49837CCC9ED6BEE509D885509DFDD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/office_365.png",
+      "source_bytes": 6398,
+      "source_sha256": "341DBAEE8561D61C24D1AD88EA095C6DAB7ED440CC954EB9526DA6CB2E9D87CD",
+      "runtime_bytes": 6398,
+      "runtime_sha256": "341DBAEE8561D61C24D1AD88EA095C6DAB7ED440CC954EB9526DA6CB2E9D87CD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/online.svg",
+      "source_bytes": 4473,
+      "source_sha256": "85E2E48439695E64B87BEC752D98C87F95BCD13FC1B663492AF6F6EB2CE8EDE0",
+      "runtime_bytes": 4473,
+      "runtime_sha256": "85E2E48439695E64B87BEC752D98C87F95BCD13FC1B663492AF6F6EB2CE8EDE0",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/procurement.svg",
+      "source_bytes": 2505,
+      "source_sha256": "4B66B2852A5DC626D959AC8B414E1EE90C0729F6E0165F8D588352BFC97425C3",
+      "runtime_bytes": 2505,
+      "runtime_sha256": "4B66B2852A5DC626D959AC8B414E1EE90C0729F6E0165F8D588352BFC97425C3",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/06/server.svg",
+      "source_bytes": 2113,
+      "source_sha256": "E67706A156023F28FB3FBB47DCD06C36C5D7962C03ED67A18C4C62ED2E36B95A",
+      "runtime_bytes": 2113,
+      "runtime_sha256": "E67706A156023F28FB3FBB47DCD06C36C5D7962C03ED67A18C4C62ED2E36B95A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/79ea1f_b2b284436a744b5990600f09fd266306mv2-300x200.jpg",
+      "source_bytes": 10711,
+      "source_sha256": "24AB5F624B27DB80A1C2A1BAE9519EF2EE20FB9C6B793DC58877C8EAC49F91A6",
+      "runtime_bytes": 10711,
+      "runtime_sha256": "24AB5F624B27DB80A1C2A1BAE9519EF2EE20FB9C6B793DC58877C8EAC49F91A6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/79ea1f_b2b284436a744b5990600f09fd266306mv2-768x511.jpg",
+      "source_bytes": 48983,
+      "source_sha256": "6C00D88A7B39437AB9FE361E720436CB06DA0CBC7314C668F80F46F8F73BC35E",
+      "runtime_bytes": 48983,
+      "runtime_sha256": "6C00D88A7B39437AB9FE361E720436CB06DA0CBC7314C668F80F46F8F73BC35E",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/79ea1f_b2b284436a744b5990600f09fd266306mv2.jpg",
+      "source_bytes": 89319,
+      "source_sha256": "68AEC8D30F1AA9DA3B0DB806C6146AC86588CC5F4BA4F2C0C0486614A7AA1F5A",
+      "runtime_bytes": 89319,
+      "runtime_sha256": "68AEC8D30F1AA9DA3B0DB806C6146AC86588CC5F4BA4F2C0C0486614A7AA1F5A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/cctv-security-camera-outside-logistics-600nw-2445332381-300x169.webp",
+      "source_bytes": 10636,
+      "source_sha256": "7B17226C58B85936CEC93BE0987E629FE50BE9454DA5A9901F09D8CAE32B9E16",
+      "runtime_bytes": 10636,
+      "runtime_sha256": "7B17226C58B85936CEC93BE0987E629FE50BE9454DA5A9901F09D8CAE32B9E16",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/cctv-security-camera-outside-logistics-600nw-2445332381.webp",
+      "source_bytes": 53746,
+      "source_sha256": "D8D81C3B6E181666E4A82169CB78A3D06E71B83E991FD6EA20AFE50F555E55B7",
+      "runtime_bytes": 53746,
+      "runtime_sha256": "D8D81C3B6E181666E4A82169CB78A3D06E71B83E991FD6EA20AFE50F555E55B7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/image-64-225x300.webp",
+      "source_bytes": 6636,
+      "source_sha256": "5FFC74497B825A0E288B9CB1893BA188EFBAEE4AFF7438BA61E777C4CD65821D",
+      "runtime_bytes": 6636,
+      "runtime_sha256": "5FFC74497B825A0E288B9CB1893BA188EFBAEE4AFF7438BA61E777C4CD65821D",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/image-64-768x1024.webp",
+      "source_bytes": 27866,
+      "source_sha256": "731D4C1BEDD024B68C5E4EAE80032DC1915628A991295FA6372F11BCD5FE1FA7",
+      "runtime_bytes": 27866,
+      "runtime_sha256": "731D4C1BEDD024B68C5E4EAE80032DC1915628A991295FA6372F11BCD5FE1FA7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/07/image-64.webp",
+      "source_bytes": 31172,
+      "source_sha256": "81965A6B39EA4DF42C96006218E059F0ED995CCCE05746AFF9C769D0BC47BB85",
+      "runtime_bytes": 31172,
+      "runtime_sha256": "81965A6B39EA4DF42C96006218E059F0ED995CCCE05746AFF9C769D0BC47BB85",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/2149307801-200x300.webp",
+      "source_bytes": 10336,
+      "source_sha256": "E72DD38A8B5EA89C6B6BBD92B2284ADAE72781352174568430B4219B6DC59803",
+      "runtime_bytes": 10336,
+      "runtime_sha256": "E72DD38A8B5EA89C6B6BBD92B2284ADAE72781352174568430B4219B6DC59803",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/2149307801.webp",
+      "source_bytes": 42262,
+      "source_sha256": "927AAC0EB6AA9AFDFD2F26CC043BBEA2196F5B1A1EF6DEF4DB0C37652565E156",
+      "runtime_bytes": 42262,
+      "runtime_sha256": "927AAC0EB6AA9AFDFD2F26CC043BBEA2196F5B1A1EF6DEF4DB0C37652565E156",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/4-300x130.webp",
+      "source_bytes": 7844,
+      "source_sha256": "148DC80633510CF972B55AF6B0CF6379B0371E802EC4F7E432B0F6189FAEE66F",
+      "runtime_bytes": 7844,
+      "runtime_sha256": "148DC80633510CF972B55AF6B0CF6379B0371E802EC4F7E432B0F6189FAEE66F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/4.webp",
+      "source_bytes": 17454,
+      "source_sha256": "DE8CA9876C0A1645866248438E29F8C5BB1DA77C06739BCA4B4B4611383CA869",
+      "runtime_bytes": 17454,
+      "runtime_sha256": "DE8CA9876C0A1645866248438E29F8C5BB1DA77C06739BCA4B4B4611383CA869",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/fn6ezempia8qgob5jw14-150x150.webp",
+      "source_bytes": 16060,
+      "source_sha256": "6AC5CB20D1D2898C27486913D1DAE45334AAA969C5798A7BBF2C943D43737068",
+      "runtime_bytes": 16060,
+      "runtime_sha256": "6AC5CB20D1D2898C27486913D1DAE45334AAA969C5798A7BBF2C943D43737068",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/fn6ezempia8qgob5jw14.webp",
+      "source_bytes": 7584,
+      "source_sha256": "03CF0F5089687C053B1472974D7DE959044F0C44D89E0D325C15215A078AFBAA",
+      "runtime_bytes": 7584,
+      "runtime_sha256": "03CF0F5089687C053B1472974D7DE959044F0C44D89E0D325C15215A078AFBAA",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/gojev0sydz2v9prywgkm-150x150.webp",
+      "source_bytes": 9408,
+      "source_sha256": "5799EA27275A1BD123968403B66CA7C58BA823754DFBDF14B1FD274100D4BF1C",
+      "runtime_bytes": 9408,
+      "runtime_sha256": "5799EA27275A1BD123968403B66CA7C58BA823754DFBDF14B1FD274100D4BF1C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/gojev0sydz2v9prywgkm.webp",
+      "source_bytes": 3870,
+      "source_sha256": "93DC2E80CC4BCF4B106B7827B6622CD36709BA858B3E9C45AF6C7EC7D2ECC2ED",
+      "runtime_bytes": 3870,
+      "runtime_sha256": "93DC2E80CC4BCF4B106B7827B6622CD36709BA858B3E9C45AF6C7EC7D2ECC2ED",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-2-1024x614.png",
+      "source_bytes": 110245,
+      "source_sha256": "C3247F7D7A7E032DDC52222B1EF8B4FEDB2C8F28F77B76E6BFB7AE96C3AEA077",
+      "runtime_bytes": 110245,
+      "runtime_sha256": "C3247F7D7A7E032DDC52222B1EF8B4FEDB2C8F28F77B76E6BFB7AE96C3AEA077",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-2-300x180.png",
+      "source_bytes": 21668,
+      "source_sha256": "E544E35DFB288D05E6578666D3B0759C1D7393A05A9463BD32B683AB54A32616",
+      "runtime_bytes": 21668,
+      "runtime_sha256": "E544E35DFB288D05E6578666D3B0759C1D7393A05A9463BD32B683AB54A32616",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-2-768x461.png",
+      "source_bytes": 74934,
+      "source_sha256": "5C1DF2D8651F8DA89F4B8B5D951A718C214D35FCD8584E40FEB8F4CC1AB9ACF7",
+      "runtime_bytes": 74934,
+      "runtime_sha256": "5C1DF2D8651F8DA89F4B8B5D951A718C214D35FCD8584E40FEB8F4CC1AB9ACF7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-2.png",
+      "source_bytes": 416126,
+      "source_sha256": "5680156FD33243087D3D863B09062DA59C0BCB35A70ECB6DF0D215D36D05AFCD",
+      "runtime_bytes": 416126,
+      "runtime_sha256": "5680156FD33243087D3D863B09062DA59C0BCB35A70ECB6DF0D215D36D05AFCD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-3-1024x614.png",
+      "source_bytes": 97881,
+      "source_sha256": "F52098ACC65EF3697CF7271B1A736A5E05C094EC01A78ECCD04CCAB5D45D0A06",
+      "runtime_bytes": 97881,
+      "runtime_sha256": "F52098ACC65EF3697CF7271B1A736A5E05C094EC01A78ECCD04CCAB5D45D0A06",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-3-300x180.png",
+      "source_bytes": 19405,
+      "source_sha256": "E369F70CCE40121B1E9851F4F643E355DFF306C426313239A3C76DFA95F15DCD",
+      "runtime_bytes": 19405,
+      "runtime_sha256": "E369F70CCE40121B1E9851F4F643E355DFF306C426313239A3C76DFA95F15DCD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-3-768x461.png",
+      "source_bytes": 65795,
+      "source_sha256": "C0CAE0B056519584D36967F791822784A60FE2A080CFD2F90B10C3B32EC26F50",
+      "runtime_bytes": 65795,
+      "runtime_sha256": "C0CAE0B056519584D36967F791822784A60FE2A080CFD2F90B10C3B32EC26F50",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-3.png",
+      "source_bytes": 479030,
+      "source_sha256": "153B9A4042A57F5E2442E82C5472E986863F5DA2E5565F088DF665DF2882D2CC",
+      "runtime_bytes": 479030,
+      "runtime_sha256": "153B9A4042A57F5E2442E82C5472E986863F5DA2E5565F088DF665DF2882D2CC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-8-1024x614.png",
+      "source_bytes": 207696,
+      "source_sha256": "2C2C85453B3A9282C4970CE1DEBCA4B7A48044636B70E12DB475F267174B44F7",
+      "runtime_bytes": 207696,
+      "runtime_sha256": "2C2C85453B3A9282C4970CE1DEBCA4B7A48044636B70E12DB475F267174B44F7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-8-300x180.png",
+      "source_bytes": 30673,
+      "source_sha256": "34223E80CC5B5108FFB67C8069FC7D84969C38F36DE2699D315D865303EEA5D6",
+      "runtime_bytes": 30673,
+      "runtime_sha256": "34223E80CC5B5108FFB67C8069FC7D84969C38F36DE2699D315D865303EEA5D6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-8-768x461.png",
+      "source_bytes": 129170,
+      "source_sha256": "056453F56FA01DA76BC618E1997BA95D7AC56D1BE021B8D135A21A964255ACDD",
+      "runtime_bytes": 129170,
+      "runtime_sha256": "056453F56FA01DA76BC618E1997BA95D7AC56D1BE021B8D135A21A964255ACDD",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-8.png",
+      "source_bytes": 791982,
+      "source_sha256": "35F480EF1E46A8E9E351354D028DD01BAAFEC86C3DCEB81279EEC88B5CF204C7",
+      "runtime_bytes": 791982,
+      "runtime_sha256": "35F480EF1E46A8E9E351354D028DD01BAAFEC86C3DCEB81279EEC88B5CF204C7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-9-1024x614.png",
+      "source_bytes": 186526,
+      "source_sha256": "6FFACDD62F0043E5DD2769F8A343270C2F2FF2C386D10C95D2FC5918546B28BF",
+      "runtime_bytes": 186526,
+      "runtime_sha256": "6FFACDD62F0043E5DD2769F8A343270C2F2FF2C386D10C95D2FC5918546B28BF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-9-300x180.png",
+      "source_bytes": 32835,
+      "source_sha256": "19943C08A9E064A73BD05BA31BF187702220A95B19199BA4E543731846580BE9",
+      "runtime_bytes": 32835,
+      "runtime_sha256": "19943C08A9E064A73BD05BA31BF187702220A95B19199BA4E543731846580BE9",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-9-768x461.png",
+      "source_bytes": 120428,
+      "source_sha256": "A82B6FF578C0E5D6F11BADD48C673A01F28BE1705812D034904BDAB9DB91FB41",
+      "runtime_bytes": 120428,
+      "runtime_sha256": "A82B6FF578C0E5D6F11BADD48C673A01F28BE1705812D034904BDAB9DB91FB41",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/image-9.png",
+      "source_bytes": 1018122,
+      "source_sha256": "B44AD2428DB9CB4809A617BD7E42A6373712216F5497D5275C7B474370EC4266",
+      "runtime_bytes": 1018122,
+      "runtime_sha256": "B44AD2428DB9CB4809A617BD7E42A6373712216F5497D5275C7B474370EC4266",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/kev4s2koxcus4oadnijk-150x150.webp",
+      "source_bytes": 424,
+      "source_sha256": "9093F092AEA2E7B71023D8240A33768EBC227C7953868FD368952BF4F0512AAB",
+      "runtime_bytes": 424,
+      "runtime_sha256": "9093F092AEA2E7B71023D8240A33768EBC227C7953868FD368952BF4F0512AAB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/kev4s2koxcus4oadnijk.webp",
+      "source_bytes": 204,
+      "source_sha256": "A75E5C5537062B7982CD2CDC8546BDC0D45D94F537FC69747B3822574CE58F1A",
+      "runtime_bytes": 204,
+      "runtime_sha256": "A75E5C5537062B7982CD2CDC8546BDC0D45D94F537FC69747B3822574CE58F1A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/tkhau3wtu9tklwjy8zln-150x150.webp",
+      "source_bytes": 4426,
+      "source_sha256": "4FA9ADE9466F63C1AEC7DE12D8B6E6595214E1C5CD222EF6D068990EC9906A7A",
+      "runtime_bytes": 4426,
+      "runtime_sha256": "4FA9ADE9466F63C1AEC7DE12D8B6E6595214E1C5CD222EF6D068990EC9906A7A",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/tkhau3wtu9tklwjy8zln-300x300.webp",
+      "source_bytes": 10408,
+      "source_sha256": "1EC7E44B252DAF06632AEDE747612DAE689F71C2DD28B27A4E0FE9FC3D9F7C57",
+      "runtime_bytes": 10408,
+      "runtime_sha256": "1EC7E44B252DAF06632AEDE747612DAE689F71C2DD28B27A4E0FE9FC3D9F7C57",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/tkhau3wtu9tklwjy8zln-768x768.webp",
+      "source_bytes": 28400,
+      "source_sha256": "ADB3B1F4ED29E0E109143458E4985A406D1F5F424B6CE8735D5884B5E8FF126F",
+      "runtime_bytes": 28400,
+      "runtime_sha256": "ADB3B1F4ED29E0E109143458E4985A406D1F5F424B6CE8735D5884B5E8FF126F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/09/tkhau3wtu9tklwjy8zln.webp",
+      "source_bytes": 13626,
+      "source_sha256": "9B41F60DE4D3A09707AD0B1E57F03238B737DCB5A35F7E631DCF6BE3335426C9",
+      "runtime_bytes": 13626,
+      "runtime_sha256": "9B41F60DE4D3A09707AD0B1E57F03238B737DCB5A35F7E631DCF6BE3335426C9",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/1-1-224x300.webp",
+      "source_bytes": 7058,
+      "source_sha256": "D843E8E3047F1034598C086E92E3770D5A6923B0EAD5A4A4AE3AEFDE83955214",
+      "runtime_bytes": 7058,
+      "runtime_sha256": "D843E8E3047F1034598C086E92E3770D5A6923B0EAD5A4A4AE3AEFDE83955214",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/1-1.webp",
+      "source_bytes": 16984,
+      "source_sha256": "B41C6B555F02AA8D618ED6CEC8E00E98322E24DB232649C3D1DEBA1E9CAE5EBC",
+      "runtime_bytes": 16984,
+      "runtime_sha256": "B41C6B555F02AA8D618ED6CEC8E00E98322E24DB232649C3D1DEBA1E9CAE5EBC",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/Managed-IT-Services-Brampton-300x180.webp",
+      "source_bytes": 12988,
+      "source_sha256": "71607A589DAE4201C48BA1ED1AEC305BE1034C70CFFE62A9D950BAAC527D8607",
+      "runtime_bytes": 12988,
+      "runtime_sha256": "71607A589DAE4201C48BA1ED1AEC305BE1034C70CFFE62A9D950BAAC527D8607",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/Managed-IT-Services-Brampton-768x461.webp",
+      "source_bytes": 45850,
+      "source_sha256": "986E7159A8C4C27995ADF0EA3B73A08D209F677293ACB046FD71B5691FD798FE",
+      "runtime_bytes": 45850,
+      "runtime_sha256": "986E7159A8C4C27995ADF0EA3B73A08D209F677293ACB046FD71B5691FD798FE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/Managed-IT-Services-Brampton.webp",
+      "source_bytes": 71514,
+      "source_sha256": "C2A7509BF2FD8F71F2BD16E88591BFA913E9A970CDAD8149EDBEA267A41DD12C",
+      "runtime_bytes": 71514,
+      "runtime_sha256": "C2A7509BF2FD8F71F2BD16E88591BFA913E9A970CDAD8149EDBEA267A41DD12C",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-999x1024-1-293x300.jpg",
+      "source_bytes": 22334,
+      "source_sha256": "B0611993FA2B7F5ACE1F733558A2EABA57398B2B1382A42A1C30B7EB34140ED2",
+      "runtime_bytes": 22334,
+      "runtime_sha256": "B0611993FA2B7F5ACE1F733558A2EABA57398B2B1382A42A1C30B7EB34140ED2",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-999x1024-1-768x787.jpg",
+      "source_bytes": 92500,
+      "source_sha256": "AC47063C2858514CF582CE99977DC9D3ADCDDDEBBE7F8A07E792E1A28F116737",
+      "runtime_bytes": 92500,
+      "runtime_sha256": "AC47063C2858514CF582CE99977DC9D3ADCDDDEBBE7F8A07E792E1A28F116737",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-999x1024-1.jpg",
+      "source_bytes": 54882,
+      "source_sha256": "0FB24F30B5BE59538B2CE7427F002ABA519750DE887DFAB819961A628A7665B3",
+      "runtime_bytes": 54882,
+      "runtime_sha256": "0FB24F30B5BE59538B2CE7427F002ABA519750DE887DFAB819961A628A7665B3",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-computing-services-Brampton-1024x614.png",
+      "source_bytes": 146925,
+      "source_sha256": "3B1C3F17756F76FA6BBF0E87ADF6B1B8BD463AB2A173AAEDD7A3BC32815DBF89",
+      "runtime_bytes": 146925,
+      "runtime_sha256": "3B1C3F17756F76FA6BBF0E87ADF6B1B8BD463AB2A173AAEDD7A3BC32815DBF89",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-computing-services-Brampton-300x180.png",
+      "source_bytes": 23835,
+      "source_sha256": "4726E23813B46D6B8091517777F9BEAC21DA438E16EDC85E910951A4CB24D9C4",
+      "runtime_bytes": 23835,
+      "runtime_sha256": "4726E23813B46D6B8091517777F9BEAC21DA438E16EDC85E910951A4CB24D9C4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-computing-services-Brampton-768x461.png",
+      "source_bytes": 95413,
+      "source_sha256": "78E9EDE17CB1FF228DD30CCEEF19A87AB9637EA6135BA5F23C03448A95B54C11",
+      "runtime_bytes": 95413,
+      "runtime_sha256": "78E9EDE17CB1FF228DD30CCEEF19A87AB9637EA6135BA5F23C03448A95B54C11",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/cloud-computing-services-Brampton.png",
+      "source_bytes": 806110,
+      "source_sha256": "5422F394980CB638613018F16196F1D2E2C06DE5F286305630B9951E9D2FBDDE",
+      "runtime_bytes": 806110,
+      "runtime_sha256": "5422F394980CB638613018F16196F1D2E2C06DE5F286305630B9951E9D2FBDDE",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/dental-dash-1037x1536.webp",
+      "source_bytes": 166350,
+      "source_sha256": "AD1DCF8ACD854EB5782AB2D6CCA9C6165E34E22DBD9A5C8E39C32AD18B24FBE1",
+      "runtime_bytes": 166350,
+      "runtime_sha256": "AD1DCF8ACD854EB5782AB2D6CCA9C6165E34E22DBD9A5C8E39C32AD18B24FBE1",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/dental-dash-203x300.webp",
+      "source_bytes": 8712,
+      "source_sha256": "A3A24EF0765D3E7A31C9CE5DBDEF7E9FDF4A5AAAE98B4BDE053995C5C296C832",
+      "runtime_bytes": 8712,
+      "runtime_sha256": "A3A24EF0765D3E7A31C9CE5DBDEF7E9FDF4A5AAAE98B4BDE053995C5C296C832",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/dental-dash-691x1024.webp",
+      "source_bytes": 56756,
+      "source_sha256": "424FB3C50B9BAB76288179F086D6020D08F5444749A83880733F2AC4059908C4",
+      "runtime_bytes": 56756,
+      "runtime_sha256": "424FB3C50B9BAB76288179F086D6020D08F5444749A83880733F2AC4059908C4",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/dental-dash-768x1138.webp",
+      "source_bytes": 74162,
+      "source_sha256": "CDA92D85B3CD8A51B98F0E6260E1FA9D7483E83E910E6868C6C41DE1A38FD903",
+      "runtime_bytes": 74162,
+      "runtime_sha256": "CDA92D85B3CD8A51B98F0E6260E1FA9D7483E83E910E6868C6C41DE1A38FD903",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/dental-dash.webp",
+      "source_bytes": 231210,
+      "source_sha256": "4FE4C9B5FF2687F88187F9497FD0E9CB2FE4D0480AFE62D6B1F9ACB256B5D721",
+      "runtime_bytes": 231210,
+      "runtime_sha256": "4FE4C9B5FF2687F88187F9497FD0E9CB2FE4D0480AFE62D6B1F9ACB256B5D721",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/lega-bg-300x278.webp",
+      "source_bytes": 16000,
+      "source_sha256": "54F27909D6DD2A2E37AC2B4E24786CE1485DE357F167469B8B82B4E4BA52D8EF",
+      "runtime_bytes": 16000,
+      "runtime_sha256": "54F27909D6DD2A2E37AC2B4E24786CE1485DE357F167469B8B82B4E4BA52D8EF",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/lega-bg-768x712.webp",
+      "source_bytes": 36268,
+      "source_sha256": "3B85B2CB8D74671040A8C77EB581DBF2C9CAF7E72F8D01ADE792CE3791C40626",
+      "runtime_bytes": 36268,
+      "runtime_sha256": "3B85B2CB8D74671040A8C77EB581DBF2C9CAF7E72F8D01ADE792CE3791C40626",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/lega-bg.webp",
+      "source_bytes": 17736,
+      "source_sha256": "449D96DEE8B7BAA3EE8B98197B312D1C71A5A234CA04F6B259C9803238A5D874",
+      "runtime_bytes": 17736,
+      "runtime_sha256": "449D96DEE8B7BAA3EE8B98197B312D1C71A5A234CA04F6B259C9803238A5D874",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/logistic-img-1024x832.webp",
+      "source_bytes": 139612,
+      "source_sha256": "1CAEF7FCF5295829F8211B8BD62D5570145E1ACC5637CB18692FD8774A35C484",
+      "runtime_bytes": 139612,
+      "runtime_sha256": "1CAEF7FCF5295829F8211B8BD62D5570145E1ACC5637CB18692FD8774A35C484",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/logistic-img-300x244.webp",
+      "source_bytes": 17700,
+      "source_sha256": "7C697AC47EFE5565BDA5CC72E1A9E647AD65E16AD588DB47C30D43E8D0136DB5",
+      "runtime_bytes": 17700,
+      "runtime_sha256": "7C697AC47EFE5565BDA5CC72E1A9E647AD65E16AD588DB47C30D43E8D0136DB5",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/logistic-img-768x624.webp",
+      "source_bytes": 80880,
+      "source_sha256": "30809E07789C6172CD59127796F2EE599D4850494AE61740991973C1B0960174",
+      "runtime_bytes": 80880,
+      "runtime_sha256": "30809E07789C6172CD59127796F2EE599D4850494AE61740991973C1B0960174",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/logistic-img.webp",
+      "source_bytes": 97796,
+      "source_sha256": "5461C3E5D5CA27573D41FCF95A682A50027447DFA1AD7B5EC07A4FEF03E7D0B1",
+      "runtime_bytes": 97796,
+      "runtime_sha256": "5461C3E5D5CA27573D41FCF95A682A50027447DFA1AD7B5EC07A4FEF03E7D0B1",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/public_sector-224x300.webp",
+      "source_bytes": 21380,
+      "source_sha256": "82286110B516F44105A1D745565043C0801384FF733A6069FFA2A70551829607",
+      "runtime_bytes": 21380,
+      "runtime_sha256": "82286110B516F44105A1D745565043C0801384FF733A6069FFA2A70551829607",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/public_sector.webp",
+      "source_bytes": 25390,
+      "source_sha256": "06AFA40F83B4C08486A445FB22FF04E420833EFC3C733E780781203A878C3CC8",
+      "runtime_bytes": 25390,
+      "runtime_sha256": "06AFA40F83B4C08486A445FB22FF04E420833EFC3C733E780781203A878C3CC8",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/small_business-224x300.webp",
+      "source_bytes": 17484,
+      "source_sha256": "61822E0FA0B83E0486F41151C35F892C22EE5D40F2CA23DC68E75522366408A6",
+      "runtime_bytes": 17484,
+      "runtime_sha256": "61822E0FA0B83E0486F41151C35F892C22EE5D40F2CA23DC68E75522366408A6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/10/small_business.webp",
+      "source_bytes": 16054,
+      "source_sha256": "394A55594733FE71D0218C4851FB425DD7BB163DC4A51969A52092067CD4222F",
+      "runtime_bytes": 16054,
+      "runtime_sha256": "394A55594733FE71D0218C4851FB425DD7BB163DC4A51969A52092067CD4222F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cloud-computing-service-brampton-300x180.jpg",
+      "source_bytes": 12719,
+      "source_sha256": "5874CB7D8887D4AF24039D7EA59ED6E6DEB5EF73FDBBE1D067A1361C4C96F753",
+      "runtime_bytes": 12719,
+      "runtime_sha256": "5874CB7D8887D4AF24039D7EA59ED6E6DEB5EF73FDBBE1D067A1361C4C96F753",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cloud-computing-service-brampton-768x461.jpg",
+      "source_bytes": 54816,
+      "source_sha256": "76FD91DBC35534B953338394E5061B0122DDE703F5B0F31AD63587E387AB3084",
+      "runtime_bytes": 54816,
+      "runtime_sha256": "76FD91DBC35534B953338394E5061B0122DDE703F5B0F31AD63587E387AB3084",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cloud-computing-service-brampton.jpg",
+      "source_bytes": 52376,
+      "source_sha256": "46ADB8BE57C2C5806EA06B9B1C87DAA58EE8691CF09EF575AD7522EFE70B876F",
+      "runtime_bytes": 52376,
+      "runtime_sha256": "46ADB8BE57C2C5806EA06B9B1C87DAA58EE8691CF09EF575AD7522EFE70B876F",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cyber-security-services-brampton-1-1024x614.png",
+      "source_bytes": 214701,
+      "source_sha256": "99C422157468E5F91052F8ACCFFC11A07B90BA08A6DD4A38C0EE18E3E134AFAB",
+      "runtime_bytes": 214701,
+      "runtime_sha256": "99C422157468E5F91052F8ACCFFC11A07B90BA08A6DD4A38C0EE18E3E134AFAB",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cyber-security-services-brampton-1-300x180.png",
+      "source_bytes": 31622,
+      "source_sha256": "A340DDED480271EB77C2AABE6FB2970E678A5180EE745E539209ECACF0F286E7",
+      "runtime_bytes": 31622,
+      "runtime_sha256": "A340DDED480271EB77C2AABE6FB2970E678A5180EE745E539209ECACF0F286E7",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cyber-security-services-brampton-1-768x461.png",
+      "source_bytes": 135944,
+      "source_sha256": "6E04B244774A970A71551B8C3438797E9A1FD9F38BA354ADF5632338F5525AF6",
+      "runtime_bytes": 135944,
+      "runtime_sha256": "6E04B244774A970A71551B8C3438797E9A1FD9F38BA354ADF5632338F5525AF6",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/2025/11/cyber-security-services-brampton-1.png",
+      "source_bytes": 961656,
+      "source_sha256": "E7E91E87D385E8051EEE61053BE2010F8C6E792BBC84BA2EF46BC61FA6FDFC91",
+      "runtime_bytes": 961656,
+      "runtime_sha256": "E7E91E87D385E8051EEE61053BE2010F8C6E792BBC84BA2EF46BC61FA6FDFC91",
+      "transformed": false
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/css/archivo.css?ver=1767061138",
+      "source_bytes": 26136,
+      "source_sha256": "61A00537EE29A178353BF8E4EA4C6FC015C8BB67304DEE476AA9A03C4461157C",
+      "runtime_bytes": 130,
+      "runtime_sha256": "921344F37294A449F60009177CA0D451FF0AE14B5083C0BE5A3560FA8E8CB9FC",
+      "transformed": true
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/css/dmsans.css?ver=1767061139",
+      "source_bytes": 16920,
+      "source_sha256": "E1001A1DD904CD23D733623377228A6076DDE138367DC93CDA29C594B81A2125",
+      "runtime_bytes": 130,
+      "runtime_sha256": "921344F37294A449F60009177CA0D451FF0AE14B5083C0BE5A3560FA8E8CB9FC",
+      "transformed": true
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/css/ibmplexsans.css?ver=1767061143",
+      "source_bytes": 37016,
+      "source_sha256": "6711E08CD6FA762D1C9B8A7C086C6DEFA76B98E2D532C2C6DBEB989FC9459886",
+      "runtime_bytes": 130,
+      "runtime_sha256": "921344F37294A449F60009177CA0D451FF0AE14B5083C0BE5A3560FA8E8CB9FC",
+      "transformed": true
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/css/poppins.css?ver=1767061140",
+      "source_bytes": 24192,
+      "source_sha256": "922BD08D43AC993C4ADD214072BA37830E44B304920932FD894E7A1789226937",
+      "runtime_bytes": 130,
+      "runtime_sha256": "921344F37294A449F60009177CA0D451FF0AE14B5083C0BE5A3560FA8E8CB9FC",
+      "transformed": true
+    },
+    {
+      "path": "/wp-content/uploads/elementor/google-fonts/css/roboto.css?ver=1767061146",
+      "source_bytes": 106236,
+      "source_sha256": "531C0A8A1E7DBFFCDC6AB70E0E330BA01D17D2846470F533D74DD50DECF0B5FE",
+      "runtime_bytes": 130,
+      "runtime_sha256": "921344F37294A449F60009177CA0D451FF0AE14B5083C0BE5A3560FA8E8CB9FC",
+      "transformed": true
+    }
+  ]
+}

@@ -88,17 +88,17 @@ function PrivacyPage() {
           information, private client records, or sensitive security details in Ask AI or live chat.
         </p>
         <p className="mt-3 text-muted">
-          Attribution, Ask AI and Chatwoot, CRM, and other provider retention rules, plus provider
-          and cross-border processing review, remain unresolved authoritative Privacy and Legal
-          gates. No exact period is stated here. Production activation remains on hold until those
-          gates are approved.
+          Retention periods and provider or cross-border terms for attribution, Ask AI, Chatwoot,
+          CRM, and other providers are not yet authorized for publication. Production activation
+          remains on hold until the authoritative Privacy and Legal reviewers approve those terms.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Automated-abuse prevention</h2>
         <p className="mt-3 text-muted">
           When consultation-form abuse protection is enabled, Cloudflare Turnstile processes the
           verification token and request IP to prevent automated abuse. Its provider and
-          cross-border processing terms remain part of the unresolved Privacy and Legal review.
+          cross-border disclosures must be approved by the authoritative Privacy and Legal
+          reviewers before production activation.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Cookies and measurement</h2>
@@ -112,14 +112,11 @@ function PrivacyPage() {
 
         <h2 className="mt-10 text-[22px] font-semibold">Retention</h2>
         <p className="mt-3 text-muted">
-          The owner-directed operational schedule keeps failed or unsubmitted intake data for 30
-          days, service-inquiry records for 24 months after the last activity, consent and
-          suppression evidence for the active period plus 24 months after withdrawal, send and
-          audit metadata for 24 months, and raw analytics identifiers for 14 months. Call recording
-          is off. A legal hold may pause scheduled deletion when required by law. This operational
-          schedule does not settle the authoritative retention terms for attribution data, chat,
-          CRM, or external providers; those terms remain subject to Privacy and Legal approval.
-          Access remains limited to staff who need the information for the stated purpose.
+          Final retention periods, deletion rules, legal-hold handling, and provider or
+          cross-border disclosures have not yet been approved by the authoritative Privacy and
+          Legal reviewers. Production processing remains on hold. BIT Solution will publish and
+          apply only the terms accepted through that review. Access is limited to staff who need
+          the information for the stated purpose.
         </p>
       </article>
     </main>

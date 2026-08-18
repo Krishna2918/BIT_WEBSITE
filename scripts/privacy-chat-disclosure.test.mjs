@@ -20,11 +20,14 @@ test("privacy notice discloses consent-gated AI processing and separate human ha
 });
 
 test("provider retention and cross-border review remain held without unsupported model-use claims", () => {
-  assert.match(privacy, /provider retention rules, plus provider\s+and cross-border processing review, remain unresolved authoritative Privacy and Legal\s+gates/u);
-  assert.match(privacy, /Production activation remains on hold/u);
+  assert.match(privacy, /Retention periods and provider or cross-border terms for attribution, Ask AI, Chatwoot,\s+CRM, and other providers are not yet authorized for publication/u);
+  assert.match(privacy, /Production activation\s+remains on hold/u);
   const disclosure = privacy.split("Ask AI and human live chat", 2)[1]?.split("Automated-abuse prevention", 1)[0] ?? "";
   assert.doesNotMatch(disclosure, /\b(?:days?|months?|years?)\b/iu);
   assert.doesNotMatch(disclosure, /\btrain(?:ed|ing)?\b|improve (?:the )?model|model development/iu);
+  assert.match(privacy, /Final retention periods, deletion rules, legal-hold handling, and provider or\s+cross-border disclosures have not yet been approved/u);
+  assert.match(privacy, /publish and\s+apply only the terms accepted through that review/u);
+  assert.doesNotMatch(privacy, /owner-approved retention|legally approved|Privacy and Legal approved/u);
 });
 
 test("privacy notice identifies Turnstile token and request IP processing", () => {
