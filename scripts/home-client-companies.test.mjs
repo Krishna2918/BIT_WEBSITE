@@ -3,19 +3,25 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const home = await readFile(new URL("../src/routes/index.tsx", import.meta.url), "utf8");
+const sector = await readFile(
+  new URL("../src/components/site/industry-page.tsx", import.meta.url),
+  "utf8",
+);
 const clients = await readFile(new URL("../src/data/clients.ts", import.meta.url), "utf8");
 
-test("homepage restores one complete approved client-company section", () => {
-  assert.equal((home.match(/id="client-companies"/gu) || []).length, 1);
-  assert.match(home, /import \{ CLIENTS \} from "@\/data\/clients"/u);
-  for (const sector of ["dental", "transportation", "construction", "warehouses"]) {
-    assert.match(home, new RegExp(`clients: CLIENTS\\.${sector}`, "u"));
-  }
-  assert.match(home, /CLIENT_GROUPS\.map/u);
-  assert.match(home, /group\.clients\.map/u);
+test("homepage does not list client companies", () => {
+  assert.doesNotMatch(home, /id="client-companies"/u);
+  assert.doesNotMatch(home, /CLIENT_GROUPS/u);
+  assert.doesNotMatch(home, /Companies across the floors we support/u);
 });
 
-test("approved client registry remains unchanged and homepage links use its exact values", () => {
+test("sector pages keep the rotating name ticker", () => {
+  assert.match(sector, /function ClientTicker/u);
+  assert.match(sector, /Who trusts us\. Who we trust\./u);
+  assert.match(sector, /clientsFor\(industry\.slug\)/u);
+});
+
+test("approved client registry remains unchanged", () => {
   for (const name of [
     "Sandhu Dental Group",
     "Milestone Dentistry",
@@ -29,6 +35,4 @@ test("approved client registry remains unchanged and homepage links use its exac
   ]) {
     assert.match(clients, new RegExp(name, "u"));
   }
-  assert.match(home, /href=\{client\.href\}/u);
-  assert.match(home, /src=\{client\.logo\}/u);
 });
