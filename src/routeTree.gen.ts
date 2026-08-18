@@ -26,6 +26,7 @@ import { Route as SupportRouteImport } from './routes/support'
 import { Route as ThankYouRouteImport } from './routes/thank-you'
 import { Route as VoipRouteImport } from './routes/voip'
 import { Route as ApiConsultRouteImport } from './routes/api/consult'
+import { Route as ConsultContinueRouteImport } from './routes/consult_.continue'
 import { Route as DentalItOntarioRouteImport } from './routes/dental-it.ontario'
 import { Route as FleetOperationsOntarioRouteImport } from './routes/fleet-operations.ontario'
 import { Route as IndustriesIndexRouteImport } from './routes/industries.index'
@@ -119,6 +120,11 @@ const ApiConsultRoute = ApiConsultRouteImport.update({
   path: '/api/consult',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConsultContinueRoute = ConsultContinueRouteImport.update({
+  id: '/consult_/continue',
+  path: '/consult/continue',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DentalItOntarioRoute = DentalItOntarioRouteImport.update({
   id: '/dental-it/ontario',
   path: '/dental-it/ontario',
@@ -173,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -226,6 +234,7 @@ export interface FileRoutesById {
   '/thank-you': typeof ThankYouRoute
   '/voip': typeof VoipRoute
   '/api/consult': typeof ApiConsultRoute
+  '/consult_/continue': typeof ConsultContinueRoute
   '/dental-it/ontario': typeof DentalItOntarioRoute
   '/fleet-operations/ontario': typeof FleetOperationsOntarioRoute
   '/industries/$slug': typeof IndustriesSlugRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/voip'
     | '/api/consult'
+    | '/consult/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -280,6 +290,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/voip'
     | '/api/consult'
+    | '/consult/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -306,6 +317,7 @@ export interface FileRouteTypes {
     | '/thank-you'
     | '/voip'
     | '/api/consult'
+    | '/consult_/continue'
     | '/dental-it/ontario'
     | '/fleet-operations/ontario'
     | '/industries/$slug'
@@ -333,6 +345,7 @@ export interface RootRouteChildren {
   ThankYouRoute: typeof ThankYouRoute
   VoipRoute: typeof VoipRoute
   ApiConsultRoute: typeof ApiConsultRoute
+  ConsultContinueRoute: typeof ConsultContinueRoute
   DentalItOntarioRoute: typeof DentalItOntarioRoute
   FleetOperationsOntarioRoute: typeof FleetOperationsOntarioRoute
   IndustriesSlugRoute: typeof IndustriesSlugRoute
@@ -463,6 +476,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiConsultRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/consult_/continue': {
+      id: '/consult_/continue'
+      path: '/consult/continue'
+      fullPath: '/consult/continue'
+      preLoaderRoute: typeof ConsultContinueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dental-it/ontario': {
       id: '/dental-it/ontario'
       path: '/dental-it/ontario'
@@ -533,6 +553,7 @@ const rootRouteChildren: RootRouteChildren = {
   ThankYouRoute: ThankYouRoute,
   VoipRoute: VoipRoute,
   ApiConsultRoute: ApiConsultRoute,
+  ConsultContinueRoute: ConsultContinueRoute,
   DentalItOntarioRoute: DentalItOntarioRoute,
   FleetOperationsOntarioRoute: FleetOperationsOntarioRoute,
   IndustriesSlugRoute: IndustriesSlugRoute,

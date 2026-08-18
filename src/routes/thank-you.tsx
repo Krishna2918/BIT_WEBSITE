@@ -9,10 +9,7 @@ export const Route = createFileRoute("/thank-you")({
   }),
   component: ThankYou,
   head: () => ({
-    meta: [
-      { title: "Request received — BIT Solution" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Request received — BIT Solution" }, { name: "robots", content: "noindex" }],
   }),
 });
 
@@ -25,10 +22,10 @@ function ThankYou() {
           Received
         </p>
         <h1 className="text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em] text-ink">
-          We have your request.
+          Thanks—BIT Solution will review your request and contact you at your preferred time.
         </h1>
         <p className="mt-4 text-[16px] leading-relaxed text-muted">
-          A person at BIT will follow up. If it is urgent, call{" "}
+          If your request is urgent, call{" "}
           <a className="callrail rTapNumber text-link" href={SITE.phoneHref}>
             {SITE.phoneDisplay}
           </a>

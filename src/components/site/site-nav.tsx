@@ -54,7 +54,7 @@ export function SiteNav() {
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           <a
             href={SITE.phoneHref}
-            className="cta-ghost cta-ghost--nav callrail rTapNumber hidden sm:inline-flex"
+            className="nav-phone cta-ghost cta-ghost--nav callrail rTapNumber"
             onClick={() => track("click_to_call", { source: "nav" })}
           >
             {SITE.phoneDisplay}

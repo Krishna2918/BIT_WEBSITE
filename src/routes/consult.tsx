@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ConsultForm } from "@/components/site/consult-form";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_INDEXABLE } from "@/lib/site";
 import { track } from "@/lib/tracking";
 
 export const Route = createFileRoute("/consult")({
@@ -13,8 +13,12 @@ export const Route = createFileRoute("/consult")({
         content:
           "Book a consultation with BIT Solution. Intelligent infrastructure across all of Ontario. Call or WhatsApp +1 905-867-6574.",
       },
-      { name: "robots", content: "index,follow" },
+      {
+        name: "robots",
+        content: SITE_INDEXABLE ? "index,follow" : "noindex,nofollow,noarchive",
+      },
     ],
+    links: [{ rel: "canonical", href: `${SITE.url}/consult` }],
   }),
 });
 

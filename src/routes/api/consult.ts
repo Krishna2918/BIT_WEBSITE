@@ -1,77 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
-import {
-  CONSULT_CONTRACT_VERSION,
-  CONSULT_GENERAL_INTERESTS,
-  CONSULT_INTEREST_BY_INTENT,
-  CONSULT_SOURCE_BY_INTENT,
-} from "@/lib/consult-contract";
+import { CONSULT_CONTRACT_VERSION } from "@/lib/consult-contract";
+import { ConsultIntakeSchema } from "@/lib/consult-intake-schema";
 import { buildFormAiCrmPayload } from "@/lib/form-ai-payload.server";
-
-const Phone = z
-  .string()
-  .trim()
-  .min(7)
-  .max(40)
-  .refine(
-    (value) => /^\+?[0-9() .-]+$/.test(value) && /^\d{10,15}$/.test(value.replace(/\D/g, "")),
-    "invalid phone",
-  );
-
-const BaseFields = {
-  submission_id: z.string().uuid(),
-  name: z.string().trim().min(2).max(120),
-  company: z.string().trim().min(1).max(160),
-  email: z.string().trim().email().max(160),
-  phone: Phone,
-  message: z.string().trim().max(2000).optional().default(""),
-  casl: z.literal("yes"),
-  gclid: z.string().max(200).optional(),
-  utm_source: z.string().max(120).optional(),
-  utm_medium: z.string().max(120).optional(),
-  utm_campaign: z.string().max(160).optional(),
-  utm_term: z.string().max(160).optional(),
-  utm_content: z.string().max(160).optional(),
-  msclkid: z.string().max(200).optional(),
-  fbclid: z.string().max(200).optional(),
-  landing_page: z.string().max(200).optional(),
-  referrer: z.string().max(400).optional(),
-  company_website: z.string().max(200).optional(),
-  turnstile_token: z.string().max(2048).optional(),
-};
-
-const Schema = z.discriminatedUnion("intent", [
-  z
-    .object({
-      ...BaseFields,
-      intent: z.literal("fleet"),
-      source: z.literal(CONSULT_SOURCE_BY_INTENT.fleet),
-      interest: z.literal(CONSULT_INTEREST_BY_INTENT.fleet),
-      power_units: z.coerce.number().int().min(1).max(10000),
-      eld_telematics_provider: z.string().trim().min(1).max(160),
-      dispatch_bottlenecks: z.string().trim().min(1).max(500),
-    })
-    .strict(),
-  z
-    .object({
-      ...BaseFields,
-      intent: z.literal("dental"),
-      source: z.literal(CONSULT_SOURCE_BY_INTENT.dental),
-      interest: z.literal(CONSULT_INTEREST_BY_INTENT.dental),
-      operatory_count: z.coerce.number().int().min(1).max(1000),
-      practice_software: z.string().trim().min(1).max(160),
-      backup_frequency: z.string().trim().min(1).max(160),
-    })
-    .strict(),
-  z
-    .object({
-      ...BaseFields,
-      intent: z.literal("general"),
-      source: z.literal(CONSULT_SOURCE_BY_INTENT.general),
-      interest: z.enum(CONSULT_GENERAL_INTERESTS),
-    })
-    .strict(),
-]);
 
 const CrmResponse = z
   .object({
@@ -80,9 +11,18 @@ const CrmResponse = z
     idempotency_key: z.string().regex(/^[a-f0-9]{64}$/),
     lead_ref: z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$/),
     category: z.literal("FORM_AI"),
+    queue_key: z.string().min(1),
+    display_label: z.string().min(1),
     pinned: z.literal(true),
     priority_order: z.literal(0),
+    sector_classification: z.string().min(1),
+    services: z.array(z.string()).min(1),
+    routing: z.record(z.string(), z.unknown()),
     qualified: z.boolean(),
+    software_primary_recommendation: z.boolean(),
+    offer_eligibility_review: z.boolean(),
+    offer_eligibility_state: z.string().min(1),
+    offer_external_use_allowed: z.literal(false),
     speed_to_lead: z
       .object({
         timezone: z.literal("America/Toronto"),
@@ -100,6 +40,16 @@ const CrmResponse = z
           .strict(),
       })
       .strict(),
+    outbox: z
+      .object({
+        artifact_types: z.array(z.string()),
+        artifact_count: z.number().int().nonnegative(),
+        all_states: z.literal("pending"),
+        all_attempt_counts: z.literal(0),
+        workers_started: z.literal(false),
+      })
+      .strict(),
+    external_effects_permitted: z.literal(false),
   })
   .strict();
 
@@ -198,15 +148,12 @@ async function verifyTurnstile(token: string | undefined, request: Request) {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
   if (forwarded) form.set("remoteip", forwarded);
   try {
-    const response = await fetch(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: form,
-        signal: AbortSignal.timeout(8000),
-      },
-    );
+    const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: form,
+      signal: AbortSignal.timeout(8000),
+    });
     const result = (await response.json()) as {
       success?: boolean;
       hostname?: string;
@@ -251,7 +198,7 @@ export const Route = createFileRoute("/api/consult")({
         } catch {
           return Response.json({ ok: false }, { status: 400 });
         }
-        const parsed = Schema.safeParse(json);
+        const parsed = ConsultIntakeSchema.safeParse(json);
         if (!parsed.success) {
           return Response.json({ ok: false, error: "invalid" }, { status: 400 });
         }

@@ -2,11 +2,20 @@ import { createHash } from "node:crypto";
 import {
   CONSULT_CONSENT_VERSION,
   CONSULT_CONTRACT_VERSION,
-  CONSULT_GENERAL_INTERESTS,
+  CONSULT_CHANNEL_BY_REPLY,
   CONSULT_INTEREST_BY_INTENT,
+  CONSULT_OPERATION,
   CONSULT_SCOPE_BY_INTENT,
   CONSULT_SOURCE_BY_INTENT,
   CONSULT_SOURCE_CHANNEL,
+  CONSULT_TIME_WINDOW_BY_CONTACT_TIME,
+  buildCommercialPositioning,
+  isAllowedPublicWebsiteHostname,
+  resolveConsultRouting,
+  validateSelectedServices,
+  type ConsultContactTime,
+  type ConsultReplyChannel,
+  type ConsultService,
 } from "./consult-contract.ts";
 
 export type ConsultIntent = keyof typeof CONSULT_SCOPE_BY_INTENT;
@@ -19,7 +28,15 @@ export interface ConsultPayloadInput {
   phone: string;
   interest: string;
   message: string;
-  casl: "yes";
+  services: ConsultService[];
+  website_url?: string;
+  website_review_consent: boolean;
+  preferred_contact_time: ConsultContactTime;
+  preferred_reply: ConsultReplyChannel;
+  service_inquiry_consent: true;
+  service_callback_consent: true;
+  service_update_consent: boolean;
+  marketing_consent: boolean;
   intent: ConsultIntent;
   source: string;
   power_units?: number;
@@ -286,6 +303,27 @@ function optional(value: string | undefined) {
   return normalized ? normalized : null;
 }
 
+function publicWebsite(value: string | undefined) {
+  const normalized = optional(value);
+  if (!normalized) return null;
+  let parsed: URL;
+  try {
+    parsed = new URL(normalized);
+  } catch {
+    throw new Error("website URL is invalid");
+  }
+  if (
+    !["http:", "https:"].includes(parsed.protocol) ||
+    parsed.username ||
+    parsed.password ||
+    parsed.hash ||
+    !isAllowedPublicWebsiteHostname(parsed.hostname)
+  ) {
+    throw new Error("website URL is invalid");
+  }
+  return parsed.toString();
+}
+
 export function buildFormAiCrmPayload(
   input: ConsultPayloadInput,
   received = new Date(),
@@ -294,19 +332,29 @@ export function buildFormAiCrmPayload(
   if (input.source !== CONSULT_SOURCE_BY_INTENT[input.intent]) {
     throw new Error("consult form source does not match intent");
   }
-  if (
-    (input.intent !== "general" && input.interest !== CONSULT_INTEREST_BY_INTENT[input.intent]) ||
-    (input.intent === "general" &&
-      !CONSULT_GENERAL_INTERESTS.includes(
-        input.interest as (typeof CONSULT_GENERAL_INTERESTS)[number],
-      ))
-  ) {
+  if (input.interest !== CONSULT_INTEREST_BY_INTENT[input.intent]) {
     throw new Error("consult form interest does not match intent");
   }
+  const selectedServices = validateSelectedServices(input.services);
+  const websiteUrl = publicWebsite(input.website_url);
+  if (input.website_review_consent && !websiteUrl) {
+    throw new Error("website review consent requires a public URL");
+  }
+  if (websiteUrl && !input.website_review_consent) {
+    throw new Error("public website URL requires review consent");
+  }
+  const routing = resolveConsultRouting(selectedServices);
+  const commercialPositioning = buildCommercialPositioning(selectedServices);
   const normalizedEmail = normalizeEmail(input.email);
   const normalizedPhone = normalizePhone(input.phone);
   const qualification = qualificationFor(input);
   const speedToLead = computeSpeedToLeadSchedule(received, staffedWindow);
+  const preferredChannel = CONSULT_CHANNEL_BY_REPLY[input.preferred_reply];
+  const preferredTimeWindow = CONSULT_TIME_WINDOW_BY_CONTACT_TIME[input.preferred_contact_time];
+  const summary = `${input.message.trim() || "Consultation request"}; ${selectedServices.join(", ")}; prefers ${preferredChannel} ${preferredTimeWindow}`.slice(0, 500);
+  const publicSiteNote = input.website_review_consent
+    ? optional(input.message)?.slice(0, 300) || "Please review the public website at a high level."
+    : null;
   const idempotencyKey = sha256(`FORM_AI:submission:${input.submission_id}`);
   const submissionFingerprint = sha256(
     JSON.stringify({
@@ -316,6 +364,15 @@ export function buildFormAiCrmPayload(
       phone: normalizedPhone,
       interest: input.interest.trim(),
       message: input.message.trim(),
+      selected_services: selectedServices,
+      website_review: {
+        public_url: websiteUrl,
+        high_level_note_consent: input.website_review_consent,
+      },
+      preferred_contact: {
+        time: input.preferred_contact_time,
+        reply_channel: input.preferred_reply,
+      },
       intent: input.intent,
       source: input.source,
       qualification,
@@ -331,14 +388,21 @@ export function buildFormAiCrmPayload(
       },
       landing_page: optional(input.landing_page),
       referrer: optional(input.referrer),
-      casl: input.casl,
+      consent: {
+        service_inquiry: input.service_inquiry_consent,
+        service_callback: input.service_callback_consent,
+        service_updates: input.service_update_consent,
+        marketing: input.marketing_consent,
+      },
+      routing,
+      commercial_positioning: commercialPositioning,
     }),
   );
   return {
     idempotencyKey,
     body: {
       contract_version: CONSULT_CONTRACT_VERSION,
-      operation: "UPSERT_FORM_AI" as const,
+      operation: CONSULT_OPERATION,
       idempotency_key: idempotencyKey,
       submission_fingerprint: submissionFingerprint,
       lead: {
@@ -354,8 +418,18 @@ export function buildFormAiCrmPayload(
         },
         request: {
           interest: input.interest.trim(),
-          message: input.message.trim(),
+          summary,
           qualification,
+          services: selectedServices,
+          preferred_contact: {
+            channel: preferredChannel,
+            time_window: preferredTimeWindow,
+          },
+          public_site_review: {
+            consent: input.website_review_consent,
+            public_url: websiteUrl,
+            note: publicSiteNote,
+          },
         },
         source: {
           channel: CONSULT_SOURCE_CHANNEL,
@@ -375,10 +449,28 @@ export function buildFormAiCrmPayload(
           },
         },
         consent: {
-          granted: true as const,
-          framework: "CASL" as const,
-          version: CONSULT_CONSENT_VERSION,
-          captured_at: speedToLead.received_at,
+          service_inquiry: {
+            granted: true as const,
+            framework: "PIPEDA_SERVICE_REQUEST" as const,
+            version: CONSULT_CONSENT_VERSION,
+            captured_at: speedToLead.received_at,
+          },
+          service_callback: {
+            granted: true as const,
+            purpose: "Service consultation callback and coordination only" as const,
+            version: CONSULT_CONSENT_VERSION,
+            captured_at: speedToLead.received_at,
+          },
+          marketing: {
+            granted: input.marketing_consent,
+            framework: "CASL_MARKETING" as const,
+            version: CONSULT_CONSENT_VERSION,
+            captured_at: speedToLead.received_at,
+          },
+          service_updates: {
+            email: input.service_update_consent && preferredChannel === "email",
+            whatsapp: input.service_update_consent && preferredChannel === "whatsapp",
+          },
         },
         speed_to_lead: speedToLead,
       },
