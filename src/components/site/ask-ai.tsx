@@ -198,8 +198,8 @@ export function HelpSheet() {
           >
             <CircleHelp size={16} strokeWidth={2.1} />
             <span>
-              <strong>IT ticket</strong>
-              AI sorts it · Helpdesk approves
+              <strong>Raise a ticket</strong>
+              Company, work email, what broke
             </span>
           </Link>
           <Link

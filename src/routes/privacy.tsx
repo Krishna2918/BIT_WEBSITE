@@ -47,10 +47,12 @@ function PrivacyPage() {
           telematics provider and the main dispatch bottleneck. Dental requests also ask for the
           number of operatories, practice-management software and backup frequency. We also store
           advertising click identifiers (such as GCLID or UTM values) if they are present in the
-          page address, plus the page you came from. Consultation notes and Ask AI are free-text
-          fields. Do not include patient or health information, driver files, passwords, access
-          codes, credentials, payment information, private client records, or sensitive security
-          details.
+          page address, plus the page you came from. The public ticket form collects company, work
+          email, and what is broken. Your name, PC name, and how bad it is are optional. We do not
+          collect a phone number on that form. Consultation notes, ticket notes, and Ask AI are
+          free-text fields. Do not include patient or health information, driver files, passwords,
+          access codes, credentials, payment information, private client records, or sensitive
+          security details.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Why we collect it</h2>

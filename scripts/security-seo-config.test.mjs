@@ -100,7 +100,7 @@ test("sitemap covers public dynamic routes and excludes private routes", async (
 
 test("all public route families emit a bitsolution.ca canonical", async () => {
   const routeFiles = [
-    "index.tsx", "ai.tsx", "consult.tsx", "dental-it.ontario.tsx",
+    "index.tsx", "ai.tsx", "consult.tsx", "ticket.tsx", "dental-it.ontario.tsx",
     "digital-marketing.tsx", "faq.tsx", "fleet-operations.ontario.tsx",
     "gallery.tsx", "hardware.tsx", "industries.index.tsx", "industries.$slug.tsx",
     "insights.index.tsx", "insights.$slug.tsx", "privacy.tsx", "procurement.tsx",

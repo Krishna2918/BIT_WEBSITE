@@ -16,8 +16,6 @@ export const SITE = {
   region: "Ontario",
   coverage: "Entire Ontario",
   url: "https://bitsolution.ca",
-  /** Live BIT OS ticket desk (Tailscale HTTPS funnel to this VM). */
-  ticketUrl: "https://win-9jicvuobmun.tail9e2ebd.ts.net/ticket",
 } as const;
 
 export const TRACKING = {
