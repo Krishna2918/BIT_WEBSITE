@@ -174,6 +174,7 @@ export default defineConfig(({ command }) => ({
           nitro({
             preset: "vercel",
             serverDir: "./server",
+            prerender: { autoSubfolderIndex: false },
           }),
         ]
       : []),
