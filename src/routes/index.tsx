@@ -4,6 +4,7 @@ import { CoverReel } from "@/components/site/cover-reel";
 import { HeroGlobeActions } from "@/components/site/ask-ai";
 import { ContactActions } from "@/components/site/contact-actions";
 import { GalleryGrid } from "@/components/site/gallery-grid";
+import { StripField } from "@/components/site/strip-field";
 import { PARTNERS } from "@/data/partners";
 import { EXTRAS } from "@/data/extras";
 import { TESTIMONIALS } from "@/data/testimonials";
@@ -82,6 +83,7 @@ function Home() {
             </p>
           </div>
           <div className="hero-tag">
+            <StripField />
             <h1 className="mx-auto max-w-3xl text-[17px] font-medium tracking-[-0.015em] sm:text-[20px]">
               Intelligent Infrastructure, Custom B2B Software & AI Workflows —
               Under One Flag.
@@ -101,18 +103,6 @@ function Home() {
           </div>
         </div>
         <div className="hero-globe">
-          <video
-            className="hero-globe-bg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/images/globe-studio-poster.jpg"
-            aria-hidden
-          >
-            <source src="/videos/globe-studio.mp4" type="video/mp4" />
-          </video>
           {Scene ? <Scene /> : null}
           <div className="hero-ask-wrap">
             <HeroGlobeActions />
@@ -124,6 +114,7 @@ function Home() {
 
       <section id="gallery" className="bg-bg">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Gallery
           </p>
@@ -146,6 +137,7 @@ function Home() {
 
       <section id="partners" className="bg-bg-muted">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Who we partner with
           </p>
@@ -172,6 +164,7 @@ function Home() {
 
       <section id="pillars" className="bg-bg">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Four parts. One flag.
           </p>
@@ -228,6 +221,7 @@ function Home() {
 
       <section id="proof" className="bg-bg-muted">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Clients
           </p>
@@ -255,6 +249,7 @@ function Home() {
 
       <section id="faq" className="bg-bg">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             FAQs
           </p>
@@ -281,6 +276,7 @@ function Home() {
 
       <section id="insights" className="bg-bg-muted">
         <div className="navy-strip">
+          <StripField />
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Insights
           </p>
@@ -315,6 +311,7 @@ function Home() {
       </section>
 
       <section className="navy-strip">
+        <StripField />
         <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-link">
           24/7
         </p>

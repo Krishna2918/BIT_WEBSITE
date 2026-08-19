@@ -62,9 +62,7 @@ svg {
 
 .site-nav,
 .site-nav-menu {
-  background:
-    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
-    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+  background: linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
 }
 .hero-logo {
   padding: 2rem 1.25rem 1.5rem;
@@ -78,9 +76,16 @@ svg {
   justify-content: center;
   padding: 1.5rem 1.25rem 2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background:
-    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
-    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 22%),
+    linear-gradient(165deg, #072848 0%, #031525 46%, #020c18 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 28px rgba(0, 0, 0, 0.28),
+    0 12px 28px rgba(2, 10, 24, 0.32);
 }
 .hero-tag h1 {
   color: #fff;
@@ -99,18 +104,17 @@ svg {
 }
 .hero-navy .hero-globe {
   background:
-    radial-gradient(900px 420px at 88% 8%, rgba(18, 131, 221, 0.3), transparent 55%),
-    linear-gradient(165deg, #031525 0%, #06284a 42%, #041627 100%);
+    radial-gradient(ellipse 70% 60% at 50% 42%, #f7f8fa 0%, #f3f2f6 72%);
 }
 
 .hero-globe {
   position: relative;
   flex: 1 1 auto;
-  min-height: 16rem;
-  height: clamp(16rem, 46dvh, 34rem);
+  min-height: 18rem;
+  height: clamp(20rem, 52dvh, 38rem);
   margin-top: 0;
   overflow: hidden;
-  background: #f5f5f7;
+  background: #f3f2f6;
 }
 .hero-globe-bg {
   position: absolute;
@@ -311,9 +315,82 @@ svg {
   width: 100%;
   text-align: center;
   padding: 1.75rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background:
-    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
-    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 22%),
+    linear-gradient(165deg, #072848 0%, #031525 46%, #020c18 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 28px rgba(0, 0, 0, 0.28),
+    0 12px 28px rgba(2, 10, 24, 0.32);
+}
+.hero-tag > *:not(.strip-field),
+.navy-strip > *:not(.strip-field),
+.cover-reel-copy > *:not(.strip-field) {
+  position: relative;
+  z-index: 2;
+}
+
+.strip-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.strip-field-row {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(142, 200, 246, 0.22);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.strip-field-row span {
+  padding-right: 2.5rem;
+}
+
+.strip-field-a {
+  position: absolute;
+  top: 18%;
+  animation: strip-drift-left 96s linear infinite;
+}
+
+.strip-field-b {
+  position: absolute;
+  top: 48%;
+  color: rgba(142, 200, 246, 0.16);
+  animation: strip-drift-right 118s linear infinite;
+}
+
+.strip-field-c {
+  position: absolute;
+  top: 76%;
+  color: rgba(142, 200, 246, 0.13);
+  animation: strip-drift-left 140s linear infinite;
+}
+
+@keyframes strip-drift-left {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes strip-drift-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip-field-row { animation: none; }
 }
 .navy-strip .text-link {
   color: #8ec8f6;
@@ -339,9 +416,16 @@ svg {
   width: 100%;
   text-align: center;
   padding: 1.75rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   background:
-    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
-    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 22%),
+    linear-gradient(165deg, #072848 0%, #031525 46%, #020c18 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 28px rgba(0, 0, 0, 0.28),
+    0 12px 28px rgba(2, 10, 24, 0.32);
 }
 .cover-reel-copy .text-link {
   color: #8ec8f6;

@@ -3,143 +3,87 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import {
-  buildStippleCached,
-  debugEnabled,
-  detectMobile,
-  type NetworkBuffers,
-} from "./earth-network";
-import { CityMarkers } from "./city-markers";
-import { yawAmount, subscribeProgress, getProgress } from "@/lib/hero-scroll";
+  buildStudioParticles,
+  detectDeviceTier,
+  type StippleCloud,
+  type StudioParticles,
+} from "./land-stipple";
 
-const RADIUS = 2.8;
-const ROT_PERIOD = 92;
-const ROT_SPEED = (Math.PI * 2) / ROT_PERIOD;
+const GLASS_R = 2.65;
+const START_YAW = -1.05;
+const ROT_SPEED = (Math.PI * 2) / 200;
+const BG = "#F3F2F6";
 
-type Tunables = {
-  lineOpacity: number;
-  nodeSize: number;
-  nodeBrightness: number;
-  shadowOpacity: number;
-  lightIntensity: number;
-  cameraDistance: number;
-  fresnel: number;
-  rotationSpeed: number;
-  lineColor: string;
-};
-
-const DEFAULTS: Tunables = {
-  lineOpacity: 0,
-  nodeSize: 0.7,
-  nodeBrightness: 1.08,
-  shadowOpacity: 0.2,
-  lightIntensity: 1,
-  cameraDistance: 16.8,
-  fresnel: 0.07,
-  rotationSpeed: 0.036,
-  lineColor: "#4DB3F0",
-};
-
-const SURFACE_VS = /* glsl */ `
-  attribute float aKind;
-  varying float vKind;
-  varying vec3 vN;
-  varying vec3 vView;
-  void main() {
-    vKind = aKind;
-    vec4 wp = modelMatrix * vec4(position, 1.0);
-    vN = normalize(mat3(modelMatrix) * normalize(position));
-    vView = cameraPosition - wp.xyz;
-    gl_Position = projectionMatrix * viewMatrix * wp;
-  }
-`;
-
-const SURFACE_FS = /* glsl */ `
-  uniform vec3 uLand;
-  uniform vec3 uOcean;
-  uniform float uFresnel;
-  varying float vKind;
-  varying vec3 vN;
-  varying vec3 vView;
-  void main() {
-    vec3 N = normalize(vN);
-    vec3 V = normalize(vView);
-    float facing = max(dot(N, V), 0.0);
-    float land = step(0.5, vKind);
-    vec3 albedo = mix(uOcean, uLand, land);
-    float wrap = clamp(dot(N, normalize(vec3(-0.35, 0.72, 0.55))) * 0.28 + 0.72, 0.0, 1.0);
-    float fres = pow(1.0 - facing, 2.8) * uFresnel;
-    vec3 col = albedo * (0.78 + wrap * 0.28) + vec3(0.78, 0.9, 0.98) * fres;
-    float alpha = mix(0.04, 0.92, land) * smoothstep(0.02, 0.35, facing) + fres * 0.12;
-    gl_FragColor = vec4(col, alpha);
-  }
-`;
-
-const LINE_VS = /* glsl */ `
-  attribute float aKind;
+const POINT_VS = /* glsl */ `
   attribute vec3 aColor;
-  varying float vKind;
+  attribute float aSize;
+  attribute float aSeed;
+  attribute float aDensity;
+  uniform float uPixelRatio;
+  uniform float uTime;
+  uniform float uReduced;
   varying vec3 vColor;
+  varying float vAlpha;
   varying float vFacing;
   void main() {
-    vKind = aKind;
     vColor = aColor;
     vec3 N = normalize(mat3(modelMatrix) * normalize(position));
     vec4 wp = modelMatrix * vec4(position, 1.0);
     vec3 V = normalize(cameraPosition - wp.xyz);
-    vFacing = abs(dot(N, V));
-    gl_Position = projectionMatrix * viewMatrix * wp;
-  }
-`;
-
-const LINE_FS = /* glsl */ `
-  uniform float uOpacity;
-  uniform vec3 uTint;
-  varying float vKind;
-  varying vec3 vColor;
-  varying float vFacing;
-  void main() {
-    float land = step(0.5, vKind);
-    float fade = smoothstep(0.02, 0.28, vFacing);
-    float op = uOpacity * mix(0.32, 0.88, land) * fade;
-    vec3 col = mix(vColor, uTint, 0.35);
-    gl_FragColor = vec4(col, op);
-  }
-`;
-
-const POINT_VS = /* glsl */ `
-  attribute float aKind;
-  uniform float uPixelRatio;
-  uniform float uSize;
-  varying float vKind;
-  varying float vFacing;
-  void main() {
-    vKind = aKind;
-    vec3 N = normalize(mat3(modelMatrix) * normalize(position));
-    vec4 wp = modelMatrix * vec4(position, 1.0);
-    vec3 V = normalize(cameraPosition - wp.xyz);
-    vFacing = abs(dot(N, V));
+    vFacing = max(dot(N, V), 0.0);
+    vec3 L = normalize(vec3(-0.42, 0.66, 0.52));
+    float wrap = clamp(dot(N, L) * 0.42 + 0.62, 0.0, 1.0);
+    float shimmer = uReduced > 0.5 ? 0.0 : 0.03 * sin(uTime * 0.31 + aSeed * 6.2831);
+    vAlpha = mix(0.42, 0.95, aDensity) * mix(0.7, 1.0, vFacing) * wrap * (1.0 + shimmer);
     vec4 mv = viewMatrix * wp;
     gl_Position = projectionMatrix * mv;
-    float boost = mix(0.42, 1.05, smoothstep(0.35, 0.8, vKind));
-    gl_PointSize = uSize * boost * uPixelRatio * (14.0 / max(4.0, -mv.z));
+    float px = mix(0.95, 1.85, clamp(aSize, 0.0, 1.0));
+    gl_PointSize = px * uPixelRatio * clamp(12.4 / max(6.0, -mv.z), 0.85, 1.35);
   }
 `;
 
 const POINT_FS = /* glsl */ `
-  uniform float uBrightness;
-  uniform vec3 uLand;
-  uniform vec3 uOcean;
-  varying float vKind;
+  varying vec3 vColor;
+  varying float vAlpha;
   varying float vFacing;
   void main() {
     vec2 p = gl_PointCoord * 2.0 - 1.0;
     float d = length(p);
     if (d > 1.0) discard;
-    float land = smoothstep(0.28, 0.62, vKind);
-    float a = smoothstep(1.0, 0.22, d) * mix(0.4, 1.0, vFacing);
-    a *= mix(0.55, 0.98, land);
-    vec3 col = mix(uOcean, uLand, land) * uBrightness;
-    gl_FragColor = vec4(col, a);
+    float core = smoothstep(1.0, 0.32, d);
+    gl_FragColor = vec4(vColor, core * vAlpha);
+  }
+`;
+
+const INNER_VS = /* glsl */ `
+  attribute vec3 aColor;
+  attribute float aSize;
+  attribute float aSeed;
+  uniform float uPixelRatio;
+  uniform float uTime;
+  uniform float uReduced;
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    vColor = aColor;
+    vec4 wp = modelMatrix * vec4(position, 1.0);
+    float shimmer = uReduced > 0.5 ? 0.0 : 0.03 * sin(uTime * 0.22 + aSeed * 5.1);
+    vAlpha = 0.16 + shimmer;
+    vec4 mv = viewMatrix * wp;
+    gl_Position = projectionMatrix * mv;
+    gl_PointSize = mix(0.7, 1.25, aSize) * uPixelRatio * clamp(11.5 / max(6.0, -mv.z), 0.8, 1.2);
+  }
+`;
+
+const INNER_FS = /* glsl */ `
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    vec2 p = gl_PointCoord * 2.0 - 1.0;
+    float d = length(p);
+    if (d > 1.0) discard;
+    float core = smoothstep(1.0, 0.28, d);
+    gl_FragColor = vec4(vColor, core * vAlpha);
   }
 `;
 
@@ -156,16 +100,16 @@ const SHADOW_FS = /* glsl */ `
   varying vec2 vUv;
   void main() {
     vec2 p = vUv * 2.0 - 1.0;
-    p.x *= 0.68;
-    p.y *= 1.22;
+    p.x *= 0.62;
+    p.y *= 1.18;
     float d = length(p);
-    float a = smoothstep(1.0, 0.08, d);
-    a = a * a * uOpacity;
-    gl_FragColor = vec4(0.48, 0.56, 0.64, a);
+    float a = smoothstep(1.0, 0.05, d);
+    a = pow(a, 1.85) * uOpacity;
+    gl_FragColor = vec4(0.314, 0.373, 0.451, a);
   }
 `;
 
-const FRESNEL_VS = /* glsl */ `
+const ICE_VS = /* glsl */ `
   varying vec3 vN;
   varying vec3 vView;
   void main() {
@@ -176,191 +120,176 @@ const FRESNEL_VS = /* glsl */ `
   }
 `;
 
-const FRESNEL_FS = /* glsl */ `
-  uniform float uFresnel;
-  varying vec3 vN;
-  varying vec3 vView;
-  void main() {
-    float f = pow(1.0 - abs(dot(normalize(vN), normalize(vView))), 3.2);
-    gl_FragColor = vec4(0.78, 0.9, 0.98, f * uFresnel * 0.55);
-  }
-`;
-
-function hexToLinearVec(hex: string): THREE.Color {
-  return new THREE.Color(hex).convertSRGBToLinear();
-}
-
-function StudioShadow({ opacity }: { opacity: number }) {
-  const mat = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        uniforms: { uOpacity: { value: opacity } },
-        vertexShader: SHADOW_VS,
-        fragmentShader: SHADOW_FS,
-        transparent: true,
-        depthWrite: false,
-        toneMapped: true,
-      }),
-    [],
-  );
-  useEffect(() => () => mat.dispose(), [mat]);
-  useFrame(() => {
-    mat.uniforms.uOpacity!.value = opacity;
-  });
-  return (
-    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.08, -RADIUS - 0.38, 0.06]} material={mat}>
-      <planeGeometry args={[10.5, 7.4]} />
-    </mesh>
-  );
-}
-
-const BASE_VS = /* glsl */ `
-  varying vec3 vN;
-  varying vec3 vView;
-  void main() {
-    vec4 wp = modelMatrix * vec4(position, 1.0);
-    vN = normalize(mat3(modelMatrix) * normal);
-    vView = cameraPosition - wp.xyz;
-    gl_Position = projectionMatrix * viewMatrix * wp;
-  }
-`;
-
-const BASE_FS = /* glsl */ `
+const ICE_FS = /* glsl */ `
   varying vec3 vN;
   varying vec3 vView;
   void main() {
     vec3 N = normalize(vN);
     vec3 V = normalize(vView);
-    vec3 L = normalize(vec3(-0.4, 0.75, 0.5));
-    float wrap = dot(N, L) * 0.07 + 0.95;
-    float fres = pow(1.0 - max(dot(N, V), 0.0), 3.4) * 0.045;
-    vec3 col = vec3(0.72, 0.86, 0.95) * wrap + vec3(0.55, 0.78, 0.94) * fres;
-    gl_FragColor = vec4(col, 1.0);
+    vec3 L = normalize(vec3(-0.42, 0.7, 0.5));
+    float ndl = clamp(dot(N, L) * 0.35 + 0.72, 0.0, 1.0);
+    float fres = pow(1.0 - abs(dot(N, V)), 2.4);
+    vec3 body = mix(vec3(0.82, 0.88, 0.94), vec3(0.90, 0.93, 0.97), ndl);
+    vec3 rim = vec3(0.72, 0.82, 0.91);
+    vec3 col = mix(body, rim, fres * 0.55);
+    float alpha = 0.22 + fres * 0.18 + (1.0 - ndl) * 0.06;
+    gl_FragColor = vec4(col, alpha);
   }
 `;
 
-function BaseSphere({ fresnel }: { fresnel: number }) {
+function createGroundShadow() {
+  return (
+    <StudioShadow />
+  );
+}
+
+function StudioShadow() {
   const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
-        vertexShader: BASE_VS,
-        fragmentShader: BASE_FS,
-        toneMapped: true,
+        uniforms: { uOpacity: { value: 0.16 } },
+        vertexShader: SHADOW_VS,
+        fragmentShader: SHADOW_FS,
+        transparent: true,
+        depthWrite: false,
+        toneMapped: false,
       }),
     [],
   );
-  const rim = useMemo(
+  useEffect(() => () => mat.dispose(), [mat]);
+  return (
+    <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.04, -GLASS_R - 0.46, 0.04]} material={mat}>
+      <planeGeometry args={[11.2, 7.8]} />
+    </mesh>
+  );
+}
+
+function createGlassSphere() {
+  return <GlassSphere />;
+}
+
+function GlassSphere() {
+  const back = useMemo(
     () =>
       new THREE.ShaderMaterial({
-        uniforms: { uFresnel: { value: fresnel } },
-        vertexShader: FRESNEL_VS,
-        fragmentShader: FRESNEL_FS,
+        vertexShader: ICE_VS,
+        fragmentShader: ICE_FS,
         transparent: true,
         depthWrite: false,
+        depthTest: true,
+        side: THREE.BackSide,
+        toneMapped: false,
+      }),
+    [],
+  );
+  const front = useMemo(
+    () =>
+      new THREE.ShaderMaterial({
+        vertexShader: ICE_VS,
+        fragmentShader: ICE_FS,
+        transparent: true,
+        depthWrite: false,
+        depthTest: true,
         side: THREE.FrontSide,
-        toneMapped: true,
+        toneMapped: false,
       }),
     [],
   );
   useEffect(
     () => () => {
-      mat.dispose();
-      rim.dispose();
+      back.dispose();
+      front.dispose();
     },
-    [mat, rim],
+    [back, front],
   );
-  useFrame(() => {
-    rim.uniforms.uFresnel!.value = fresnel;
-  });
   return (
     <group>
-      <mesh material={mat}>
-        <sphereGeometry args={[RADIUS, 64, 48]} />
+      <mesh material={back} renderOrder={2}>
+        <sphereGeometry args={[GLASS_R, 128, 96]} />
       </mesh>
-      <mesh material={rim} scale={1.003}>
-        <sphereGeometry args={[RADIUS, 80, 56]} />
+      <mesh material={front} renderOrder={4}>
+        <sphereGeometry args={[GLASS_R, 128, 96]} />
       </mesh>
     </group>
   );
 }
 
-function NetworkMesh({
-  net,
-  tunables,
+function ParticleField({
+  cloud,
+  internal,
+  reduced,
 }: {
-  net: NetworkBuffers;
-  tunables: Tunables;
+  cloud: StippleCloud;
+  internal?: boolean;
+  reduced: boolean;
 }) {
   const { gl } = useThree();
-  const land = useMemo(() => hexToLinearVec("#0E6EC8"), []);
-  const ocean = useMemo(() => hexToLinearVec("#8EC4EA"), []);
-
-  const pointMat = useMemo(
+  const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
         uniforms: {
           uPixelRatio: { value: gl.getPixelRatio() },
-          uSize: { value: tunables.nodeSize },
-          uBrightness: { value: tunables.nodeBrightness },
-          uLand: { value: land },
-          uOcean: { value: ocean },
+          uTime: { value: 0 },
+          uReduced: { value: reduced ? 1 : 0 },
         },
-        vertexShader: POINT_VS,
-        fragmentShader: POINT_FS,
+        vertexShader: internal ? INNER_VS : POINT_VS,
+        fragmentShader: internal ? INNER_FS : POINT_FS,
         transparent: true,
         depthWrite: false,
         depthTest: true,
         toneMapped: true,
       }),
-    [gl, land, ocean, tunables.nodeBrightness, tunables.nodeSize],
+    [gl, internal, reduced],
   );
-
-  const pointGeo = useMemo(() => {
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(net.positions, 3));
-    geo.setAttribute("aKind", new THREE.BufferAttribute(net.kinds, 1));
-    return geo;
-  }, [net]);
+  const geo = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(cloud.positions, 3));
+    g.setAttribute("aColor", new THREE.BufferAttribute(cloud.colors, 3));
+    g.setAttribute("aSize", new THREE.BufferAttribute(cloud.sizes, 1));
+    g.setAttribute("aSeed", new THREE.BufferAttribute(cloud.seeds, 1));
+    g.setAttribute("aDensity", new THREE.BufferAttribute(cloud.densities, 1));
+    return g;
+  }, [cloud]);
 
   useEffect(
     () => () => {
-      pointGeo.dispose();
-      pointMat.dispose();
+      geo.dispose();
+      mat.dispose();
     },
-    [pointGeo, pointMat],
+    [geo, mat],
   );
 
-  useFrame(() => {
-    pointMat.uniforms.uPixelRatio!.value = gl.getPixelRatio();
-    pointMat.uniforms.uSize!.value = tunables.nodeSize;
-    pointMat.uniforms.uBrightness!.value = tunables.nodeBrightness;
+  useFrame(({ clock }) => {
+    mat.uniforms.uTime!.value = clock.elapsedTime;
+    mat.uniforms.uPixelRatio!.value = gl.getPixelRatio();
+    mat.uniforms.uReduced!.value = reduced ? 1 : 0;
   });
 
-  return <points geometry={pointGeo} material={pointMat} renderOrder={3} />;
+  return <points geometry={geo} material={mat} renderOrder={internal ? 1 : 5} />;
 }
 
-const USA_YAW = 0.11;
-
 function GlobeRig({
-  net,
-  tunables,
+  particles,
+  reduced,
 }: {
-  net: NetworkBuffers | null;
-  tunables: Tunables;
+  particles: StudioParticles;
+  reduced: boolean;
 }) {
   const spin = useRef<THREE.Group>(null);
   const parallax = useRef<THREE.Group>(null);
   const pointer = useRef({ x: 0, y: 0 });
-  const yaw = useRef(USA_YAW);
-  const yawTarget = useRef(USA_YAW);
-  const touchY = useRef<number | null>(null);
+  const yaw = useRef(START_YAW);
+  const yawTarget = useRef(START_YAW);
 
   useEffect(() => {
+    if (reduced) return;
     const onMove = (e: PointerEvent) => {
       const nx = e.clientX / window.innerWidth - 0.5;
       const ny = e.clientY / window.innerHeight - 0.5;
-      pointer.current.x = ny * -0.042;
-      pointer.current.y = nx * 0.042;
+      pointer.current.x = THREE.MathUtils.degToRad(ny * -4);
+      pointer.current.y = THREE.MathUtils.degToRad(nx * 10);
+      pointer.current.x = THREE.MathUtils.clamp(pointer.current.x, THREE.MathUtils.degToRad(-2), THREE.MathUtils.degToRad(2));
+      pointer.current.y = THREE.MathUtils.clamp(pointer.current.y, THREE.MathUtils.degToRad(-5), THREE.MathUtils.degToRad(5));
     };
     const onLeave = () => {
       pointer.current.x = 0;
@@ -368,176 +297,146 @@ function GlobeRig({
     };
     window.addEventListener("pointermove", onMove);
     window.addEventListener("pointerleave", onLeave);
-    const unsub = subscribeProgress(() => {
-      yawTarget.current = USA_YAW + yawAmount() * 3.4;
-    });
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
-      unsub();
     };
-  }, []);
+  }, [reduced]);
 
   useFrame((_, delta) => {
-    const d = Math.min(delta, 0.1);
-    yawTarget.current += tunables.rotationSpeed * d;
-    const k = 1 - Math.exp(-3.1 * d);
+    const d = Math.min(delta, 0.05);
+    if (!reduced) yawTarget.current += ROT_SPEED * d;
+    const k = 1 - Math.exp(-2.4 * d);
     yaw.current += (yawTarget.current - yaw.current) * k;
     if (spin.current) spin.current.rotation.y = yaw.current;
     if (parallax.current) {
-      const pk = 1 - Math.exp(-5 * d);
-      parallax.current.rotation.x += (pointer.current.x - parallax.current.rotation.x) * pk;
-      parallax.current.rotation.y += (pointer.current.y - parallax.current.rotation.y) * pk;
+      const pk = 1 - Math.exp(-4.2 * d);
+      const tx = reduced ? 0 : pointer.current.x;
+      const ty = reduced ? 0 : pointer.current.y;
+      parallax.current.rotation.x += (tx - parallax.current.rotation.x) * pk;
+      parallax.current.rotation.y += (ty - parallax.current.rotation.y) * pk;
     }
   });
 
   return (
-    <group ref={parallax} position={[0, 0.12, 0]}>
+    <group ref={parallax} position={[0, 0.08, 0]}>
       <group ref={spin}>
-        <BaseSphere fresnel={tunables.fresnel} />
-        {net ? <NetworkMesh net={net} tunables={tunables} /> : null}
-        <CityMarkers />
+        <ParticleField cloud={particles.internal} internal reduced={reduced} />
+        {createGlassSphere()}
+        <ParticleField cloud={particles.base} reduced={reduced} />
+        <ParticleField cloud={particles.land} reduced={reduced} />
       </group>
     </group>
   );
 }
 
-function ResponsiveCamera({ distance }: { distance: number }) {
+function ResponsiveCamera() {
   const { camera, size } = useThree();
-  const zBase = useRef(distance);
+  const zBase = useRef(14.2);
   useLayoutEffect(() => {
     const portrait = size.height / Math.max(size.width, 1) > 1.12;
-    zBase.current = portrait ? distance * 1.18 : size.width < 720 ? distance * 1.08 : distance;
-  }, [size, distance]);
+    zBase.current = portrait ? 16.4 : size.width < 720 ? 15.2 : 14.2;
+  }, [size]);
   useFrame((_, delta) => {
-    const p = getProgress();
     const d = Math.min(delta, 0.1);
     const k = 1 - Math.exp(-3.4 * d);
-    const zWant = zBase.current;
-    const yWant = 0.32;
-    camera.position.z += (zWant - camera.position.z) * k;
-    camera.position.y += (yWant - camera.position.y) * k;
-    camera.lookAt(0, -0.12, 0);
+    camera.position.z += (zBase.current - camera.position.z) * k;
+    camera.position.y += (0.12 - camera.position.y) * k;
+    camera.lookAt(0, -0.08, 0);
   });
   return null;
 }
 
-function StudioEnv({ intensity }: { intensity: number }) {
+function StudioEnv() {
   const { gl, scene } = useThree();
   useEffect(() => {
     const pmrem = new THREE.PMREMGenerator(gl);
     const envScene = new RoomEnvironment();
     const tex = pmrem.fromScene(envScene, 0.04).texture;
     scene.environment = tex;
-    scene.environmentIntensity = 0.16 * intensity;
+    scene.environmentIntensity = 0.42;
     return () => {
       scene.environment = null;
       tex.dispose();
       pmrem.dispose();
       envScene.dispose();
     };
-  }, [gl, scene, intensity]);
+  }, [gl, scene]);
   return null;
 }
 
-function DevGui({ tunables }: { tunables: Tunables }) {
-  useEffect(() => {
-    if (!debugEnabled()) return;
-    let disposed = false;
-    let gui: { destroy: () => void } | null = null;
-    void import("lil-gui").then(({ default: GUI }) => {
-      if (disposed) return;
-      const g = new GUI({ title: "Globe" });
-      g.add(tunables, "lineOpacity", 0.1, 1, 0.01);
-      g.addColor(tunables, "lineColor");
-      g.add(tunables, "nodeSize", 0.3, 3, 0.05);
-      g.add(tunables, "nodeBrightness", 0.4, 2, 0.05);
-      g.add(tunables, "shadowOpacity", 0, 0.6, 0.01);
-      g.add(tunables, "lightIntensity", 0.2, 2, 0.05);
-      g.add(tunables, "cameraDistance", 12, 44, 0.1);
-      g.add(tunables, "fresnel", 0, 0.5, 0.01);
-      g.add(tunables, "rotationSpeed", 0, 0.2, 0.001);
-      gui = g;
-    });
-    return () => {
-      disposed = true;
-      gui?.destroy();
-    };
-  }, [tunables]);
-  return null;
-}
-
-function SceneContent({ net, tunables }: { net: NetworkBuffers | null; tunables: Tunables }) {
+function createLighting() {
   return (
     <>
-      <ResponsiveCamera distance={tunables.cameraDistance} />
-      {net ? <StudioEnv intensity={tunables.lightIntensity} /> : null}
-      <ambientLight intensity={0.72 * tunables.lightIntensity} color="#ffffff" />
-      <hemisphereLight args={["#ffffff", "#e8eef4", 0.42 * tunables.lightIntensity]} />
-      <directionalLight
-        position={[-4.2, 7.5, 6.2]}
-        intensity={1.15 * tunables.lightIntensity}
-        color="#ffffff"
-      />
-      <directionalLight
-        position={[5.5, 1.4, 3.2]}
-        intensity={0.28 * tunables.lightIntensity}
-        color="#e7f2fb"
-      />
-      <directionalLight
-        position={[2.2, 1.6, -6.5]}
-        intensity={0.32 * tunables.lightIntensity}
-        color="#cfe4f6"
-      />
-      <group position={[0, -0.72, 0]}>
-        <GlobeRig net={net} tunables={tunables} />
-        <StudioShadow opacity={tunables.shadowOpacity} />
+      <ambientLight intensity={0.62} color="#ffffff" />
+      <hemisphereLight args={["#F7F8FA", "#CBD4E1", 0.38]} />
+      <directionalLight position={[-5.2, 7.2, 6.4]} intensity={1.05} color="#ffffff" />
+      <directionalLight position={[6.4, 2.2, 4.1]} intensity={0.32} color="#F7F8FA" />
+      <directionalLight position={[1.4, 4.8, -6.2]} intensity={0.22} color="#E8EEF4" />
+    </>
+  );
+}
+
+function SceneContent({
+  particles,
+  reduced,
+}: {
+  particles: StudioParticles | null;
+  reduced: boolean;
+}) {
+  return (
+    <>
+      <ResponsiveCamera />
+      {particles ? <StudioEnv /> : null}
+      {createLighting()}
+      <group position={[0, -0.18, 0]}>
+        {particles ? <GlobeRig particles={particles} reduced={reduced} /> : null}
+        {createGroundShadow()}
       </group>
-      <DevGui tunables={tunables} />
     </>
   );
 }
 
 export function GlobeScene() {
-  const [net, setNet] = useState<NetworkBuffers | null>(null);
-  const tunables = useMemo(() => ({ ...DEFAULTS }), []);
+  const [particles, setParticles] = useState<StudioParticles | null>(null);
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const id = window.setTimeout(() => {
-      const mobile = detectMobile();
-      setNet(
-        buildStippleCached({
-          radius: RADIUS,
-          landDensity: 1,
-          oceanDensity: 1,
-          nodeBudget: mobile ? 52000 : 110000,
-        }),
-      );
+      setParticles(buildStudioParticles(detectDeviceTier()));
     }, 0);
     return () => window.clearTimeout(id);
   }, []);
 
   return (
     <Canvas
-      dpr={[1, 1.35]}
+      dpr={[1, 2]}
       gl={{
         antialias: true,
         alpha: true,
         powerPreference: "high-performance",
         toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.06,
+        toneMappingExposure: 1.08,
         stencil: false,
       }}
-      camera={{ position: [0, 0.32, 25.6], fov: 28, near: 0.2, far: 120 }}
+      camera={{ position: [0, 0.12, 14.2], fov: 32, near: 0.2, far: 80 }}
       style={{ width: "100%", height: "100%", background: "transparent", display: "block", pointerEvents: "none" }}
       resize={{ debounce: 80 }}
       onCreated={({ gl, scene }) => {
-        gl.setClearColor(0x000000, 0);
         gl.outputColorSpace = THREE.SRGBColorSpace;
+        gl.setClearColor(0xf3f2f6, 0);
         scene.background = null;
       }}
     >
-      <SceneContent net={net} tunables={tunables} />
+      <SceneContent particles={particles} reduced={reduced} />
     </Canvas>
   );
 }

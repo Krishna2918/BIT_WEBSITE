@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { INDUSTRIES } from "@/data/industries";
+import { StripField } from "@/components/site/strip-field";
 
 const ROWS = 2;
 const COLS = 8;
@@ -72,6 +73,7 @@ export function CoverReel() {
     <section id="sectors" className="cover-wrap">
       <div className="cover-bridge">
         <div className="cover-reel-copy">
+        <StripField />
         <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link sm:text-[15px]">
           Who we cover
         </p>
