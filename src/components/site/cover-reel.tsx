@@ -70,7 +70,8 @@ export function CoverReel() {
 
   return (
     <section id="sectors" className="cover-wrap">
-      <div className="cover-reel-copy">
+      <div className="cover-bridge">
+        <div className="cover-reel-copy">
         <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link sm:text-[15px]">
           Who we cover
         </p>
@@ -80,6 +81,7 @@ export function CoverReel() {
         <p className="mx-auto mt-2 max-w-xl px-1 text-center text-[15px] leading-snug sm:text-[16px]">
           From Brampton HQ across all of Ontario.
         </p>
+      </div>
       </div>
 
       {reduce ? (
