@@ -51,5 +51,14 @@ export default function legacySeoMiddleware(event: Ev, next: () => unknown) {
       headers: { location: result.to },
     });
   }
+  if (path.length > 1 && path.endsWith("/")) {
+    const last = path.slice(0, -1).split("/").pop() || "";
+    if (!last.includes(".")) {
+      return new Response(null, {
+        status: 301,
+        headers: { location: path.slice(0, -1) + event.url.search },
+      });
+    }
+  }
   return next();
 }

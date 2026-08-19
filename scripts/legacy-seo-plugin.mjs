@@ -34,5 +34,14 @@ export function applyLegacyToNodeResponse(req, res, resolve, robots, sitemap) {
     res.end();
     return true;
   }
+  if (path.length > 1 && path.endsWith("/")) {
+    const last = path.slice(0, -1).split("/").pop() || "";
+    if (!last.includes(".")) {
+      res.statusCode = 301;
+      res.setHeader("location", path.slice(0, -1) + (rawUrl.includes("?") ? rawUrl.slice(rawUrl.indexOf("?")) : ""));
+      res.end();
+      return true;
+    }
+  }
   return false;
 }
