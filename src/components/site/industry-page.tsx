@@ -131,7 +131,7 @@ function ClientTicker({
   clients: ReturnType<typeof clientsFor>;
 }) {
   const pad = [...clients];
-  while (pad.length < 8) pad.push(...clients);
+  while (pad.length < 6) pad.push(...clients);
   const loop = [...pad, ...pad];
   return (
     <div className="client-ticker">
@@ -140,30 +140,33 @@ function ClientTicker({
         <ul>
           {loop.map((client, i) => (
             <li key={`${client.name}-${i}`}>
-              <span className="client-chip">
-                {client.logo ? (
-                  <img src={client.logo} alt="" />
+              <figure className="client-card">
+                {client.video ? (
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={client.photo}
+                    aria-hidden
+                  >
+                    <source src={client.video} type="video/mp4" />
+                  </video>
                 ) : (
-                  <span className="client-mono" aria-hidden>
-                    {initials(client.name)}
-                  </span>
+                  <img src={client.photo} alt="" />
                 )}
-              </span>
-              <span className="client-chip-name">{client.name}</span>
+                <figcaption>
+                  <strong>{client.name}</strong>
+                  <span>{client.city}</span>
+                </figcaption>
+              </figure>
             </li>
           ))}
         </ul>
       </div>
     </div>
   );
-}
-
-function initials(name: string) {
-  const skip = /^(at|the|and|of|llc|inc|group|centre|center)$/i;
-  const parts = name.split(/\s+/).filter((w) => !skip.test(w));
-  const a = parts[0]?.[0] ?? "";
-  const b = parts[1]?.[0] ?? parts[0]?.[1] ?? "";
-  return `${a}${b}`.toUpperCase();
 }
 
 function PillarCard({
