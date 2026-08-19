@@ -303,6 +303,28 @@ svg {
   padding: 4.5rem 0;
 }
 
+.navy-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  background:
+    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
+    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+}
+.navy-strip .text-link {
+  color: #8ec8f6;
+}
+.navy-strip h2 {
+  color: #fff;
+}
+.navy-strip p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .cover-reel-copy {
   display: flex;
   flex-direction: column;
@@ -326,7 +348,7 @@ svg {
 }
 
 .cover-reel {
-  height: 320vh;
+  height: 170vh;
 }
 
 .cover-reel-sticky {
@@ -335,8 +357,8 @@ svg {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: calc(100dvh - 48px);
-  padding: 0 0 1rem;
+  height: auto;
+  padding: 0 0 1.25rem;
   background: var(--color-bg);
   overflow: hidden;
 }
