@@ -28,13 +28,13 @@ type Tunables = {
 };
 
 const DEFAULTS: Tunables = {
-  lineOpacity: 0.78,
-  nodeSize: 1.05,
-  nodeBrightness: 1.2,
-  shadowOpacity: 0.26,
+  lineOpacity: 0,
+  nodeSize: 0.92,
+  nodeBrightness: 1.08,
+  shadowOpacity: 0.22,
   lightIntensity: 1,
   cameraDistance: 16.8,
-  fresnel: 0.14,
+  fresnel: 0.08,
   rotationSpeed: 0.036,
   lineColor: "#5DAEF7",
 };
@@ -120,23 +120,26 @@ const POINT_VS = /* glsl */ `
     vFacing = abs(dot(N, V));
     vec4 mv = viewMatrix * wp;
     gl_Position = projectionMatrix * mv;
-    float boost = mix(0.75, 1.15, step(0.5, vKind));
-    gl_PointSize = uSize * boost * uPixelRatio * (11.0 / max(4.0, -mv.z));
+    float boost = mix(0.38, 1.18, step(0.5, vKind));
+    gl_PointSize = uSize * boost * uPixelRatio * (12.5 / max(4.0, -mv.z));
   }
 `;
 
 const POINT_FS = /* glsl */ `
   uniform float uBrightness;
-  uniform vec3 uColor;
+  uniform vec3 uLand;
+  uniform vec3 uOcean;
   varying float vKind;
   varying float vFacing;
   void main() {
     vec2 p = gl_PointCoord * 2.0 - 1.0;
     float d = length(p);
     if (d > 1.0) discard;
-    float a = smoothstep(1.0, 0.22, d) * smoothstep(0.05, 0.4, vFacing);
-    vec3 col = uColor * uBrightness * mix(0.85, 1.12, step(0.5, vKind));
-    gl_FragColor = vec4(col, a * 0.9);
+    float land = step(0.5, vKind);
+    float a = smoothstep(1.0, 0.18, d) * smoothstep(0.04, 0.42, vFacing);
+    a *= mix(0.22, 0.95, land);
+    vec3 col = mix(uOcean, uLand, land) * uBrightness;
+    gl_FragColor = vec4(col, a);
   }
 `;
 
@@ -231,7 +234,7 @@ const BASE_FS = /* glsl */ `
     vec3 L = normalize(vec3(-0.4, 0.75, 0.5));
     float wrap = dot(N, L) * 0.07 + 0.95;
     float fres = pow(1.0 - max(dot(N, V), 0.0), 3.4) * 0.045;
-    vec3 col = vec3(0.995, 0.997, 1.0) * wrap + vec3(0.82, 0.91, 0.98) * fres;
+    vec3 col = vec3(0.965, 0.978, 0.995) * wrap + vec3(0.78, 0.9, 0.98) * fres;
     gl_FragColor = vec4(col, 1.0);
   }
 `;
@@ -289,8 +292,8 @@ function NetworkMesh({
   tunables: Tunables;
 }) {
   const { gl } = useThree();
-  const land = useMemo(() => hexToLinearVec("#5DAEF7"), []);
-  const ocean = useMemo(() => hexToLinearVec("#E8F2FA"), []);
+  const land = useMemo(() => hexToLinearVec("#3BA6F0"), []);
+  const ocean = useMemo(() => hexToLinearVec("#D7EAF8"), []);
 
   const surfaceMat = useMemo(
     () =>
@@ -334,7 +337,8 @@ function NetworkMesh({
           uPixelRatio: { value: gl.getPixelRatio() },
           uSize: { value: tunables.nodeSize },
           uBrightness: { value: tunables.nodeBrightness },
-          uColor: { value: hexToLinearVec("#8CC8F6") },
+          uLand: { value: land },
+          uOcean: { value: ocean },
         },
         vertexShader: POINT_VS,
         fragmentShader: POINT_FS,
@@ -343,7 +347,7 @@ function NetworkMesh({
         depthTest: true,
         toneMapped: true,
       }),
-    [gl, tunables.nodeBrightness, tunables.nodeSize],
+    [gl, land, ocean, tunables.nodeBrightness, tunables.nodeSize],
   );
 
   const { surfaceGeo, lineGeo, pointGeo } = useMemo(() => {
@@ -387,8 +391,6 @@ function NetworkMesh({
 
   return (
     <group>
-      <mesh geometry={surfaceGeo} material={surfaceMat} renderOrder={1} />
-      <lineSegments geometry={lineGeo} material={lineMat} renderOrder={2} />
       <points geometry={pointGeo} material={pointMat} renderOrder={3} />
     </group>
   );
@@ -563,9 +565,9 @@ export function GlobeScene() {
       setNet(
         buildNetworkCached({
           radius: RADIUS,
-          landDensity: 1,
-          oceanDensity: 1,
-          nodeBudget: mobile ? 5000 : 10000,
+          landDensity: 1.35,
+          oceanDensity: 0.85,
+          nodeBudget: mobile ? 12000 : 26000,
         }),
       );
     }, 0);
