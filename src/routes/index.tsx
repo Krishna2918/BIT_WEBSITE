@@ -52,16 +52,18 @@ const PILLARS = [
   },
 ];
 
-const globeMod = import("@/components/globe/globe-scene");
-
 function Home() {
   const [Scene, setScene] = useState<ComponentType | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    void globeMod.then((mod) => {
-      if (!cancelled) setScene(() => mod.GlobeScene);
-    });
+    void import("@/components/globe/globe-scene")
+      .then((mod) => {
+        if (!cancelled) setScene(() => mod.GlobeScene);
+      })
+      .catch(() => {
+        /* keep the rest of the homepage if the globe fails */
+      });
     return () => {
       cancelled = true;
     };

@@ -120,6 +120,7 @@ function EmberDot({ city }: { city: CityPin }) {
 function LeaderLayer() {
   const root = useRef<THREE.Group>(null);
   const svg = useRef<SVGSVGElement | null>(null);
+  const nodes = useRef<{ g: SVGGElement; line: SVGLineElement; text: SVGTextElement }[]>([]);
   const { camera, size, gl } = useThree();
   const world = useMemo(() => new THREE.Vector3(), []);
   const center = useMemo(() => new THREE.Vector3(), []);
@@ -135,36 +136,45 @@ function LeaderLayer() {
     const layer = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     layer.setAttribute("class", "globe-leaders");
     layer.setAttribute("aria-hidden", "true");
+    const built = CITIES.map((city) => {
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", `globe-leader globe-leader-${city.kind}`);
+      g.style.display = "none";
+      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.textContent = city.name;
+      g.append(line, text);
+      layer.appendChild(g);
+      return { g, line, text };
+    });
     host.appendChild(layer);
     svg.current = layer;
+    nodes.current = built;
     return () => {
       layer.remove();
       svg.current = null;
+      nodes.current = [];
     };
   }, [host]);
 
   useFrame(() => {
     const group = root.current;
     const layer = svg.current;
-    if (!group || !layer || !host) return;
+    const marks = nodes.current;
+    if (!group || !layer || !host || marks.length === 0) return;
     const w = host.clientWidth || size.width;
     const h = host.clientHeight || size.height;
-    layer.setAttribute("viewBox", `0 0 ${w} ${h}`);
-    layer.setAttribute("width", String(w));
-    layer.setAttribute("height", String(h));
+    if (layer.viewBox.baseVal.width !== w || layer.viewBox.baseVal.height !== h) {
+      layer.setAttribute("viewBox", `0 0 ${w} ${h}`);
+      layer.setAttribute("width", String(w));
+      layer.setAttribute("height", String(h));
+    }
 
     group.updateWorldMatrix(true, false);
     group.getWorldPosition(center);
-
-    type Mark = {
-      x: number;
-      y: number;
-      lx: number;
-      ly: number;
-      city: CityPin;
-      depth: number;
-    };
-    const ranked: Mark[] = [];
+    const cx = w * 0.5;
+    const cy = h * 0.5;
+    const shown: { i: number; x: number; y: number; lx: number; ly: number; depth: number }[] = [];
 
     for (let i = 0; i < CITIES.length; i++) {
       world.copy(locals[i]!).applyMatrix4(group.matrixWorld);
@@ -180,45 +190,58 @@ function LeaderLayer() {
         y < h - 10 &&
         depth + 0.4 < camera.position.distanceToSquared(center);
       if (!front) continue;
-      const vx = x - w * 0.5;
-      const vy = y - h * 0.5;
+      const vx = x - cx;
+      const vy = y - cy;
       const len = Math.hypot(vx, vy) || 1;
-      const reach = CITIES[i]!.kind === "hq" ? 46 : CITIES[i]!.kind === "office" ? 38 : 30;
-      ranked.push({
+      const city = CITIES[i]!;
+      const reach = city.kind === "hq" ? 46 : city.kind === "office" ? 38 : 30;
+      shown.push({
+        i,
         x,
         y,
         lx: x + (vx / len) * reach,
         ly: y + (vy / len) * reach,
-        city: CITIES[i]!,
         depth,
       });
     }
 
-    ranked.sort((a, b) => {
-      if (a.city.kind === "hq" && b.city.kind !== "hq") return -1;
-      if (b.city.kind === "hq" && a.city.kind !== "hq") return 1;
-      return a.depth - b.depth;
+    shown.sort((a, b) => {
+      const ka = CITIES[a.i]!.kind === "hq" ? 0 : 1;
+      const kb = CITIES[b.i]!.kind === "hq" ? 0 : 1;
+      return ka - kb || a.depth - b.depth;
     });
 
-    const kept: Mark[] = [];
-    for (const mark of ranked) {
-      const clash = kept.some((other) => {
+    const kept = new Set<number>();
+    const placed: typeof shown = [];
+    for (const mark of shown) {
+      const clash = placed.some((other) => {
         const dx = other.lx - mark.lx;
         const dy = other.ly - mark.ly;
         return dx * dx + dy * dy < 52 * 52;
       });
-      if (!clash) kept.push(mark);
+      if (clash) continue;
+      placed.push(mark);
+      kept.add(mark.i);
     }
 
-    layer.innerHTML = kept
-      .map(
-        (m) =>
-          `<g class="globe-leader globe-leader-${m.city.kind}">
-            <line x1="${m.x.toFixed(1)}" y1="${m.y.toFixed(1)}" x2="${m.lx.toFixed(1)}" y2="${m.ly.toFixed(1)}" />
-            <text x="${m.lx.toFixed(1)}" y="${m.ly.toFixed(1)}" dx="${m.lx >= m.x ? 6 : -6}" dy="0.35em" text-anchor="${m.lx >= m.x ? "start" : "end"}">${m.city.name}</text>
-          </g>`,
-      )
-      .join("");
+    for (let i = 0; i < marks.length; i++) {
+      const node = marks[i]!;
+      const mark = placed.find((p) => p.i === i);
+      if (!mark || !kept.has(i)) {
+        node.g.style.display = "none";
+        continue;
+      }
+      node.g.style.display = "";
+      node.line.setAttribute("x1", mark.x.toFixed(1));
+      node.line.setAttribute("y1", mark.y.toFixed(1));
+      node.line.setAttribute("x2", mark.lx.toFixed(1));
+      node.line.setAttribute("y2", mark.ly.toFixed(1));
+      node.text.setAttribute("x", mark.lx.toFixed(1));
+      node.text.setAttribute("y", mark.ly.toFixed(1));
+      node.text.setAttribute("dx", mark.lx >= mark.x ? "6" : "-6");
+      node.text.setAttribute("dy", "0.35em");
+      node.text.setAttribute("text-anchor", mark.lx >= mark.x ? "start" : "end");
+    }
   });
 
   return <group ref={root} />;
