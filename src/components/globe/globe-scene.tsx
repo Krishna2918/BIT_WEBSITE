@@ -29,8 +29,8 @@ type Tunables = {
 
 const DEFAULTS: Tunables = {
   lineOpacity: 0,
-  nodeSize: 0.78,
-  nodeBrightness: 1.15,
+  nodeSize: 0.7,
+  nodeBrightness: 1.08,
   shadowOpacity: 0.2,
   lightIntensity: 1,
   cameraDistance: 16.8,
@@ -135,9 +135,9 @@ const POINT_FS = /* glsl */ `
     vec2 p = gl_PointCoord * 2.0 - 1.0;
     float d = length(p);
     if (d > 1.0) discard;
-    float land = smoothstep(0.32, 0.78, vKind);
-    float a = smoothstep(1.0, 0.2, d) * mix(0.35, 1.0, vFacing);
-    a *= mix(0.2, 0.92, land);
+    float land = smoothstep(0.28, 0.62, vKind);
+    float a = smoothstep(1.0, 0.22, d) * mix(0.4, 1.0, vFacing);
+    a *= mix(0.14, 0.98, land);
     vec3 col = mix(uOcean, uLand, land) * uBrightness;
     gl_FragColor = vec4(col, a);
   }
@@ -292,8 +292,8 @@ function NetworkMesh({
   tunables: Tunables;
 }) {
   const { gl } = useThree();
-  const land = useMemo(() => hexToLinearVec("#3EABF0"), []);
-  const ocean = useMemo(() => hexToLinearVec("#C5DFF2"), []);
+  const land = useMemo(() => hexToLinearVec("#0E6EC8"), []);
+  const ocean = useMemo(() => hexToLinearVec("#DCECF8"), []);
 
   const pointMat = useMemo(
     () =>
@@ -510,7 +510,7 @@ export function GlobeScene() {
           radius: RADIUS,
           landDensity: 1,
           oceanDensity: 1,
-          nodeBudget: mobile ? 42000 : 90000,
+          nodeBudget: mobile ? 52000 : 110000,
         }),
       );
     }, 0);
