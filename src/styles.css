@@ -288,11 +288,11 @@ svg {
 
 .cover-wrap {
   background: var(--color-bg);
-  padding-top: 0;
+  padding-top: 0.75rem;
 }
 
 .cover-reel-copy {
-  padding: 1rem 1.25rem 0.7rem;
+  padding: 1.1rem 1.25rem 1rem;
   background:
     radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
     linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
@@ -316,9 +316,9 @@ svg {
   top: 48px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   height: calc(100dvh - 48px);
-  padding: 0 0 0.65rem;
+  padding: 0.65rem 0 1rem;
   background: var(--color-bg);
   overflow: hidden;
 }
@@ -582,7 +582,7 @@ svg {
 
 @media (min-width: 768px) {
   .cover-reel-sticky {
-    padding: 0 0 1rem;
+    padding: 1.5rem 0 1.75rem;
   }
 
   .cover-stage {

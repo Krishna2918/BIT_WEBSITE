@@ -70,41 +70,29 @@ export function CoverReel() {
 
   return (
     <section id="sectors" className="cover-wrap">
+      <div className="cover-reel-copy">
+        <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link sm:text-[15px]">
+          Who we cover
+        </p>
+        <h2 className="text-center text-[clamp(1.55rem,5.2vw,2.75rem)] font-semibold tracking-[-0.03em]">
+          One team. Every kind of floor.
+        </h2>
+        <p className="mx-auto mt-2 max-w-xl px-1 text-center text-[15px] leading-snug sm:text-[16px]">
+          From Brampton HQ across all of Ontario.
+        </p>
+      </div>
+
       {reduce ? (
-        <>
-          <div className="cover-reel-copy">
-            <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link sm:text-[15px]">
-              Who we cover
-            </p>
-            <h2 className="text-center text-[clamp(1.55rem,5.2vw,2.75rem)] font-semibold tracking-[-0.03em]">
-              One team. Every kind of floor.
-            </h2>
-            <p className="mx-auto mt-2 max-w-xl px-1 text-center text-[15px] leading-snug sm:text-[16px]">
-              From Brampton HQ across all of Ontario.
-            </p>
-          </div>
-          <ul className="cover-static-grid">
-            {INDUSTRIES.map((item) => (
-              <li key={item.slug}>
-                <CoverCard item={item} />
-              </li>
-            ))}
-          </ul>
-        </>
+        <ul className="cover-static-grid">
+          {INDUSTRIES.map((item) => (
+            <li key={item.slug}>
+              <CoverCard item={item} />
+            </li>
+          ))}
+        </ul>
       ) : (
         <div ref={pinRef} className="cover-reel">
           <div className="cover-reel-sticky">
-            <div className="cover-reel-copy">
-              <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link sm:text-[15px]">
-                Who we cover
-              </p>
-              <h2 className="text-center text-[clamp(1.55rem,5.2vw,2.75rem)] font-semibold tracking-[-0.03em]">
-                One team. Every kind of floor.
-              </h2>
-              <p className="mx-auto mt-2 max-w-xl px-1 text-center text-[15px] leading-snug sm:text-[16px]">
-                From Brampton HQ across all of Ontario.
-              </p>
-            </div>
             <div
               ref={stageRef}
               className="cover-stage cover-stage-stack"
