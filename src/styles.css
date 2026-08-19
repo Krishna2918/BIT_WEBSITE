@@ -60,8 +60,11 @@ svg {
   background: var(--color-bg);
 }
 
-.hero-navy .hero-copy {
-  background: transparent;
+.site-nav,
+.site-nav-menu {
+  background:
+    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
+    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
 }
 .hero-logo {
   padding: 2rem 1.25rem 1.5rem;

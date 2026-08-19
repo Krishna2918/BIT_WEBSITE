@@ -19,7 +19,7 @@ export function SiteNav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 h-12 border-b border-white/10 bg-[#0e0e10]/90 text-nav-fg backdrop-blur-xl">
+    <header className="site-nav sticky top-0 z-50 h-12 border-b border-white/10 text-nav-fg backdrop-blur-xl">
       <div className="relative mx-auto flex h-full max-w-6xl items-center gap-3 px-5">
         <Link
           to="/"
@@ -81,7 +81,7 @@ export function SiteNav() {
       </div>
 
       {open ? (
-        <div className="border-t border-white/10 bg-[#0e0e10] lg:hidden">
+        <div className="border-t border-white/10 site-nav-menu lg:hidden">
           <nav className="flex flex-col px-5 py-2">
             {LINKS.map((l) => (
               <Link
