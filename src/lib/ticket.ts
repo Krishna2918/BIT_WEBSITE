@@ -6,6 +6,7 @@ export type TicketDraft = {
   broken: string;
   name: string;
   hostname: string;
+  teamviewer_id: string;
   severity: TicketSeverity;
   source: "form" | "chat";
   fromWhatsapp: boolean;
@@ -26,6 +27,7 @@ export function emptyDraft(fromWhatsapp = false): TicketDraft {
     broken: "",
     name: "",
     hostname: "",
+    teamviewer_id: "",
     severity: "",
     source: "chat",
     fromWhatsapp,
@@ -61,7 +63,7 @@ export function severityFrom(text: string): TicketSeverity {
   return "";
 }
 
-export type ChatNeed = "broken" | "company" | "hostname" | "email" | "submit";
+export type ChatNeed = "broken" | "company" | "teamviewer" | "email" | "submit";
 
 export function nextChatNeed(
   draft: TicketDraft,
@@ -69,8 +71,13 @@ export function nextChatNeed(
 ): ChatNeed {
   if (draft.broken.trim().length < 4) return "broken";
   if (!draft.company.trim() && !asked.company) return "company";
-  if (looksLikeDeviceIssue(draft.broken) && !draft.hostname.trim() && !asked.hostname) {
-    return "hostname";
+  if (
+    looksLikeDeviceIssue(draft.broken) &&
+    !draft.teamviewer_id.trim() &&
+    !draft.hostname.trim() &&
+    !asked.hostname
+  ) {
+    return "teamviewer";
   }
   if (!draft.email.trim() && !draft.fromWhatsapp && !asked.email) return "email";
   return "submit";
@@ -84,8 +91,8 @@ export function promptFor(need: ChatNeed, fromWhatsapp: boolean): string {
         : "Tell me what is broken. I will open a ticket for BIT Helpdesk. Do not send passwords. I will not ask for a phone number.";
     case "company":
       return "Which company is this for? Skip if you want — I can still open it.";
-    case "hostname":
-      return "PC name or hostname, if you know it? Skip if you do not.";
+    case "teamviewer":
+      return "Open TeamViewer on that PC and send Your ID (the number like 123 456 789). Skip if you cannot.";
     case "email":
       return "Work email for updates, or skip.";
     case "submit":
