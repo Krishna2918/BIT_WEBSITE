@@ -288,11 +288,23 @@ svg {
 
 .cover-wrap {
   background: var(--color-bg);
-  padding-top: 3.5rem;
+  padding-top: 0;
 }
 
 .cover-reel-copy {
-  padding: 0 1.25rem 1.25rem;
+  padding: 1rem 1.25rem 0.7rem;
+  background:
+    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
+    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+}
+.cover-reel-copy .text-link {
+  color: #8ec8f6;
+}
+.cover-reel-copy h2 {
+  color: #fff;
+}
+.cover-reel-copy p {
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .cover-reel {
@@ -304,9 +316,9 @@ svg {
   top: 48px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   height: calc(100dvh - 48px);
-  padding: 0.65rem 0 1rem;
+  padding: 0 0 0.65rem;
   background: var(--color-bg);
   overflow: hidden;
 }
@@ -570,7 +582,7 @@ svg {
 
 @media (min-width: 768px) {
   .cover-reel-sticky {
-    padding: 1.5rem 0 1.75rem;
+    padding: 0 0 1rem;
   }
 
   .cover-stage {
