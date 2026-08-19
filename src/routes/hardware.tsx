@@ -17,7 +17,7 @@ const ITEMS = [
 function HardwarePage() {
   return (
     <main className="bg-bg">
-      <section className="px-5 pb-8 pt-16 text-center">
+      <section className="page-band">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">Hardware</p>
         <h1 className="text-[40px] font-semibold leading-none tracking-[-0.03em] text-ink sm:text-[56px]">
           Software needs machines.

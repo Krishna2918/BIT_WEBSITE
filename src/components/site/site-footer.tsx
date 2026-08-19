@@ -47,7 +47,7 @@ const COLS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-bg-muted text-muted">
+    <footer className="site-foot">
       <div className="mx-auto max-w-5xl px-5 py-12">
         <p className="mb-3 text-[13px] font-medium text-ink">
           Intelligent Infrastructure, Custom B2B Software & AI Workflows —

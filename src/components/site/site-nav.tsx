@@ -13,13 +13,13 @@ const LINKS = [
 ] as const;
 
 const linkClass =
-  "text-[13px] tracking-[0.01em] text-nav-muted no-underline transition-colors duration-150 hover:text-white";
+  "text-[13px] tracking-[0.01em] text-nav-muted no-underline transition-colors duration-150 hover:text-nav-fg";
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 h-12 border-b border-white/10 bg-[#0e0e10]/90 text-nav-fg backdrop-blur-xl">
+    <header className="sticky top-0 z-50 h-14 border-b border-hairline bg-white/92 text-nav-fg backdrop-blur-xl">
       <div className="relative mx-auto flex h-full max-w-6xl items-center gap-3 px-5">
         <Link
           to="/"
@@ -29,9 +29,9 @@ export function SiteNav() {
           <img
             src="/images/bit-mark-official.png"
             alt=""
-            className="h-6 w-6 object-contain"
+            className="h-7 w-7 object-contain"
           />
-          <span className="text-[12px] font-semibold tracking-[0.14em] text-white">
+          <span className="text-[12px] font-semibold tracking-[0.14em] text-navy">
             BIT SOLUTION
           </span>
         </Link>
@@ -43,7 +43,7 @@ export function SiteNav() {
                 key={l.to}
                 to={l.to}
                 className={linkClass}
-                activeProps={{ className: `${linkClass} text-white` }}
+                activeProps={{ className: `${linkClass} text-nav-fg` }}
               >
                 {l.label}
               </Link>
@@ -54,7 +54,7 @@ export function SiteNav() {
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
           <a
             href={SITE.phoneHref}
-            className="cta-ghost cta-ghost--nav callrail rTapNumber hidden sm:inline-flex"
+            className="cta-ghost callrail rTapNumber hidden sm:inline-flex"
             onClick={() => track("click_to_call", { source: "nav" })}
           >
             {SITE.phoneDisplay}
@@ -71,7 +71,7 @@ export function SiteNav() {
           </Link>
           <button
             type="button"
-            className="inline-flex h-12 w-11 items-center justify-center text-nav-fg lg:hidden"
+            className="inline-flex h-14 w-11 items-center justify-center text-nav-fg lg:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             onClick={() => setOpen((v) => !v)}
           >
@@ -81,13 +81,13 @@ export function SiteNav() {
       </div>
 
       {open ? (
-        <div className="border-t border-white/10 bg-[#0e0e10] lg:hidden">
+        <div className="border-t border-hairline bg-white lg:hidden">
           <nav className="flex flex-col px-5 py-2">
             {LINKS.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="flex h-12 items-center text-[15px] text-white no-underline"
+                className="flex h-12 items-center text-[15px] text-nav-fg no-underline"
                 onClick={() => setOpen(false)}
               >
                 {l.label}
@@ -96,7 +96,7 @@ export function SiteNav() {
             <div className="cta-pair justify-start py-3">
               <a
                 href={SITE.phoneHref}
-                className="cta-ghost cta-ghost--nav callrail rTapNumber"
+                className="cta-ghost callrail rTapNumber"
               >
                 {SITE.phoneDisplay}
               </a>

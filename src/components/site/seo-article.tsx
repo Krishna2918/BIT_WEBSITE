@@ -28,12 +28,12 @@ export function SeoArticle({ page }: { page: LegacyPage }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
         />
       ))}
-      <article className="mx-auto max-w-2xl px-5 py-16">
+      <section className="page-band">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           {page.kicker}
         </p>
         {page.date ? (
-          <p className="text-[13px] text-muted">
+          <p className="text-[13px]">
             {new Date(page.date).toLocaleDateString("en-CA", {
               day: "numeric",
               month: "long",
@@ -41,12 +41,14 @@ export function SeoArticle({ page }: { page: LegacyPage }) {
             })}
           </p>
         ) : null}
-        <h1 className="mt-2 text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em] text-ink">
+        <h1 className="mt-2 text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em]">
           {seo?.h1 ?? page.path}
         </h1>
-        <p className="mt-4 text-[18px] leading-relaxed text-muted">{page.lede}</p>
+        <p className="mx-auto mt-4 max-w-2xl text-[18px] leading-relaxed">{page.lede}</p>
+      </section>
+      <article className="mx-auto max-w-2xl px-5 py-16">
         {page.blocks.map((block) => (
-          <div key={(block.h2 ?? "") + block.p.slice(0, 24)} className="mt-8">
+          <div key={(block.h2 ?? "") + block.p.slice(0, 24)} className="mt-8 first:mt-0">
             {block.h2 ? (
               <h2 className="text-[22px] font-semibold tracking-[-0.02em] text-ink">{block.h2}</h2>
             ) : null}

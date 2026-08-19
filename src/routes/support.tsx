@@ -13,7 +13,7 @@ export const Route = createFileRoute("/support")({
 function SupportPage() {
   return (
     <main className="bg-bg">
-      <section className="px-5 pb-10 pt-16 text-center">
+      <section className="page-band">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Support
         </p>

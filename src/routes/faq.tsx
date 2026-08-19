@@ -15,7 +15,7 @@ function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
       />
-      <section className="px-5 pb-8 pt-16 text-center">
+      <section className="page-band">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Help
         </p>
