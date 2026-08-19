@@ -95,6 +95,12 @@ export const PAGE_SEO: Record<string, PageSeo> = {
       "Hardware, sectors, and the desk. Photos from floors BIT Solution walks in Ontario.",
     h1: "The floors we walk.",
   },
+  "/images": {
+    title: "Images | BIT Solution",
+    description:
+      "Service floors across Ontario — hardware, software, AI, security, and sector rooms on a moving map. Stock until client shots land.",
+    h1: "Services across Ontario.",
+  },
   "/support": {
     title: "IT support | BIT Solution",
     description:

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { GalleryGrid } from "@/components/site/gallery-grid";
 import { GALLERY } from "@/data/gallery";
 import { pageHead } from "@/lib/seo";
@@ -20,6 +20,11 @@ function GalleryPage() {
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-muted">
           Hardware, sectors, and the desk. These are the rooms — not case studies.
+        </p>
+        <p className="mt-4">
+          <Link to="/images" className="text-[16px] text-link no-underline hover:underline">
+            Moving map of Ontario ›
+          </Link>
         </p>
       </section>
       <section className="mx-auto max-w-5xl px-5 pb-20">
