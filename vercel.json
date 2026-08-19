@@ -615,6 +615,256 @@
       "source": "/:path+/",
       "destination": "/:path+",
       "permanent": true
+    },
+    {
+      "source": "/10-signs-your-business-needs-managed-it-support/",
+      "destination": "/10-signs-your-business-needs-managed-it-support",
+      "permanent": true
+    },
+    {
+      "source": "/5-biggest-benefits-of-cloud-backups/",
+      "destination": "/5-biggest-benefits-of-cloud-backups",
+      "permanent": true
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/about-us",
+      "permanent": true
+    },
+    {
+      "source": "/accessibility-statement/",
+      "destination": "/accessibility-statement",
+      "permanent": true
+    },
+    {
+      "source": "/ai/",
+      "destination": "/ai",
+      "permanent": true
+    },
+    {
+      "source": "/cloud-services-brampton/",
+      "destination": "/cloud-services-brampton",
+      "permanent": true
+    },
+    {
+      "source": "/consult/",
+      "destination": "/consult",
+      "permanent": true
+    },
+    {
+      "source": "/cyber-security-tips-for-small-businesses/",
+      "destination": "/cyber-security-tips-for-small-businesses",
+      "permanent": true
+    },
+    {
+      "source": "/dental-it/ontario/",
+      "destination": "/dental-it/ontario",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing/",
+      "destination": "/digital-marketing",
+      "permanent": true
+    },
+    {
+      "source": "/faq/",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/fleet-operations/ontario/",
+      "destination": "/fleet-operations/ontario",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/hardware/",
+      "destination": "/hardware",
+      "permanent": true
+    },
+    {
+      "source": "/how-to-choose-a-managed-it-services-provider/",
+      "destination": "/how-to-choose-a-managed-it-services-provider",
+      "permanent": true
+    },
+    {
+      "source": "/images/",
+      "destination": "/images",
+      "permanent": true
+    },
+    {
+      "source": "/industries/",
+      "destination": "/industries",
+      "permanent": true
+    },
+    {
+      "source": "/industries/accounting/",
+      "destination": "/industries/accounting",
+      "permanent": true
+    },
+    {
+      "source": "/industries/airports/",
+      "destination": "/industries/airports",
+      "permanent": true
+    },
+    {
+      "source": "/industries/auto-dealerships/",
+      "destination": "/industries/auto-dealerships",
+      "permanent": true
+    },
+    {
+      "source": "/industries/city-councils/",
+      "destination": "/industries/city-councils",
+      "permanent": true
+    },
+    {
+      "source": "/industries/colleges/",
+      "destination": "/industries/colleges",
+      "permanent": true
+    },
+    {
+      "source": "/industries/construction/",
+      "destination": "/industries/construction",
+      "permanent": true
+    },
+    {
+      "source": "/industries/dental/",
+      "destination": "/industries/dental",
+      "permanent": true
+    },
+    {
+      "source": "/industries/healthcare/",
+      "destination": "/industries/healthcare",
+      "permanent": true
+    },
+    {
+      "source": "/industries/hospitality/",
+      "destination": "/industries/hospitality",
+      "permanent": true
+    },
+    {
+      "source": "/industries/industrial/",
+      "destination": "/industries/industrial",
+      "permanent": true
+    },
+    {
+      "source": "/industries/legal/",
+      "destination": "/industries/legal",
+      "permanent": true
+    },
+    {
+      "source": "/industries/public-private/",
+      "destination": "/industries/public-private",
+      "permanent": true
+    },
+    {
+      "source": "/industries/retail/",
+      "destination": "/industries/retail",
+      "permanent": true
+    },
+    {
+      "source": "/industries/schools/",
+      "destination": "/industries/schools",
+      "permanent": true
+    },
+    {
+      "source": "/industries/transportation/",
+      "destination": "/industries/transportation",
+      "permanent": true
+    },
+    {
+      "source": "/industries/warehouses/",
+      "destination": "/industries/warehouses",
+      "permanent": true
+    },
+    {
+      "source": "/insights/",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/backup-vs-local/",
+      "destination": "/insights/backup-vs-local",
+      "permanent": true
+    },
+    {
+      "source": "/insights/cloud-migration/",
+      "destination": "/insights/cloud-migration",
+      "permanent": true
+    },
+    {
+      "source": "/insights/cyber-mistakes/",
+      "destination": "/insights/cyber-mistakes",
+      "permanent": true
+    },
+    {
+      "source": "/insights/managed-it-time/",
+      "destination": "/insights/managed-it-time",
+      "permanent": true
+    },
+    {
+      "source": "/insights/protect-your-business/",
+      "destination": "/insights/protect-your-business",
+      "permanent": true
+    },
+    {
+      "source": "/insights/why-cloud-backup/",
+      "destination": "/insights/why-cloud-backup",
+      "permanent": true
+    },
+    {
+      "source": "/privacy/",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/procurement/",
+      "destination": "/procurement",
+      "permanent": true
+    },
+    {
+      "source": "/security/",
+      "destination": "/security",
+      "permanent": true
+    },
+    {
+      "source": "/service-areas/",
+      "destination": "/service-areas",
+      "permanent": true
+    },
+    {
+      "source": "/software/",
+      "destination": "/software",
+      "permanent": true
+    },
+    {
+      "source": "/solutions/",
+      "destination": "/solutions",
+      "permanent": true
+    },
+    {
+      "source": "/support/",
+      "destination": "/support",
+      "permanent": true
+    },
+    {
+      "source": "/ticket/",
+      "destination": "/ticket",
+      "permanent": true
+    },
+    {
+      "source": "/top-7-cyber-security-solutions-every-business-needs-in-2025/",
+      "destination": "/top-7-cyber-security-solutions-every-business-needs-in-2025",
+      "permanent": true
+    },
+    {
+      "source": "/voip/",
+      "destination": "/voip",
+      "permanent": true
     }
   ]
 }
