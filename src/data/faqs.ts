@@ -8,7 +8,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How quickly can I get support if I have an issue?",
-    a: "24/7 on +1 905-867-6574 or WhatsApp at the same number. Email support@bitsolution.ca. A person picks up when it is a person problem. The ticket desk URL is being connected.",
+    a: "24/7 on +1 905-867-6574 or WhatsApp at the same number. Email support@bitsolution.ca. Open an IT ticket at /ticket — Ask AI can start it. A person in BIT Helpdesk approves before any PC work.",
   },
   {
     q: "Do you offer customized IT solutions for small businesses?",

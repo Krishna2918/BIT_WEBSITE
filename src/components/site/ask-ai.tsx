@@ -6,6 +6,7 @@ import {
   askPublicAssistant,
   getPublicAssistantConfig,
   wantsHumanSupport,
+  wantsTicketSupport,
 } from "@/lib/public-assistant";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
@@ -188,6 +189,20 @@ export function HelpSheet() {
             </span>
           </a>
           <Link
+            to="/ticket"
+            className="help-row"
+            onClick={() => {
+              setOpen(false);
+              track("ticket_open", { source: "help" });
+            }}
+          >
+            <CircleHelp size={16} strokeWidth={2.1} />
+            <span>
+              <strong>IT ticket</strong>
+              AI sorts it · Helpdesk approves
+            </span>
+          </Link>
+          <Link
             to="/consult"
             className="help-row"
             onClick={() => {
@@ -331,6 +346,14 @@ export function AskAiChat() {
     setWaiting(true);
     setSupportNote("");
     try {
+      if (wantsTicketSupport(clean)) {
+        push(
+          "bot",
+          "That sounds like an IT ticket. Open the ticket form and BIT OS will sort client, work, and urgency. BIT Helpdesk approves before any PC work.",
+        );
+        window.location.assign("/ticket");
+        return;
+      }
       if (wantsHumanSupport(clean)) {
         const opened = await openHumanChat("ask-ai-explicit-human-request");
         if (!opened) push("bot", "A person should handle this, but live chat could not be opened.");

@@ -18,6 +18,8 @@ const MAX_RESPONSE_LENGTH = 16_384;
 const REQUEST_TIMEOUT_MS = 10_000;
 const HUMAN_REQUEST =
   /\b(human|agent|representative)\b|\b(talk|speak|chat|connect)\b.{0,24}\b(person|human|agent|representative)\b/iu;
+const TICKET_REQUEST =
+  /\b(ticket|broken|printer|password reset|pc is slow|computer is slow|not working|wifi|wi-fi|outage)\b/iu;
 
 function readString(environment: PublicEnvironment, name: string): string {
   const value = environment[name];
@@ -35,6 +37,10 @@ export function getPublicAssistantConfig(
 
 export function wantsHumanSupport(message: string): boolean {
   return HUMAN_REQUEST.test(message);
+}
+
+export function wantsTicketSupport(message: string): boolean {
+  return TICKET_REQUEST.test(message);
 }
 
 function readResult(value: unknown): PublicAssistantResult {

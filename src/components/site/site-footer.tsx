@@ -31,6 +31,7 @@ const COLS = [
       { to: "/gallery", label: "Gallery" },
       { to: "/faq", label: "FAQs" },
       { to: "/support", label: "Support" },
+      { to: "/ticket", label: "IT ticket" },
     ],
   },
   {

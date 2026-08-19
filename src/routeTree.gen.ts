@@ -17,6 +17,7 @@ import { Route as AccessibilityStatementRouteImport } from './routes/accessibili
 import { Route as AiRouteImport } from './routes/ai'
 import { Route as CloudServicesBramptonRouteImport } from './routes/cloud-services-brampton'
 import { Route as ConsultRouteImport } from './routes/consult'
+import { Route as TicketRouteImport } from './routes/ticket'
 import { Route as CyberSecurityTipsForSmallBusinessesRouteImport } from './routes/cyber-security-tips-for-small-businesses'
 import { Route as DigitalMarketingRouteImport } from './routes/digital-marketing'
 import { Route as FaqRouteImport } from './routes/faq'
@@ -83,6 +84,11 @@ const CloudServicesBramptonRoute = CloudServicesBramptonRouteImport.update({
 const ConsultRoute = ConsultRouteImport.update({
   id: '/consult',
   path: '/consult',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TicketRoute = TicketRouteImport.update({
+  id: '/ticket',
+  path: '/ticket',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CyberSecurityTipsForSmallBusinessesRoute =
@@ -223,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/ai': typeof AiRoute
   '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/ticket': typeof TicketRoute
   '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
@@ -258,6 +265,7 @@ export interface FileRoutesByTo {
   '/ai': typeof AiRoute
   '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/ticket': typeof TicketRoute
   '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
@@ -294,6 +302,7 @@ export interface FileRoutesById {
   '/ai': typeof AiRoute
   '/cloud-services-brampton': typeof CloudServicesBramptonRoute
   '/consult': typeof ConsultRoute
+  '/ticket': typeof TicketRoute
   '/cyber-security-tips-for-small-businesses': typeof CyberSecurityTipsForSmallBusinessesRoute
   '/digital-marketing': typeof DigitalMarketingRoute
   '/faq': typeof FaqRoute
@@ -437,6 +446,7 @@ export interface RootRouteChildren {
   AiRoute: typeof AiRoute
   CloudServicesBramptonRoute: typeof CloudServicesBramptonRoute
   ConsultRoute: typeof ConsultRoute
+  TicketRoute: typeof TicketRoute
   CyberSecurityTipsForSmallBusinessesRoute: typeof CyberSecurityTipsForSmallBusinessesRoute
   DigitalMarketingRoute: typeof DigitalMarketingRoute
   FaqRoute: typeof FaqRoute
@@ -520,6 +530,13 @@ declare module '@tanstack/react-router' {
       path: '/consult'
       fullPath: '/consult'
       preLoaderRoute: typeof ConsultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ticket': {
+      id: '/ticket'
+      path: '/ticket'
+      fullPath: '/ticket'
+      preLoaderRoute: typeof TicketRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cyber-security-tips-for-small-businesses': {
@@ -710,6 +727,7 @@ const rootRouteChildren: RootRouteChildren = {
   AiRoute: AiRoute,
   CloudServicesBramptonRoute: CloudServicesBramptonRoute,
   ConsultRoute: ConsultRoute,
+  TicketRoute: TicketRoute,
   CyberSecurityTipsForSmallBusinessesRoute:
     CyberSecurityTipsForSmallBusinessesRoute,
   DigitalMarketingRoute: DigitalMarketingRoute,

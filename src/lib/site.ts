@@ -16,8 +16,8 @@ export const SITE = {
   region: "Ontario",
   coverage: "Entire Ontario",
   url: "https://bitsolution.ca",
-  /** Set when COO sends the ticket desk URL. Empty = button stays pending. */
-  ticketUrl: "",
+  /** Live BIT OS ticket desk (Tailscale HTTPS funnel to this VM). */
+  ticketUrl: "https://win-9jicvuobmun.tail9e2ebd.ts.net/ticket",
 } as const;
 
 export const TRACKING = {
