@@ -357,9 +357,65 @@ export function debugEnabled(): boolean {
 
 
 let cached: NetworkBuffers | null = null;
+let stippleCached: NetworkBuffers | null = null;
 
 export function buildNetworkCached(params: NetworkParams): NetworkBuffers {
   if (cached) return cached;
   cached = buildNetwork(params);
   return cached;
+}
+
+export function buildStipple(params: NetworkParams): NetworkBuffers {
+  const { radius, nodeBudget } = params;
+  const mask = rasterizeLandMask(TEX_W, TEX_H);
+  const fibN = Math.min(Math.max(nodeBudget * 2, 24000), 140000);
+
+  const xs: number[] = [];
+  const ks: number[] = [];
+
+  const emit = (x0: number, y0: number, z0: number, kind: number, seed: number) => {
+    let x = x0 + (hash2(seed, 1.3) - 0.5) * 0.01;
+    let y = y0 + (hash2(seed, 4.7) - 0.5) * 0.01;
+    let z = z0 + (hash2(seed, 8.2) - 0.5) * 0.01;
+    const len = Math.hypot(x, y, z) || 1;
+    x /= len;
+    y /= len;
+    z /= len;
+    const lift = 0.004 + kind * 0.008;
+    xs.push(x * (radius + lift), y * (radius + lift), z * (radius + lift));
+    ks.push(kind);
+  };
+
+  for (let i = 0; i < fibN; i++) {
+    const [x, y, z] = fibonacciDir(i, fibN);
+    const [u, v] = dirToUv(x, y, z);
+    const land = sampleMask(mask, TEX_W, TEX_H, u, v);
+    const h = hash2(i, 19.1);
+    if (land > 0.42) {
+      emit(x, y, z, Math.min(1, 0.55 + land * 0.5), i);
+      if (land > 0.62 && h < 0.72) emit(x, y, z, 1, i + 90001);
+      if (land > 0.78 && h < 0.4) emit(x, y, z, 1, i + 170003);
+    } else if (h < 0.34) {
+      emit(x, y, z, land * 0.35, i);
+    }
+  }
+
+  const positions = new Float32Array(xs);
+  const kinds = new Float32Array(ks);
+  return {
+    positions,
+    kinds,
+    linePositions: new Float32Array(0),
+    lineKinds: new Float32Array(0),
+    lineColors: new Float32Array(0),
+    faceIndex: new Uint32Array(0),
+    nodeCount: ks.length,
+    radius,
+  };
+}
+
+export function buildStippleCached(params: NetworkParams): NetworkBuffers {
+  if (stippleCached) return stippleCached;
+  stippleCached = buildStipple(params);
+  return stippleCached;
 }

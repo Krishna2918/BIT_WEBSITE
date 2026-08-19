@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import {
-  buildNetworkCached,
+  buildStippleCached,
   debugEnabled,
   detectMobile,
   type NetworkBuffers,
@@ -28,15 +28,15 @@ type Tunables = {
 };
 
 const DEFAULTS: Tunables = {
-  lineOpacity: 0.55,
-  nodeSize: 1.35,
-  nodeBrightness: 1.28,
-  shadowOpacity: 0.24,
+  lineOpacity: 0,
+  nodeSize: 0.78,
+  nodeBrightness: 1.15,
+  shadowOpacity: 0.2,
   lightIntensity: 1,
   cameraDistance: 16.8,
-  fresnel: 0.12,
+  fresnel: 0.07,
   rotationSpeed: 0.036,
-  lineColor: "#2B9AEF",
+  lineColor: "#4DB3F0",
 };
 
 const SURFACE_VS = /* glsl */ `
@@ -120,8 +120,8 @@ const POINT_VS = /* glsl */ `
     vFacing = abs(dot(N, V));
     vec4 mv = viewMatrix * wp;
     gl_Position = projectionMatrix * mv;
-    float boost = mix(0.28, 1.45, step(0.5, vKind));
-    gl_PointSize = uSize * boost * uPixelRatio * (13.5 / max(4.0, -mv.z));
+    float boost = mix(0.42, 1.05, smoothstep(0.35, 0.8, vKind));
+    gl_PointSize = uSize * boost * uPixelRatio * (14.0 / max(4.0, -mv.z));
   }
 `;
 
@@ -135,9 +135,9 @@ const POINT_FS = /* glsl */ `
     vec2 p = gl_PointCoord * 2.0 - 1.0;
     float d = length(p);
     if (d > 1.0) discard;
-    float land = step(0.5, vKind);
-    float a = smoothstep(1.0, 0.18, d) * smoothstep(0.04, 0.42, vFacing);
-    a *= mix(0.12, 1.0, land);
+    float land = smoothstep(0.32, 0.78, vKind);
+    float a = smoothstep(1.0, 0.2, d) * mix(0.35, 1.0, vFacing);
+    a *= mix(0.2, 0.92, land);
     vec3 col = mix(uOcean, uLand, land) * uBrightness;
     gl_FragColor = vec4(col, a);
   }
@@ -234,7 +234,7 @@ const BASE_FS = /* glsl */ `
     vec3 L = normalize(vec3(-0.4, 0.75, 0.5));
     float wrap = dot(N, L) * 0.07 + 0.95;
     float fres = pow(1.0 - max(dot(N, V), 0.0), 3.4) * 0.045;
-    vec3 col = vec3(0.86, 0.93, 0.99) * wrap + vec3(0.45, 0.72, 0.95) * fres;
+    vec3 col = vec3(0.955, 0.972, 0.992) * wrap + vec3(0.7, 0.86, 0.96) * fres;
     gl_FragColor = vec4(col, 1.0);
   }
 `;
@@ -292,43 +292,8 @@ function NetworkMesh({
   tunables: Tunables;
 }) {
   const { gl } = useThree();
-  const land = useMemo(() => hexToLinearVec("#1E8EEA"), []);
-  const ocean = useMemo(() => hexToLinearVec("#B9D8F2"), []);
-
-  const surfaceMat = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        uniforms: {
-          uLand: { value: land },
-          uOcean: { value: ocean },
-          uFresnel: { value: tunables.fresnel },
-        },
-        vertexShader: SURFACE_VS,
-        fragmentShader: SURFACE_FS,
-        transparent: true,
-        depthWrite: false,
-        side: THREE.FrontSide,
-        toneMapped: true,
-      }),
-    [land, ocean, tunables.fresnel],
-  );
-
-  const lineMat = useMemo(
-    () =>
-      new THREE.ShaderMaterial({
-        uniforms: {
-          uOpacity: { value: tunables.lineOpacity },
-          uTint: { value: hexToLinearVec(tunables.lineColor) },
-        },
-        vertexShader: LINE_VS,
-        fragmentShader: LINE_FS,
-        transparent: true,
-        depthWrite: false,
-        depthTest: true,
-        toneMapped: true,
-      }),
-    [tunables.lineColor, tunables.lineOpacity],
-  );
+  const land = useMemo(() => hexToLinearVec("#3EABF0"), []);
+  const ocean = useMemo(() => hexToLinearVec("#C5DFF2"), []);
 
   const pointMat = useMemo(
     () =>
@@ -350,52 +315,28 @@ function NetworkMesh({
     [gl, land, ocean, tunables.nodeBrightness, tunables.nodeSize],
   );
 
-  const { surfaceGeo, lineGeo, pointGeo } = useMemo(() => {
-    const surfaceGeo = new THREE.BufferGeometry();
-    surfaceGeo.setAttribute("position", new THREE.BufferAttribute(net.positions, 3));
-    surfaceGeo.setAttribute("aKind", new THREE.BufferAttribute(net.kinds, 1));
-    surfaceGeo.setIndex(new THREE.BufferAttribute(net.faceIndex, 1));
-    surfaceGeo.computeVertexNormals();
-
-    const lineGeo = new THREE.BufferGeometry();
-    lineGeo.setAttribute("position", new THREE.BufferAttribute(net.linePositions, 3));
-    lineGeo.setAttribute("aKind", new THREE.BufferAttribute(net.lineKinds, 1));
-    lineGeo.setAttribute("aColor", new THREE.BufferAttribute(net.lineColors, 3));
-
-    const pointGeo = new THREE.BufferGeometry();
-    pointGeo.setAttribute("position", new THREE.BufferAttribute(net.positions, 3));
-    pointGeo.setAttribute("aKind", new THREE.BufferAttribute(net.kinds, 1));
-    return { surfaceGeo, lineGeo, pointGeo };
+  const pointGeo = useMemo(() => {
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.BufferAttribute(net.positions, 3));
+    geo.setAttribute("aKind", new THREE.BufferAttribute(net.kinds, 1));
+    return geo;
   }, [net]);
 
   useEffect(
     () => () => {
-      surfaceGeo.dispose();
-      lineGeo.dispose();
       pointGeo.dispose();
-      surfaceMat.dispose();
-      lineMat.dispose();
       pointMat.dispose();
     },
-    [surfaceGeo, lineGeo, pointGeo, surfaceMat, lineMat, pointMat],
+    [pointGeo, pointMat],
   );
 
   useFrame(() => {
-    surfaceMat.uniforms.uFresnel!.value = tunables.fresnel;
-    lineMat.uniforms.uOpacity!.value = tunables.lineOpacity;
-    lineMat.uniforms.uTint!.value = hexToLinearVec(tunables.lineColor);
     pointMat.uniforms.uPixelRatio!.value = gl.getPixelRatio();
     pointMat.uniforms.uSize!.value = tunables.nodeSize;
     pointMat.uniforms.uBrightness!.value = tunables.nodeBrightness;
   });
 
-  return (
-    <group>
-      <mesh geometry={surfaceGeo} material={surfaceMat} renderOrder={1} />
-      <lineSegments geometry={lineGeo} material={lineMat} renderOrder={2} />
-      <points geometry={pointGeo} material={pointMat} renderOrder={3} />
-    </group>
-  );
+  return <points geometry={pointGeo} material={pointMat} renderOrder={3} />;
 }
 
 const USA_YAW = 0.11;
@@ -565,11 +506,11 @@ export function GlobeScene() {
     const id = window.setTimeout(() => {
       const mobile = detectMobile();
       setNet(
-        buildNetworkCached({
+        buildStippleCached({
           radius: RADIUS,
-          landDensity: 1.6,
-          oceanDensity: 0.7,
-          nodeBudget: mobile ? 14000 : 30000,
+          landDensity: 1,
+          oceanDensity: 1,
+          nodeBudget: mobile ? 42000 : 90000,
         }),
       );
     }, 0);
