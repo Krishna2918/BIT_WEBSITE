@@ -7,6 +7,7 @@ const Schema = z.object({
   broken: z.string().trim().min(4).max(4000),
   name: z.string().trim().max(120).optional().default(""),
   hostname: z.string().trim().max(120).optional().default(""),
+  teamviewer_id: z.string().trim().max(20).optional().default(""),
   severity: z.enum(["", "one", "few", "office"]).optional().default(""),
   source: z.enum(["form", "chat"]).optional().default("form"),
   fromWhatsapp: z.boolean().optional().default(false),

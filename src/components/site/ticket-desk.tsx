@@ -138,6 +138,7 @@ function TicketForm({
       broken,
       name: String(data.get("name") || "").trim(),
       hostname: String(data.get("hostname") || "").trim(),
+      teamviewer_id: String(data.get("teamviewer_id") || data.get("hostname") || "").trim(),
       severity: (String(data.get("severity") || "") as TicketDraft["severity"]) || "",
       source: "form",
       fromWhatsapp,
@@ -201,8 +202,8 @@ function TicketForm({
         <input name="name" type="text" autoComplete="name" maxLength={120} placeholder="If you want it on the ticket" />
       </label>
       <label>
-        PC name / hostname <span className="ticket-opt">optional</span>
-        <input name="hostname" type="text" maxLength={120} autoComplete="off" placeholder="Only if this is a PC, printer, or login" />
+        TeamViewer ID <span className="ticket-opt">optional</span>
+        <input name="teamviewer_id" type="text" inputMode="numeric" maxLength={20} autoComplete="off" placeholder="123 456 789 — Your ID in TeamViewer" />
       </label>
       <fieldset className="ticket-sev">
         <legend>
@@ -300,9 +301,12 @@ function TicketChat({
     } else if (need === "company") {
       nextAsked.company = true;
       if (!looksLikeSkip(text)) next.company = text;
-    } else if (need === "hostname") {
+    } else if (need === "teamviewer") {
       nextAsked.hostname = true;
-      if (!looksLikeSkip(text)) next.hostname = text;
+      if (!looksLikeSkip(text)) {
+        next.teamviewer_id = text;
+        next.hostname = text;
+      }
     } else if (need === "email") {
       if (looksLikeSkip(text)) {
         nextAsked.email = true;
