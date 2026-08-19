@@ -144,19 +144,21 @@ function Home() {
         </div>
       </section>
 
-      <section id="partners" className="border-t border-hairline bg-bg-muted px-5 py-16">
-        <div className="mx-auto max-w-5xl">
+      <section id="partners" className="bg-bg-muted">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Who we partner with
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             The stack behind the stack.
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-[16px] leading-snug text-muted">
+          <p className="mx-auto mt-2 max-w-2xl text-center text-[16px] leading-snug">
             Microsoft Cloud Solution Provider. CRTC regulated wholesaler.
             Product solutions from every major IT vendor — the same names on
             bitsolution.ca — with government pricing when the job needs it.
           </p>
+        </div>
+        <div className="mx-auto max-w-5xl px-5 py-8">
           <ul className="partner-field">
             {PARTNERS.map((p) => (
               <li key={p.slug}>
@@ -168,17 +170,19 @@ function Home() {
         </div>
       </section>
 
-      <section id="pillars" className="border-t border-hairline bg-bg px-5 py-16">
-        <div className="mx-auto max-w-5xl">
+      <section id="pillars" className="bg-bg">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Four parts. One flag.
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             Software. Hardware. AI. Security.
           </h2>
-          <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
+          <p className="mx-auto mt-2 max-w-xl text-center text-[16px] leading-snug">
             Pick a door. Each one is the same team.
           </p>
+        </div>
+        <div className="mx-auto max-w-5xl px-5 py-8">
           <div className="pillar-grid">
             {PILLARS.map((tile) => (
               <Link key={tile.to} to={tile.to} className="pillar-tile">
@@ -222,17 +226,19 @@ function Home() {
         </div>
       </section>
 
-      <section id="proof" className="border-t border-hairline bg-bg-muted px-5 py-16">
-        <div className="mx-auto max-w-5xl">
+      <section id="proof" className="bg-bg-muted">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Clients
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             Two people, in their words.
           </h2>
-          <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
+          <p className="mx-auto mt-2 max-w-xl text-center text-[16px] leading-snug">
             Only the quotes already on bitsolution.ca. We do not write reviews.
           </p>
+        </div>
+        <div className="mx-auto max-w-5xl px-5 py-8">
           <div className="grid gap-4 md:grid-cols-2">
             {TESTIMONIALS.map((t) => (
               <figure key={t.name} className="quote-card">
@@ -247,15 +253,17 @@ function Home() {
         </div>
       </section>
 
-      <section id="faq" className="border-t border-hairline bg-bg px-5 py-16">
-        <div className="mx-auto max-w-2xl">
+      <section id="faq" className="bg-bg">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             FAQs
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             Before you call.
           </h2>
-          <div className="mt-8">
+        </div>
+        <div className="mx-auto max-w-2xl px-5 py-8">
+          <div>
             {FAQS.map((item) => (
               <details key={item.q} className="faq-item">
                 <summary>{item.q}</summary>
@@ -271,15 +279,17 @@ function Home() {
         </div>
       </section>
 
-      <section id="insights" className="border-t border-hairline bg-bg-muted px-5 py-16">
-        <div className="mx-auto max-w-5xl">
+      <section id="insights" className="bg-bg-muted">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Insights
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             From the floor.
           </h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
+        </div>
+        <div className="mx-auto max-w-5xl px-5 py-8">
+          <div className="grid gap-6 md:grid-cols-3">
             {INSIGHTS.slice(0, 3).map((item) => (
               <article key={item.slug}>
                 <p className="text-[12px] text-muted">{item.date}</p>
@@ -304,14 +314,14 @@ function Home() {
         </div>
       </section>
 
-      <section className="border-t border-hairline bg-bg px-5 py-16 text-center">
+      <section className="navy-strip">
         <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-link">
           24/7
         </p>
-        <h2 className="mt-2 text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+        <h2 className="mt-2 text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
           Emergency is the same number.
         </h2>
-        <p className="mx-auto mt-2 max-w-lg text-[16px] text-muted">
+        <p className="mx-auto mt-2 max-w-lg text-[16px]">
           Call or WhatsApp {SITE.phoneDisplay}. Across all of Ontario.
         </p>
         <div className="mt-6 flex justify-center">

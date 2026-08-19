@@ -321,8 +321,14 @@ svg {
 .navy-strip h2 {
   color: #fff;
 }
-.navy-strip p {
-  color: rgba(255, 255, 255, 0.78);
+.navy-strip .cta-ghost {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+}
+.navy-strip .cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: #fff;
 }
 
 .cover-reel-copy {
