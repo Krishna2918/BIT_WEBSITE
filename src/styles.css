@@ -61,7 +61,7 @@ svg {
 }
 
 .hero-navy .hero-copy {
-  background: #fff;
+  background: transparent;
 }
 .hero-logo {
   padding: 2rem 1.25rem 1.5rem;
@@ -101,7 +101,7 @@ svg {
   flex: 1 1 auto;
   min-height: 16rem;
   height: clamp(16rem, 46dvh, 34rem);
-  margin-top: 0.25rem;
+  margin-top: 0;
   overflow: hidden;
   background: #f5f5f7;
 }
