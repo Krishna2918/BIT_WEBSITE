@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUp, CircleHelp, Mail, MessageCircle, Phone, Sparkles, X } from "lucide-react";
+import { ArrowUp, CircleHelp, Mail, MessageCircle, Phone, Sparkles, Ticket, X } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { SITE } from "@/lib/site";
 import { track } from "@/lib/tracking";
@@ -30,7 +30,7 @@ function replyFor(input: string): string {
     return "Security is the shell around the rest. Watches, locks devices, keeps copies, and recovers when something breaks.";
   }
   if (/(ai|bot|chat|ticket|support)/.test(q)) {
-    return "BIT AI stays on for tickets and checks. A person steps in when they should. That is the product — not a toy chatbot.";
+    return "Raise a ticket from Help, or open /ticket — short form or this chat. A person steps in when they should. Call or WhatsApp if it is on fire.";
   }
   if (/(price|cost|how much)/.test(q)) {
     return "Pricing depends on the floor. Tell us the site and the stack and we will price a real consult — not a menu.";
@@ -169,9 +169,23 @@ export function HelpSheet() {
         </header>
         <div className="help-body">
           <p className="help-lead">
-            Need a hand with software, hardware, AI, or security? Talk to us — or ask BIT AI
-            for a quick pointer.
+            Need a hand with software, hardware, AI, or security? Raise a ticket,
+            talk to us, or ask BIT AI for a quick pointer.
           </p>
+          <Link
+            to="/ticket"
+            className="help-row"
+            onClick={() => {
+              setOpen(false);
+              track("ticket_click", { source: "help" });
+            }}
+          >
+            <Ticket size={16} strokeWidth={2.1} />
+            <span>
+              <strong>Raise a ticket</strong>
+              BIT Helpdesk
+            </span>
+          </Link>
           <a
             href={SITE.phoneHref}
             className="help-row callrail rTapNumber"

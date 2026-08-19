@@ -46,6 +46,7 @@ const paths = [
   "/gallery",
   "/images",
   "/support",
+  "/ticket",
   "/service-areas",
   "/digital-marketing",
   "/procurement",

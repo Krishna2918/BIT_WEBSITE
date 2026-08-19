@@ -107,6 +107,12 @@ export const PAGE_SEO: Record<string, PageSeo> = {
       "24/7 support on +1 905-867-6574 or WhatsApp. Email support@bitsolution.ca. Human handoff when it is a person problem.",
     h1: "A person when it matters.",
   },
+  "/ticket": {
+    title: "Raise a ticket | BIT Solution",
+    description:
+      "Open a BIT Helpdesk ticket — short form or Ask AI. No phone number required. Call or WhatsApp +1 905-867-6574.",
+    h1: "Raise a ticket.",
+  },
   "/service-areas": {
     title: "Service areas across Ontario | BIT Solution",
     description:

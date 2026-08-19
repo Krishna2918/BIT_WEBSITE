@@ -11,8 +11,6 @@ export const Route = createFileRoute("/support")({
 });
 
 function SupportPage() {
-  const ticketReady = Boolean(SITE.ticketUrl);
-
   return (
     <main className="bg-bg">
       <section className="px-5 pb-10 pt-16 text-center">
@@ -58,26 +56,15 @@ function SupportPage() {
           <h2>Support inbox</h2>
           <p>{SITE.supportEmail}</p>
         </a>
-        {ticketReady ? (
-          <a
-            href={SITE.ticketUrl}
-            className="support-card"
-            onClick={() => track("ticket_click", { source: "support" })}
-          >
-            <p className="support-kicker">Clients</p>
-            <h2>Open a Support Ticket</h2>
-            <p>Use the desk we assigned you.</p>
-          </a>
-        ) : (
-          <div className="support-card support-card-wait">
-            <p className="support-kicker">Clients</p>
-            <h2>Open a Support Ticket</h2>
-            <p>
-              Ticket desk is being connected. Until the link is live, call,
-              WhatsApp, or email.
-            </p>
-          </div>
-        )}
+        <Link
+          to="/ticket"
+          className="support-card"
+          onClick={() => track("ticket_click", { source: "support" })}
+        >
+          <p className="support-kicker">Clients</p>
+          <h2>Raise a ticket</h2>
+          <p>Short form or Ask AI. BIT Helpdesk sees it.</p>
+        </Link>
       </section>
 
       <section className="border-t border-hairline bg-bg-muted px-5 py-16 text-center">

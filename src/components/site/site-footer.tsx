@@ -38,6 +38,7 @@ const COLS = [
     title: "Contact",
     links: [
       { to: "/consult", label: "Book consultation" },
+      { to: "/ticket", label: "Raise a ticket" },
       { to: "/privacy", label: "Privacy" },
       { to: "/accessibility-statement", label: "Accessibility" },
     ],
