@@ -72,6 +72,10 @@ svg {
   background: #fff;
 }
 .hero-tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 1.5rem 1.25rem 2rem;
   text-align: center;
   background:
@@ -292,7 +296,12 @@ svg {
 }
 
 .cover-reel-copy {
-  padding: 1.1rem 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.75rem 1.25rem;
   background:
     radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
     linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
