@@ -610,6 +610,11 @@
       "source": "/author/admin/",
       "destination": "/insights",
       "permanent": true
+    },
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "permanent": true
     }
   ]
 }
