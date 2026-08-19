@@ -137,8 +137,7 @@ function TicketForm({
       email,
       broken,
       name: String(data.get("name") || "").trim(),
-      hostname: String(data.get("hostname") || "").trim(),
-      teamviewer_id: String(data.get("teamviewer_id") || data.get("hostname") || "").trim(),
+      teamviewer_id: String(data.get("teamviewer_id") || "").trim(),
       severity: (String(data.get("severity") || "") as TicketDraft["severity"]) || "",
       source: "form",
       fromWhatsapp,
@@ -203,7 +202,14 @@ function TicketForm({
       </label>
       <label>
         TeamViewer ID <span className="ticket-opt">optional</span>
-        <input name="teamviewer_id" type="text" inputMode="numeric" maxLength={20} autoComplete="off" placeholder="123 456 789 — Your ID in TeamViewer" />
+        <input
+          name="teamviewer_id"
+          type="text"
+          inputMode="numeric"
+          maxLength={20}
+          autoComplete="off"
+          placeholder="Your ID, like 123 456 789"
+        />
       </label>
       <fieldset className="ticket-sev">
         <legend>
@@ -247,7 +253,7 @@ function TicketChat({
     d.source = "chat";
     return d;
   });
-  const [asked, setAsked] = useState({ company: false, hostname: false, email: false });
+  const [asked, setAsked] = useState({ company: false, teamviewer: false, email: false });
   const [msgs, setMsgs] = useState<Msg[]>(() => [
     { id: 0, from: "bot", text: promptFor("broken", fromWhatsapp) },
   ]);
@@ -302,10 +308,9 @@ function TicketChat({
       nextAsked.company = true;
       if (!looksLikeSkip(text)) next.company = text;
     } else if (need === "teamviewer") {
-      nextAsked.hostname = true;
+      nextAsked.teamviewer = true;
       if (!looksLikeSkip(text)) {
         next.teamviewer_id = text;
-        next.hostname = text;
       }
     } else if (need === "email") {
       if (looksLikeSkip(text)) {

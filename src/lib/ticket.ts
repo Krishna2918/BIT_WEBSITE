@@ -5,7 +5,6 @@ export type TicketDraft = {
   email: string;
   broken: string;
   name: string;
-  hostname: string;
   teamviewer_id: string;
   severity: TicketSeverity;
   source: "form" | "chat";
@@ -26,7 +25,6 @@ export function emptyDraft(fromWhatsapp = false): TicketDraft {
     email: "",
     broken: "",
     name: "",
-    hostname: "",
     teamviewer_id: "",
     severity: "",
     source: "chat",
@@ -35,7 +33,7 @@ export function emptyDraft(fromWhatsapp = false): TicketDraft {
 }
 
 export function looksLikeDeviceIssue(text: string): boolean {
-  return /\b(pc|computer|laptop|desktop|printer|hostname|workstation|login|log[\s-]?in|sign[\s-]?in|outlook|windows|keyboard|monitor|blue[\s-]?screen|bsod|dock|scanner)\b/i.test(
+  return /\b(pc|computer|laptop|desktop|printer|workstation|login|log[\s-]?in|sign[\s-]?in|outlook|windows|keyboard|monitor|blue[\s-]?screen|bsod|dock|scanner)\b/i.test(
     text,
   );
 }
@@ -67,15 +65,14 @@ export type ChatNeed = "broken" | "company" | "teamviewer" | "email" | "submit";
 
 export function nextChatNeed(
   draft: TicketDraft,
-  asked: { company: boolean; hostname: boolean; email: boolean },
+  asked: { company: boolean; teamviewer: boolean; email: boolean },
 ): ChatNeed {
   if (draft.broken.trim().length < 4) return "broken";
   if (!draft.company.trim() && !asked.company) return "company";
   if (
     looksLikeDeviceIssue(draft.broken) &&
     !draft.teamviewer_id.trim() &&
-    !draft.hostname.trim() &&
-    !asked.hostname
+    !asked.teamviewer
   ) {
     return "teamviewer";
   }
@@ -92,7 +89,7 @@ export function promptFor(need: ChatNeed, fromWhatsapp: boolean): string {
     case "company":
       return "Which company is this for? Skip if you want — I can still open it.";
     case "teamviewer":
-      return "Open TeamViewer on that PC and send Your ID (the number like 123 456 789). Skip if you cannot.";
+      return "Open TeamViewer and send Your ID — the number like 123 456 789. Skip if you cannot.";
     case "email":
       return "Work email for updates, or skip.";
     case "submit":
