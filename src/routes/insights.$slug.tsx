@@ -17,16 +17,14 @@ function InsightPage() {
   const item = Route.useLoaderData();
   return (
     <main className="bg-bg">
-      <section className="page-band">
+      <article className="mx-auto max-w-2xl px-5 py-16">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Insights
         </p>
-        <p className="text-[13px]">{item.date}</p>
-        <h1 className="mt-2 text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em]">
+        <p className="text-[13px] text-muted">{item.date}</p>
+        <h1 className="mt-2 text-[clamp(1.8rem,5vw,2.6rem)] font-semibold tracking-[-0.03em] text-ink">
           {item.title}
         </h1>
-      </section>
-      <article className="mx-auto max-w-2xl px-5 py-16">
         {item.body.map((p) => (
           <p key={p} className="mt-5 text-[17px] leading-relaxed text-muted">
             {p}

@@ -68,7 +68,7 @@ function Home() {
 
   return (
     <main>
-      <section className="hero-frame hero-navy">
+      <section className="hero-frame">
         <div className="relative z-10 px-5 pb-8 pt-8 text-center sm:pb-10 sm:pt-12">
           <p className="hero-lockup">
             <img
@@ -79,18 +79,15 @@ function Home() {
               height={383}
             />
           </p>
-          <h1 className="mx-auto mt-5 max-w-3xl">
-            Intelligent Infrastructure.
-            <br />
-            Custom B2B Software & AI Workflows.
-            <br />
+          <h1 className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] text-ink sm:text-[20px]">
+            Intelligent Infrastructure, Custom B2B Software & AI Workflows —
             Under One Flag.
           </h1>
-          <p className="hero-lede mx-auto mt-3 max-w-lg text-[15px] leading-snug sm:text-[17px]">
+          <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug text-muted sm:text-[17px]">
             Your ONE stop IT solution. Across all of Ontario — from Brampton HQ
             to every site we run.
           </p>
-          <div className="cta-pair mt-5 mb-1">
+          <div className="cta-pair mt-4 mb-1">
             <Link to="/consult" className="cta-book">
               Book consultation
             </Link>
@@ -115,35 +112,6 @@ function Home() {
           {Scene ? <Scene /> : null}
           <div className="hero-ask-wrap">
             <HeroGlobeActions />
-          </div>
-        </div>
-        <div className="hero-overlap">
-          <div className="pillar-grid">
-            {PILLARS.map((tile) => (
-              <Link key={tile.to} to={tile.to} className="pillar-tile">
-                {"video" in tile && tile.video ? (
-                  <video
-                    className="pillar-tile-media"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={tile.image}
-                    aria-hidden
-                  >
-                    <source src={tile.video} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={tile.image} alt={tile.alt} />
-                )}
-                <div className="pillar-tile-body">
-                  <h3>{tile.title}</h3>
-                  <p>{tile.line}</p>
-                  <span>Learn more ›</span>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
@@ -197,14 +165,41 @@ function Home() {
       <section id="pillars" className="border-t border-hairline bg-bg px-5 py-16">
         <div className="mx-auto max-w-5xl">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
-            Extra desks
+            Four parts. One flag.
           </p>
           <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
-            Same flag. More of the floor.
+            Software. Hardware. AI. Security.
           </h2>
           <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
-            Digital marketing, procurement, and VoIP — under the same BIT team.
+            Pick a door. Each one is the same team.
           </p>
+          <div className="pillar-grid">
+            {PILLARS.map((tile) => (
+              <Link key={tile.to} to={tile.to} className="pillar-tile">
+                {"video" in tile && tile.video ? (
+                  <video
+                    className="pillar-tile-media"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    poster={tile.image}
+                    aria-hidden
+                  >
+                    <source src={tile.video} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img src={tile.image} alt={tile.alt} />
+                )}
+                <div className="pillar-tile-body">
+                  <h3>{tile.title}</h3>
+                  <p>{tile.line}</p>
+                  <span>Learn more ›</span>
+                </div>
+              </Link>
+            ))}
+          </div>
           <div className="extra-grid">
             {EXTRAS.map((item) => (
               <Link key={item.slug} to={item.to} className="pillar-tile extra-tile">
@@ -303,14 +298,14 @@ function Home() {
         </div>
       </section>
 
-      <section className="page-band">
+      <section className="border-t border-hairline bg-bg px-5 py-16 text-center">
         <p className="text-[12px] font-medium uppercase tracking-[0.16em] text-link">
           24/7
         </p>
-        <h2 className="mt-2 text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
+        <h2 className="mt-2 text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
           Emergency is the same number.
         </h2>
-        <p className="mx-auto mt-2 max-w-lg text-[16px]">
+        <p className="mx-auto mt-2 max-w-lg text-[16px] text-muted">
           Call or WhatsApp {SITE.phoneDisplay}. Across all of Ontario.
         </p>
         <div className="mt-6 flex justify-center">

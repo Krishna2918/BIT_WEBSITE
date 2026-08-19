@@ -51,7 +51,7 @@ export const Route = createRootRoute({
         content: `${SITE.positioning} ${SITE.tagline} Across all of Ontario.`,
       },
       { name: "apple-mobile-web-app-title", content: APP_NAME },
-      { name: "theme-color", content: "#041627" },
+      { name: "theme-color", content: "#161617" },
       { name: "robots", content: robotsContent() },
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "website" },

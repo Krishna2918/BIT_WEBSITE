@@ -16,7 +16,7 @@ const PRODUCTS = [
 function SoftwarePage() {
   return (
     <main className="bg-bg">
-      <section className="page-band">
+      <section className="px-5 pb-8 pt-16 text-center">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">Software</p>
         <h1 className="text-[40px] font-semibold leading-none tracking-[-0.03em] text-ink sm:text-[56px]">
           Built for how people work now.

@@ -8,7 +8,7 @@ export function ExtraPage({ extra }: { extra: ExtraService }) {
 
   return (
     <main className="bg-bg">
-      <section className="page-band">
+      <section className="px-5 pb-8 pt-16 text-center">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           {extra.kicker}
         </p>

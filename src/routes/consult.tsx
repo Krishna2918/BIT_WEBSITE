@@ -13,14 +13,14 @@ export const Route = createFileRoute("/consult")({
 function ConsultPage() {
   return (
     <main className="bg-bg">
-      <section className="page-band">
-        <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
+      <section className="mx-auto max-w-xl px-5 pb-20 pt-16">
+        <p className="mb-2 text-center text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Consultation
         </p>
-        <h1 className="text-[clamp(1.8rem,5vw,2.8rem)] font-semibold tracking-[-0.03em]">
+        <h1 className="text-center text-[clamp(1.8rem,5vw,2.8rem)] font-semibold tracking-[-0.03em] text-ink">
           Book a consultation
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-[16px] leading-relaxed">
+        <p className="mx-auto mt-3 max-w-md text-center text-[16px] leading-relaxed text-muted">
           {SITE.positioning} Tell us about the floor. We cover all of Ontario.
           We will call you from {SITE.phoneDisplay}.
         </p>
@@ -41,9 +41,9 @@ function ConsultPage() {
             Email
           </a>
         </div>
-      </section>
-      <section className="mx-auto max-w-xl px-5 py-14">
-        <ConsultForm intent="general" source="consult-page" />
+        <div className="mt-10">
+          <ConsultForm intent="general" source="consult-page" />
+        </div>
       </section>
     </main>
   );

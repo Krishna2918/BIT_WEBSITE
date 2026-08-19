@@ -10,7 +10,7 @@ export const Route = createFileRoute("/insights/")({
 function InsightsIndex() {
   return (
     <main className="bg-bg">
-      <section className="page-band">
+      <section className="px-5 pb-10 pt-16 text-center">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Insights
         </p>
