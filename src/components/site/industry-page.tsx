@@ -130,38 +130,17 @@ function ClientTicker({
 }: {
   clients: ReturnType<typeof clientsFor>;
 }) {
-  const pad = [...clients];
-  while (pad.length < 6) pad.push(...clients);
+  const names = clients.map((c) => c.name);
+  const pad = [...names];
+  while (pad.length < 8) pad.push(...names);
   const loop = [...pad, ...pad];
   return (
     <div className="client-ticker">
       <p>Who trusts us. Who we trust.</p>
       <div className="client-ticker-mask">
         <ul>
-          {loop.map((client, i) => (
-            <li key={`${client.name}-${i}`}>
-              <figure className="client-card">
-                {client.video ? (
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={client.photo}
-                    aria-hidden
-                  >
-                    <source src={client.video} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={client.photo} alt="" />
-                )}
-                <figcaption>
-                  <strong>{client.name}</strong>
-                  <span>{client.city}</span>
-                </figcaption>
-              </figure>
-            </li>
+          {loop.map((name, i) => (
+            <li key={`${name}-${i}`}>{name}</li>
           ))}
         </ul>
       </div>
