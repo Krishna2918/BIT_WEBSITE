@@ -396,8 +396,8 @@ export function buildStipple(params: NetworkParams): NetworkBuffers {
       if (land > 0.52) emit(x, y, z, 1, i + 90001);
       if (land > 0.68 && h < 0.85) emit(x, y, z, 1, i + 170003);
       if (land > 0.82 && h < 0.55) emit(x, y, z, 1, i + 250007);
-    } else if (h < 0.55) {
-      emit(x, y, z, 0.12 + land * 0.2, i);
+    } else {
+      emit(x, y, z, 0.18, i);
     }
   }
 

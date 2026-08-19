@@ -137,7 +137,7 @@ const POINT_FS = /* glsl */ `
     if (d > 1.0) discard;
     float land = smoothstep(0.28, 0.62, vKind);
     float a = smoothstep(1.0, 0.22, d) * mix(0.4, 1.0, vFacing);
-    a *= mix(0.14, 0.98, land);
+    a *= mix(0.55, 0.98, land);
     vec3 col = mix(uOcean, uLand, land) * uBrightness;
     gl_FragColor = vec4(col, a);
   }
@@ -234,7 +234,7 @@ const BASE_FS = /* glsl */ `
     vec3 L = normalize(vec3(-0.4, 0.75, 0.5));
     float wrap = dot(N, L) * 0.07 + 0.95;
     float fres = pow(1.0 - max(dot(N, V), 0.0), 3.4) * 0.045;
-    vec3 col = vec3(0.955, 0.972, 0.992) * wrap + vec3(0.7, 0.86, 0.96) * fres;
+    vec3 col = vec3(0.72, 0.86, 0.95) * wrap + vec3(0.55, 0.78, 0.94) * fres;
     gl_FragColor = vec4(col, 1.0);
   }
 `;
@@ -293,7 +293,7 @@ function NetworkMesh({
 }) {
   const { gl } = useThree();
   const land = useMemo(() => hexToLinearVec("#0E6EC8"), []);
-  const ocean = useMemo(() => hexToLinearVec("#DCECF8"), []);
+  const ocean = useMemo(() => hexToLinearVec("#8EC4EA"), []);
 
   const pointMat = useMemo(
     () =>
