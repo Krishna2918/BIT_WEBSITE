@@ -68,7 +68,7 @@ function Home() {
 
   return (
     <main>
-      <section className="hero-frame">
+      <section className="hero-frame hero-navy">
         <div className="relative z-10 px-5 pb-8 pt-8 text-center sm:pb-10 sm:pt-12">
           <p className="hero-lockup">
             <img
@@ -79,11 +79,11 @@ function Home() {
               height={383}
             />
           </p>
-          <h1 className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] text-ink sm:text-[20px]">
+          <h1 className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] sm:text-[20px]">
             Intelligent Infrastructure, Custom B2B Software & AI Workflows —
             Under One Flag.
           </h1>
-          <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug text-muted sm:text-[17px]">
+          <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug sm:text-[17px]">
             Your ONE stop IT solution. Across all of Ontario — from Brampton HQ
             to every site we run.
           </p>

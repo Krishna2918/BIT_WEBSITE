@@ -60,6 +60,33 @@ svg {
   background: var(--color-bg);
 }
 
+.hero-navy {
+  background:
+    radial-gradient(900px 420px at 88% 8%, rgba(18, 131, 221, 0.3), transparent 55%),
+    linear-gradient(165deg, #031525 0%, #06284a 42%, #041627 100%);
+}
+.hero-navy .hero-official {
+  filter: brightness(0) invert(1);
+}
+.hero-navy h1 {
+  color: #fff;
+}
+.hero-navy p {
+  color: rgba(255, 255, 255, 0.78);
+}
+.hero-navy .cta-ghost {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+.hero-navy .cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: #fff;
+}
+.hero-navy .hero-globe {
+  background: transparent;
+}
+
 .hero-globe {
   position: relative;
   flex: 1 1 auto;
