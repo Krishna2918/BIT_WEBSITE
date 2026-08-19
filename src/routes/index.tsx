@@ -122,17 +122,19 @@ function Home() {
 
       <CoverReel />
 
-      <section id="gallery" className="border-t border-hairline bg-bg px-5 py-16">
-        <div className="mx-auto max-w-5xl">
+      <section id="gallery" className="bg-bg">
+        <div className="navy-strip">
           <p className="mb-3 text-center text-[12px] font-medium uppercase tracking-[0.16em] text-link">
             Gallery
           </p>
-          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em] text-ink">
+          <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             The floors we walk.
           </h2>
-          <p className="mx-auto mt-2 mb-8 max-w-xl text-center text-[16px] leading-snug text-muted">
+          <p className="mx-auto mt-2 max-w-xl text-center text-[16px] leading-snug">
             Hardware, sectors, and the desk. Click a photo to open it.
           </p>
+        </div>
+        <div className="mx-auto max-w-5xl px-5 py-8">
           <GalleryGrid items={GALLERY_HOME} />
           <p className="mt-8 text-center">
             <Link to="/gallery" className="text-[16px] text-link no-underline hover:underline">
