@@ -130,22 +130,40 @@ function ClientTicker({
 }: {
   clients: ReturnType<typeof clientsFor>;
 }) {
-  const names = clients.map((c) => c.name);
-  const pad = [...names];
-  while (pad.length < 8) pad.push(...names);
+  const pad = [...clients];
+  while (pad.length < 8) pad.push(...clients);
   const loop = [...pad, ...pad];
   return (
     <div className="client-ticker">
       <p>Who trusts us. Who we trust.</p>
       <div className="client-ticker-mask">
         <ul>
-          {loop.map((name, i) => (
-            <li key={`${name}-${i}`}>{name}</li>
+          {loop.map((client, i) => (
+            <li key={`${client.name}-${i}`}>
+              <span className="client-chip">
+                {client.logo ? (
+                  <img src={client.logo} alt="" />
+                ) : (
+                  <span className="client-mono" aria-hidden>
+                    {initials(client.name)}
+                  </span>
+                )}
+              </span>
+              <span className="client-chip-name">{client.name}</span>
+            </li>
           ))}
         </ul>
       </div>
     </div>
   );
+}
+
+function initials(name: string) {
+  const skip = /^(at|the|and|of|llc|inc|group|centre|center)$/i;
+  const parts = name.split(/\s+/).filter((w) => !skip.test(w));
+  const a = parts[0]?.[0] ?? "";
+  const b = parts[1]?.[0] ?? parts[0]?.[1] ?? "";
+  return `${a}${b}`.toUpperCase();
 }
 
 function PillarCard({

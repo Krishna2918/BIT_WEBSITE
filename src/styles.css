@@ -1699,10 +1699,10 @@ svg {
 
 .client-ticker {
   margin: 1.35rem auto 0;
-  max-width: 40rem;
+  max-width: 44rem;
 }
 .client-ticker > p {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.7rem;
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -1716,26 +1716,64 @@ svg {
 .client-ticker ul {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0.15rem 0;
   display: flex;
   width: max-content;
-  gap: 0;
-  animation: client-marquee 28s linear infinite;
+  gap: 0.7rem;
+  animation: client-marquee 36s linear infinite;
 }
 .client-ticker:hover ul {
   animation-play-state: paused;
 }
 .client-ticker li {
   flex: none;
-  padding: 0 0.95rem;
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--color-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 6.4rem;
+  padding: 0;
+  border: 0;
   white-space: nowrap;
 }
 .client-ticker li + li {
-  border-left: 1px solid var(--color-hairline);
+  border-left: 0;
+}
+.client-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.4rem;
+  height: 3.15rem;
+  border: 1px solid color-mix(in srgb, var(--color-hairline) 80%, white);
+  border-radius: 0.7rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(243, 247, 251, 0.78));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 6px 16px -12px rgba(6, 52, 89, 0.35);
+}
+.client-chip img {
+  max-width: 4.6rem;
+  max-height: 1.85rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.client-mono {
+  font-size: 0.92rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  color: #063459;
+}
+.client-chip-name {
+  max-width: 6.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-muted);
 }
 @keyframes client-marquee {
   from { transform: translateX(0); }
@@ -1747,7 +1785,7 @@ svg {
     flex-wrap: wrap;
     justify-content: center;
     width: auto;
-    row-gap: 0.35rem;
+    row-gap: 0.85rem;
   }
   .client-ticker-mask {
     mask-image: none;
