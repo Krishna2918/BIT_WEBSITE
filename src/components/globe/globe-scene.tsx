@@ -8,10 +8,11 @@ import {
   type StippleCloud,
   type StudioParticles,
 } from "./land-stipple";
+import { CityMarkers } from "./city-markers";
 
 const GLASS_R = 2.65;
 const START_YAW = -1.05;
-const ROT_SPEED = (Math.PI * 2) / 200;
+const ROT_SPEED = ((Math.PI * 2) / 200) * 1.1;
 const BG = "#F3F2F6";
 
 const POINT_VS = /* glsl */ `
@@ -51,7 +52,9 @@ const POINT_FS = /* glsl */ `
     float d = length(p);
     if (d > 1.0) discard;
     float core = smoothstep(1.0, 0.32, d);
-    gl_FragColor = vec4(vColor, core * vAlpha);
+    float front = smoothstep(0.2, 0.85, vFacing);
+    vec3 col = vColor * mix(0.9, 0.68, front);
+    gl_FragColor = vec4(col, core * vAlpha);
   }
 `;
 
@@ -272,7 +275,7 @@ function GlobeRig({
   particles,
   reduced,
 }: {
-  particles: StudioParticles;
+  particles: StudioParticles | null;
   reduced: boolean;
 }) {
   const spin = useRef<THREE.Group>(null);
@@ -321,10 +324,11 @@ function GlobeRig({
   return (
     <group ref={parallax} position={[0, 0.08, 0]}>
       <group ref={spin}>
-        <ParticleField cloud={particles.internal} internal reduced={reduced} />
+        {particles ? <ParticleField cloud={particles.internal} internal reduced={reduced} /> : null}
         {createGlassSphere()}
-        <ParticleField cloud={particles.base} reduced={reduced} />
-        <ParticleField cloud={particles.land} reduced={reduced} />
+        {particles ? <ParticleField cloud={particles.base} reduced={reduced} /> : null}
+        {particles ? <ParticleField cloud={particles.land} reduced={reduced} /> : null}
+        <CityMarkers />
       </group>
     </group>
   );
@@ -387,10 +391,10 @@ function SceneContent({
   return (
     <>
       <ResponsiveCamera />
-      {particles ? <StudioEnv /> : null}
+      <StudioEnv />
       {createLighting()}
       <group position={[0, -0.18, 0]}>
-        {particles ? <GlobeRig particles={particles} reduced={reduced} /> : null}
+        <GlobeRig particles={particles} reduced={reduced} />
         {createGroundShadow()}
       </group>
     </>
@@ -410,10 +414,19 @@ export function GlobeScene() {
   }, []);
 
   useEffect(() => {
+    let alive = true;
     const id = window.setTimeout(() => {
-      setParticles(buildStudioParticles(detectDeviceTier()));
-    }, 0);
-    return () => window.clearTimeout(id);
+      try {
+        const next = buildStudioParticles(detectDeviceTier());
+        if (alive) setParticles(next);
+      } catch {
+        /* keep the ice sphere if stipple fails */
+      }
+    }, 120);
+    return () => {
+      alive = false;
+      window.clearTimeout(id);
+    };
   }, []);
 
   return (

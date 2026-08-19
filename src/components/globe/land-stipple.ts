@@ -57,7 +57,7 @@ function hash2(x: number, y: number) {
   return n - Math.floor(n);
 }
 
-function vnoise(x: number, y: number) {
+function vnoiseFast(x: number, y: number) {
   const ix = Math.floor(x);
   const iy = Math.floor(y);
   const fx = x - ix;
@@ -72,12 +72,7 @@ function vnoise(x: number, y: number) {
 }
 
 function fbm(x: number, y: number) {
-  return (
-    0.52 * vnoise(x, y) +
-    0.28 * vnoise(x * 2.17, y * 2.17) +
-    0.14 * vnoise(x * 5.41, y * 5.41) +
-    0.06 * vnoise(x * 11.3, y * 11.3)
-  );
+  return 0.65 * vnoiseFast(x, y) + 0.35 * vnoiseFast(x * 2.17, y * 2.17);
 }
 
 function lonLatToXY(lon: number, lat: number, w: number, h: number): [number, number] {
@@ -285,9 +280,15 @@ export function layerBudgets(tier: "mobile" | "tablet" | "desktop") {
 let cached: StudioParticles | null = null;
 let cachedKey = "";
 
+function isNorthAmerica(x: number, y: number, z: number) {
+  const lon = (Math.atan2(-z, x) * 180) / Math.PI;
+  const lat = (Math.asin(clamp(y, -1, 1)) * 180) / Math.PI;
+  return lon > -168 && lon < -52 && lat > 15 && lat < 83;
+}
+
 export function buildStudioParticles(tier: "mobile" | "tablet" | "desktop"): StudioParticles {
   const budgets = layerBudgets(tier);
-  const key = `${tier}:${budgets.base}:${budgets.land}:${budgets.inner}`;
+  const key = `${tier}:${budgets.base}:${budgets.land}:${budgets.inner}:na-thin`;
   if (cached && cachedKey === key) return cached;
 
   const mask = rasterizeLandMask(TEX_W, TEX_H);
@@ -296,13 +297,12 @@ export function buildStudioParticles(tier: "mobile" | "tablet" | "desktop"): Stu
   const land = acc();
   const inner = acc();
 
-  const baseN = Math.floor(budgets.base * 1.12);
+  const baseN = budgets.base;
   for (let i = 0; i < baseN; i++) {
     const [x0, y0, z0] = fibonacciDir(i, baseN);
     const [u, v] = dirToUv(x0, y0, z0);
     const landAmt = sampleMask(mask, TEX_W, TEX_H, u, v);
     const n = fbm(u * 18.0, v * 9.0);
-    if (rand() > 0.86 + n * 0.08) continue;
     const j = 0.01;
     let x = x0 + (rand() - 0.5) * j;
     let y = y0 + (rand() - 0.5) * j;
@@ -316,46 +316,49 @@ export function buildStudioParticles(tier: "mobile" | "tablet" | "desktop"): Stu
     push(base, x, y, z, radius, pickBaseShade(rand(), n), 0.22 + rand() * 0.35, density, rand());
   }
 
-  const landN = Math.floor(budgets.land * 2.6);
-  for (let i = 0; i < landN; i++) {
-    const [x0, y0, z0] = fibonacciDir(i + 17, landN);
+  const scan = Math.floor(budgets.land * 1.18);
+  for (let i = 0; i < scan; i++) {
+    const [x0, y0, z0] = fibonacciDir(i + 17, scan);
     const [u, v] = dirToUv(x0, y0, z0);
     const landAmt = sampleMask(mask, TEX_W, TEX_H, u, v);
-    if (landAmt < 0.12) continue;
+    if (landAmt < 0.14) continue;
     const n = fbm(u * 22.0 + 4.1, v * 11.0 + 2.7);
     const density = clamp(landAmt * mix(0.55, 1.0, n), 0, 1);
-    const keep = Math.pow(density, 0.62);
-    if (rand() > keep) continue;
-    const j = 0.008;
-    let x = x0 + (rand() - 0.5) * j;
-    let y = y0 + (rand() - 0.5) * j;
-    let z = z0 + (rand() - 0.5) * j;
-    const len = Math.hypot(x, y, z) || 1;
-    x /= len;
-    y /= len;
-    z /= len;
-    const radius = 2.6 + rand() * 0.09;
-    push(
-      land,
-      x,
-      y,
-      z,
-      radius,
-      pickLandShade(density, rand(), n),
-      0.28 + density * 0.4 + rand() * 0.2,
-      density,
-      rand(),
-    );
+    const na = isNorthAmerica(x0, y0, z0);
+    if (na && rand() > 0.46) continue;
+    const copies = na ? 1 : density > 0.7 ? 3 : 2;
+    for (let c = 0; c < copies; c++) {
+      const j = na ? 0.02 : 0.012;
+      let x = x0 + (rand() - 0.5) * j;
+      let y = y0 + (rand() - 0.5) * j;
+      let z = z0 + (rand() - 0.5) * j;
+      const len = Math.hypot(x, y, z) || 1;
+      x /= len;
+      y /= len;
+      z /= len;
+      const radius = 2.6 + rand() * 0.09;
+      push(
+        land,
+        x,
+        y,
+        z,
+        radius,
+        pickLandShade(density, rand(), n),
+        0.28 + density * 0.4 + rand() * 0.2,
+        density,
+        rand(),
+      );
+    }
   }
 
-  const innerN = Math.floor(budgets.inner * 1.35);
+  const innerN = budgets.inner;
   const shells = [0.97, 0.94, 0.9];
   for (let i = 0; i < innerN; i++) {
     const [x0, y0, z0] = fibonacciDir(i + 101, innerN);
     const [u, v] = dirToUv(x0, y0, z0);
     const landAmt = sampleMask(mask, TEX_W, TEX_H, u, v);
     const n = fbm(u * 14.0, v * 7.0 + 8.0);
-    if (rand() > 0.72 + landAmt * 0.18) continue;
+    if (isNorthAmerica(x0, y0, z0) && rand() > 0.58) continue;
     const shell = shells[i % 3]!;
     const j = 0.016;
     let x = x0 + (rand() - 0.5) * j;
