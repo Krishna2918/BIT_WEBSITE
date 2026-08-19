@@ -63,6 +63,33 @@ svg {
 .hero-navy .hero-copy {
   background: #fff;
 }
+.hero-logo {
+  padding: 2rem 1.25rem 1.5rem;
+  text-align: center;
+  background: #fff;
+}
+.hero-tag {
+  padding: 1.5rem 1.25rem 2rem;
+  text-align: center;
+  background:
+    radial-gradient(900px 280px at 88% 0%, rgba(18, 131, 221, 0.35), transparent 58%),
+    linear-gradient(165deg, #031525 0%, #06284a 48%, #041627 100%);
+}
+.hero-tag h1 {
+  color: #fff;
+}
+.hero-tag p {
+  color: rgba(255, 255, 255, 0.78);
+}
+.hero-tag .cta-ghost {
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+}
+.hero-tag .cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: #fff;
+}
 .hero-navy .hero-globe {
   background:
     radial-gradient(900px 420px at 88% 8%, rgba(18, 131, 221, 0.3), transparent 55%),

@@ -69,31 +69,35 @@ function Home() {
   return (
     <main>
       <section className="hero-frame hero-navy">
-        <div className="hero-copy relative z-10 px-5 pb-8 pt-8 text-center sm:pb-10 sm:pt-12">
-          <p className="hero-lockup">
-            <img
-              className="hero-official"
-              src="/images/bit-lockup-official.png"
-              alt=""
-              width={1914}
-              height={383}
-            />
-          </p>
-          <h1 className="mx-auto mt-5 max-w-3xl text-[17px] font-medium tracking-[-0.015em] text-ink sm:text-[20px]">
-            Intelligent Infrastructure, Custom B2B Software & AI Workflows —
-            Under One Flag.
-          </h1>
-          <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug text-muted sm:text-[17px]">
-            Your ONE stop IT solution. Across all of Ontario — from Brampton HQ
-            to every site we run.
-          </p>
-          <div className="cta-pair mt-4 mb-1">
-            <Link to="/consult" className="cta-book">
-              Book consultation
-            </Link>
-            <a href="tel:+19058676574" className="cta-ghost callrail rTapNumber">
-              +1 905-867-6574
-            </a>
+        <div className="hero-copy">
+          <div className="hero-logo">
+            <p className="hero-lockup">
+              <img
+                className="hero-official"
+                src="/images/bit-lockup-official.png"
+                alt=""
+                width={1914}
+                height={383}
+              />
+            </p>
+          </div>
+          <div className="hero-tag">
+            <h1 className="mx-auto max-w-3xl text-[17px] font-medium tracking-[-0.015em] sm:text-[20px]">
+              Intelligent Infrastructure, Custom B2B Software & AI Workflows —
+              Under One Flag.
+            </h1>
+            <p className="mx-auto mt-2 max-w-lg text-[15px] leading-snug sm:text-[17px]">
+              Your ONE stop IT solution. Across all of Ontario — from Brampton HQ
+              to every site we run.
+            </p>
+            <div className="cta-pair mt-4 mb-1">
+              <Link to="/consult" className="cta-book">
+                Book consultation
+              </Link>
+              <a href="tel:+19058676574" className="cta-ghost callrail rTapNumber">
+                +1 905-867-6574
+              </a>
+            </div>
           </div>
         </div>
         <div className="hero-globe">
