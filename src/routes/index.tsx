@@ -146,17 +146,15 @@ function Home() {
           <h2 className="text-center text-[clamp(1.5rem,4.5vw,2.25rem)] font-semibold tracking-[-0.03em]">
             The stack behind the stack.
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-[16px] leading-snug">
+          <p className="mx-auto mt-2 max-w-xl text-center text-[16px] leading-snug">
             Microsoft Cloud Solution Provider. CRTC regulated wholesaler.
-            Product solutions from every major IT vendor — the same names on
-            bitsolution.ca — with government pricing when the job needs it.
           </p>
         </div>
         <div className="mx-auto max-w-5xl px-5 py-8">
           <ul className="partner-field">
             {PARTNERS.map((p) => (
               <li key={p.slug}>
-                <img src={p.logo} alt={p.name} />
+                <img src={p.logo} alt={p.name} loading="lazy" decoding="async" />
                 <span>{p.name}</span>
               </li>
             ))}
@@ -181,22 +179,7 @@ function Home() {
           <div className="pillar-grid">
             {PILLARS.map((tile) => (
               <Link key={tile.to} to={tile.to} className="pillar-tile">
-                {"video" in tile && tile.video ? (
-                  <video
-                    className="pillar-tile-media"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    poster={tile.image}
-                    aria-hidden
-                  >
-                    <source src={tile.video} type="video/mp4" />
-                  </video>
-                ) : (
-                  <img src={tile.image} alt={tile.alt} />
-                )}
+                <img src={tile.image} alt={tile.alt} loading="lazy" decoding="async" />
                 <div className="pillar-tile-body">
                   <h3>{tile.title}</h3>
                   <p>{tile.line}</p>
@@ -208,7 +191,7 @@ function Home() {
           <div className="extra-grid">
             {EXTRAS.map((item) => (
               <Link key={item.slug} to={item.to} className="pillar-tile extra-tile">
-                <img src={item.image} alt={item.imageAlt} />
+                <img src={item.image} alt={item.imageAlt} loading="lazy" decoding="async" />
                 <div className="pillar-tile-body">
                   <p className="extra-kicker">{item.kicker}</p>
                   <h3>{item.name}</h3>

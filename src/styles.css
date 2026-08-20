@@ -23,9 +23,60 @@
     "Segoe UI", Inter, Helvetica, Arial, sans-serif;
 }
 
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.boot-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background: #f3f2f6;
+  color: #1d1d1f;
+}
+.boot-screen img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.boot-screen p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.boot-bar {
+  display: block;
+  width: 88px;
+  height: 2px;
+  overflow: hidden;
+  background: #d8dee8;
+  border-radius: 99px;
+}
+.boot-bar::after {
+  content: "";
+  display: block;
+  width: 36%;
+  height: 100%;
+  background: #0a4cb8;
+  animation: boot-slide 0.9s ease-in-out infinite;
+}
+@keyframes boot-slide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(280%); }
+}
+.bit-app {
+  opacity: 0;
+}
+.bit-app.is-on {
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .boot-bar::after { animation: none; width: 100%; }
+  .bit-app.is-on { transition: none; }
 }
 
 html,
@@ -340,7 +391,7 @@ svg {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 1.75rem 1.25rem;
+  padding: 1.35rem 1.25rem 1.7rem;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -349,8 +400,16 @@ svg {
     linear-gradient(165deg, #072848 0%, #031525 46%, #020c18 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -14px 28px rgba(0, 0, 0, 0.28),
-    0 12px 28px rgba(2, 10, 24, 0.32);
+    inset 0 -6px 16px rgba(0, 0, 0, 0.16),
+    0 10px 22px rgba(2, 10, 24, 0.28);
+}
+.navy-strip > p,
+.navy-strip > h2,
+.cover-reel-copy > p,
+.cover-reel-copy > h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 .hero-tag > *:not(.strip-field),
 .navy-strip > *:not(.strip-field),
@@ -365,7 +424,15 @@ svg {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 10%,
+    transparent 26%,
+    transparent 74%,
+    #000 90%,
+    #000 100%
+  );
 }
 
 .strip-field-row {
@@ -376,7 +443,7 @@ svg {
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(142, 200, 246, 0.22);
+  color: rgba(142, 200, 246, 0.16);
   white-space: nowrap;
   line-height: 1;
 }
@@ -387,21 +454,21 @@ svg {
 
 .strip-field-a {
   position: absolute;
-  top: 18%;
+  top: 10%;
   animation: strip-drift-left 96s linear infinite;
 }
 
 .strip-field-b {
   position: absolute;
-  top: 48%;
-  color: rgba(142, 200, 246, 0.16);
+  top: 50%;
+  color: rgba(142, 200, 246, 0.08);
   animation: strip-drift-right 118s linear infinite;
 }
 
 .strip-field-c {
   position: absolute;
-  top: 76%;
-  color: rgba(142, 200, 246, 0.13);
+  top: 92%;
+  color: rgba(142, 200, 246, 0.1);
   animation: strip-drift-left 140s linear infinite;
 }
 
@@ -418,11 +485,17 @@ svg {
 @media (prefers-reduced-motion: reduce) {
   .strip-field-row { animation: none; }
 }
+.navy-strip p {
+  color: rgba(255, 255, 255, 0.84);
+}
+.navy-strip h2,
+.cover-reel-copy h2,
+.hero-tag h1 {
+  color: #fff;
+  text-shadow: 0 1px 10px rgba(2, 10, 24, 0.45);
+}
 .navy-strip .text-link {
   color: #8ec8f6;
-}
-.navy-strip h2 {
-  color: #fff;
 }
 .navy-strip .cta-ghost {
   border-color: rgba(255, 255, 255, 0.55);
@@ -441,7 +514,7 @@ svg {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 1.75rem 1.25rem;
+  padding: 1.4rem 1.25rem;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -450,8 +523,8 @@ svg {
     linear-gradient(165deg, #072848 0%, #031525 46%, #020c18 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -14px 28px rgba(0, 0, 0, 0.28),
-    0 12px 28px rgba(2, 10, 24, 0.32);
+    inset 0 -10px 22px rgba(0, 0, 0, 0.24),
+    0 10px 22px rgba(2, 10, 24, 0.28);
 }
 .cover-reel-copy .text-link {
   color: #8ec8f6;
@@ -464,7 +537,7 @@ svg {
 }
 
 .cover-reel {
-  height: 170vh;
+  height: 118vh;
 }
 
 .cover-reel-sticky {

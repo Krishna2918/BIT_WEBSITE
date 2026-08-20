@@ -43,6 +43,7 @@ export function CoverReel() {
   useEffect(() => {
     if (reduce) return;
     let raf = 0;
+    let current = 0;
     const tick = () => {
       const el = pinRef.current;
       if (el) {
@@ -55,7 +56,11 @@ export function CoverReel() {
         const visibleNow = w < 720 ? 1 : 2;
         const steps = COLS - visibleNow;
         const t = clamp((raw - 0.02) / 0.98, 0, 1);
-        setShift(t * steps);
+        const eased = t * t * (3 - 2 * t);
+        const target = eased * steps;
+        current += (target - current) * 0.16;
+        if (Math.abs(target - current) < 0.002) current = target;
+        setShift(current);
       }
       raf = requestAnimationFrame(tick);
     };
@@ -115,11 +120,12 @@ export function CoverReel() {
                           : undefined,
                       }}
                     >
-                      {items.map((item) => (
+                      {items.map((item, i) => (
                         <CoverCard
                           key={item.slug}
                           item={item}
                           width={cardW || undefined}
+                          eager={row === 0 && i < 2}
                         />
                       ))}
                     </div>
@@ -145,9 +151,11 @@ export function CoverReel() {
 function CoverCard({
   item,
   width,
+  eager,
 }: {
   item: (typeof INDUSTRIES)[number];
   width?: number;
+  eager?: boolean;
 }) {
   return (
     <Link
@@ -156,7 +164,12 @@ function CoverCard({
       className="cover-card"
       style={width ? { width, flex: `0 0 ${width}px` } : undefined}
     >
-      <img src={item.image} alt={item.imageAlt} />
+      <img
+        src={item.image}
+        alt={item.imageAlt}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+      />
       <div className="cover-card-meta">
         <p className="cover-card-kicker">{item.compliance.join(" · ")}</p>
         <h3>{item.name}</h3>

@@ -64,7 +64,7 @@ export function GalleryGrid({
               onClick={() => setOpen(i)}
               aria-label={`Open ${item.label}`}
             >
-              <img src={item.src} alt={item.alt} />
+              <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
               <span>{item.label}</span>
             </button>
           </li>

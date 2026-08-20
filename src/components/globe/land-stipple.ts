@@ -17,8 +17,8 @@ export type StudioParticles = {
   internal: StippleCloud;
 };
 
-const TEX_W = 2048;
-const TEX_H = 1024;
+const TEX_W = 1024;
+const TEX_H = 512;
 const SEED = 20260819;
 
 const HEX = {
@@ -272,9 +272,9 @@ export function detectDeviceTier(): "mobile" | "tablet" | "desktop" {
 }
 
 export function layerBudgets(tier: "mobile" | "tablet" | "desktop") {
-  if (tier === "mobile") return { base: 28000, land: 38000, inner: 12000 };
-  if (tier === "tablet") return { base: 70000, land: 90000, inner: 28000 };
-  return { base: 140000, land: 180000, inner: 55000 };
+  if (tier === "mobile") return { base: 18000, land: 24000, inner: 8000 };
+  if (tier === "tablet") return { base: 42000, land: 56000, inner: 16000 };
+  return { base: 72000, land: 90000, inner: 28000 };
 }
 
 let cached: StudioParticles | null = null;

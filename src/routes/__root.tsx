@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { TrackingHooks } from "@/components/site/tracking";
 import { AskAiChat, HelpSheet } from "@/components/site/ask-ai";
+import { BootGate } from "@/components/site/boot-screen";
 import { SITE } from "@/lib/site";
 import { organizationJsonLd, robotsContent } from "@/lib/seo";
 import appCss from "../styles.css?url";
@@ -18,7 +19,7 @@ function RootChrome() {
   const isolated =
     path.startsWith("/fleet-operations") || path.startsWith("/dental-it");
   return (
-    <>
+    <BootGate>
       <TrackingHooks />
       <a className="skip-link" href="#main">
         Skip to content
@@ -36,7 +37,7 @@ function RootChrome() {
           <AskAiChat />
         </>
       )}
-    </>
+    </BootGate>
   );
 }
 

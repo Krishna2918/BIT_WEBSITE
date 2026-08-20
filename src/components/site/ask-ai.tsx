@@ -63,11 +63,13 @@ function GlobeButton({
   icon,
   onClick,
   to,
+  href,
 }: {
   children: string;
   icon: ReactNode;
   onClick?: () => void;
   to?: "/consult";
+  href?: string;
 }) {
   const inner = (
     <span className="globe-btn-inner">
@@ -84,6 +86,13 @@ function GlobeButton({
       </Link>
     );
   }
+  if (href) {
+    return (
+      <a className="globe-btn" href={href} onClick={onClick}>
+        {inner}
+      </a>
+    );
+  }
   return (
     <button type="button" className="globe-btn" onClick={onClick}>
       {inner}
@@ -95,18 +104,16 @@ export function HeroGlobeActions() {
   return (
     <div className="globe-btns">
       <GlobeButton
-        to="/consult"
+        href={`mailto:${SITE.email}`}
         icon={<Mail size={14} strokeWidth={2.2} />}
-        onClick={() => track("book_consult_click", { source: "globe-contact" })}
+        onClick={() => track("email_click", { source: "globe-contact" })}
       >
         Contact us
       </GlobeButton>
       <GlobeButton
+        href={`mailto:${SITE.supportEmail}`}
         icon={<CircleHelp size={14} strokeWidth={2.2} />}
-        onClick={() => {
-          openHelp();
-          track("help_open", { source: "globe" });
-        }}
+        onClick={() => track("email_click", { source: "globe-help" })}
       >
         Help
       </GlobeButton>

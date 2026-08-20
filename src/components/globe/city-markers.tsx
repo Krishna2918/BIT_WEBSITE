@@ -194,7 +194,7 @@ function LeaderLayer() {
       const vy = y - cy;
       const len = Math.hypot(vx, vy) || 1;
       const city = CITIES[i]!;
-      const reach = city.kind === "hq" ? 46 : city.kind === "office" ? 38 : 30;
+      const reach = city.kind === "hq" ? 88 : city.kind === "office" ? 74 : 62;
       shown.push({
         i,
         x,

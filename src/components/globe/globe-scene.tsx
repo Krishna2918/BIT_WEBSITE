@@ -391,7 +391,7 @@ function SceneContent({
   return (
     <>
       <ResponsiveCamera />
-      <StudioEnv />
+      {particles ? <StudioEnv /> : null}
       {createLighting()}
       <group position={[0, -0.18, 0]}>
         <GlobeRig particles={particles} reduced={reduced} />
@@ -415,23 +415,20 @@ export function GlobeScene() {
 
   useEffect(() => {
     let alive = true;
-    const id = window.setTimeout(() => {
-      try {
-        const next = buildStudioParticles(detectDeviceTier());
-        if (alive) setParticles(next);
-      } catch {
-        /* keep the ice sphere if stipple fails */
-      }
-    }, 120);
+    try {
+      const next = buildStudioParticles(detectDeviceTier());
+      if (alive) setParticles(next);
+    } catch {
+      /* keep the ice sphere if stipple fails */
+    }
     return () => {
       alive = false;
-      window.clearTimeout(id);
     };
   }, []);
 
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       gl={{
         antialias: true,
         alpha: true,
