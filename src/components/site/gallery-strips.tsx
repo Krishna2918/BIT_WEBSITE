@@ -21,7 +21,7 @@ function row(start: number) {
 const ROWS = [
   { items: row(0), size: "mid" as const, dir: "left" as const },
   { items: row(1), size: "lg" as const, dir: "right" as const },
-  { items: row(2), size: "sm" as const, dir: "left" as const },
+  { items: row(2), size: "mid" as const, dir: "left" as const },
 ];
 
 export function GalleryStrips() {
@@ -37,9 +37,9 @@ export function GalleryStrips() {
         width={1914}
         height={1914}
       />
-      {ROWS.map((r) => (
+      {ROWS.map((r, i) => (
         <div
-          key={r.size}
+          key={i}
           className={`gallery-strip gallery-strip-${r.size}${r.dir === "right" ? " gallery-strip-rev" : ""}`}
         >
           <ul>

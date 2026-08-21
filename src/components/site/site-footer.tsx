@@ -18,7 +18,7 @@ const COLS = [
       { to: "/digital-marketing", label: "Digital marketing" },
       { to: "/procurement", label: "Procurement" },
       { to: "/voip", label: "VoIP & phones" },
-      { to: "/industries", label: "Sectors" },
+      { to: "/gallery", label: "Gallery" },
     ],
   },
   {
@@ -26,11 +26,7 @@ const COLS = [
     links: [
       { to: "/about-us", label: "About" },
       { to: "/solutions", label: "Solutions" },
-      { to: "/service-areas", label: "Service areas" },
       { to: "/insights", label: "Insights" },
-      { to: "/gallery", label: "Gallery" },
-      { to: "/images", label: "Images" },
-      { to: "/faq", label: "FAQs" },
       { to: "/support", label: "Support" },
     ],
   },
@@ -39,78 +35,64 @@ const COLS = [
     links: [
       { to: "/consult", label: "Book consultation" },
       { to: "/ticket", label: "Raise a ticket" },
-      { to: "/privacy", label: "Privacy" },
-      { to: "/accessibility-statement", label: "Accessibility" },
+      { to: "/faq", label: "FAQs" },
+      { to: "/service-areas", label: "Service areas" },
     ],
   },
 ] as const;
 
 export function SiteFooter() {
   return (
-    <footer className="bg-bg-muted text-muted">
-      <div className="mx-auto max-w-5xl px-5 py-12">
-        <p className="mb-3 text-[13px] font-medium text-ink">
-          Intelligent Infrastructure, Custom B2B Software & AI Workflows —
-          Under One Flag.
+    <footer className="site-footer">
+      <div className="site-footer-inner">
+        <p className="site-footer-brand">
+          Intelligent Infrastructure — Under One Flag.
         </p>
-        <p className="mb-2 text-[12px] leading-5">
-          <a className="callrail rTapNumber text-ink no-underline" href={SITE.phoneHref}>
+        <p className="site-footer-meta">
+          <a className="callrail rTapNumber" href={SITE.phoneHref}>
             {SITE.phoneDisplay}
           </a>
-          {" · "}
-          <a
-            className="text-ink no-underline"
-            href={SITE.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <span>·</span>
+          <a href={SITE.whatsappHref} target="_blank" rel="noreferrer">
             WhatsApp
           </a>
-          {" · "}
-          <a className="text-ink no-underline" href={`mailto:${SITE.email}`}>
-            {SITE.email}
-          </a>
-          {" · "}
+          <span>·</span>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <span>·</span>
           {SITE.address}
         </p>
-        <p className="mb-8 text-[12px] leading-5">
-          Your ONE stop IT solution. BIT Solution connects software, hardware,
-          AI, security, digital marketing, procurement, and VoIP for every
-          sector we cover — across all of Ontario, from Brampton HQ.
-        </p>
-        <div className="grid grid-cols-2 gap-8 border-t border-hairline pt-8 sm:grid-cols-4">
+        <div className="site-footer-cols">
           {COLS.map((col) => (
             <div key={col.title}>
-              <h3 className="mb-2 text-[12px] font-semibold text-ink">{col.title}</h3>
-              <ul className="space-y-1.5">
+              <h3>{col.title}</h3>
+              <ul>
                 {col.links.map((l) => (
                   <li key={l.label}>
-                    <Link
-                      to={l.to}
-                      className="text-[12px] text-muted no-underline hover:underline"
-                    >
-                      {l.label}
-                    </Link>
+                    <Link to={l.to}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
             </div>
           ))}
         </div>
-        <div className="mt-8 flex flex-wrap gap-x-4 gap-y-2 border-t border-hairline pt-6">
+        <p className="site-footer-sectors">
+          <span>Sectors</span>
           {INDUSTRIES.map((item) => (
             <Link
               key={item.slug}
               to="/industries/$slug"
               params={{ slug: item.slug }}
-              className="text-[12px] text-muted no-underline hover:underline"
             >
               {item.name}
             </Link>
           ))}
-        </div>
-        <p className="mt-10 text-[11px] text-muted">
-          Copyright © {new Date().getFullYear()} BIT Solution. All rights reserved.
+        </p>
+        <p className="site-footer-copy">
+          Copyright © {new Date().getFullYear()} BIT Solution.
+          {" · "}
+          <Link to="/privacy">Privacy</Link>
+          {" · "}
+          <Link to="/accessibility-statement">Accessibility</Link>
         </p>
       </div>
     </footer>

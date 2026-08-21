@@ -55,11 +55,10 @@ export function CoverReel() {
         const w = el.querySelector(".cover-stage")?.clientWidth ?? 1200;
         const visibleNow = w < 720 ? 1 : 2;
         const steps = COLS - visibleNow;
-        const t = clamp((raw - 0.02) / 0.98, 0, 1);
+        const t = clamp((raw - 0.06) / 0.88, 0, 1);
         const eased = t * t * (3 - 2 * t);
         const target = eased * steps;
-        current += (target - current) * 0.16;
-        if (Math.abs(target - current) < 0.002) current = target;
+        current += (target - current) * 0.08;
         setShift(current);
       }
       raf = requestAnimationFrame(tick);

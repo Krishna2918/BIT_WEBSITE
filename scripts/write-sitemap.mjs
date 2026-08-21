@@ -44,7 +44,6 @@ const paths = [
   "/insights",
   ...insights.map((s) => `/insights/${s}`),
   "/gallery",
-  "/images",
   "/support",
   "/ticket",
   "/service-areas",

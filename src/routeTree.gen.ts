@@ -23,7 +23,6 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as HardwareRouteImport } from './routes/hardware'
 import { Route as HowToChooseAManagedItServicesProviderRouteImport } from './routes/how-to-choose-a-managed-it-services-provider'
-import { Route as ImagesRouteImport } from './routes/images'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcurementRouteImport } from './routes/procurement'
@@ -120,11 +119,6 @@ const HowToChooseAManagedItServicesProviderRoute =
     path: '/how-to-choose-a-managed-it-services-provider',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ImagesRoute = ImagesRouteImport.update({
-  id: '/images',
-  path: '/images',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -247,7 +241,6 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
   '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
-  '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
@@ -285,7 +278,6 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
   '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
-  '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
@@ -324,7 +316,6 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/hardware': typeof HardwareRoute
   '/how-to-choose-a-managed-it-services-provider': typeof HowToChooseAManagedItServicesProviderRoute
-  '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/privacy': typeof PrivacyRoute
   '/procurement': typeof ProcurementRoute
@@ -364,7 +355,6 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/hardware'
     | '/how-to-choose-a-managed-it-services-provider'
-    | '/images'
     | '/login'
     | '/privacy'
     | '/procurement'
@@ -402,7 +392,6 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/hardware'
     | '/how-to-choose-a-managed-it-services-provider'
-    | '/images'
     | '/login'
     | '/privacy'
     | '/procurement'
@@ -440,7 +429,6 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/hardware'
     | '/how-to-choose-a-managed-it-services-provider'
-    | '/images'
     | '/login'
     | '/privacy'
     | '/procurement'
@@ -479,7 +467,6 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   HardwareRoute: typeof HardwareRoute
   HowToChooseAManagedItServicesProviderRoute: typeof HowToChooseAManagedItServicesProviderRoute
-  ImagesRoute: typeof ImagesRoute
   LoginRoute: typeof LoginRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcurementRoute: typeof ProcurementRoute
@@ -601,13 +588,6 @@ declare module '@tanstack/react-router' {
       path: '/how-to-choose-a-managed-it-services-provider'
       fullPath: '/how-to-choose-a-managed-it-services-provider'
       preLoaderRoute: typeof HowToChooseAManagedItServicesProviderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/images': {
-      id: '/images'
-      path: '/images'
-      fullPath: '/images'
-      preLoaderRoute: typeof ImagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -778,7 +758,6 @@ const rootRouteChildren: RootRouteChildren = {
   HardwareRoute: HardwareRoute,
   HowToChooseAManagedItServicesProviderRoute:
     HowToChooseAManagedItServicesProviderRoute,
-  ImagesRoute: ImagesRoute,
   LoginRoute: LoginRoute,
   PrivacyRoute: PrivacyRoute,
   ProcurementRoute: ProcurementRoute,

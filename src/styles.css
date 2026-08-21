@@ -376,6 +376,10 @@ svg {
   padding-top: 0;
 }
 
+#gallery {
+  scroll-margin-top: 48px;
+}
+
 .cover-bridge {
   display: flex;
   align-items: center;
@@ -537,7 +541,7 @@ svg {
 }
 
 .cover-reel {
-  height: 118vh;
+  height: 168vh;
 }
 
 .cover-reel-sticky {
@@ -547,7 +551,7 @@ svg {
   flex-direction: column;
   justify-content: flex-start;
   height: auto;
-  padding: 0 0 1.25rem;
+  padding: 0 0 2.75rem;
   background: var(--color-bg);
   overflow: hidden;
 }
@@ -2114,20 +2118,19 @@ svg {
 .gallery-strips {
   position: relative;
   overflow: hidden;
-  padding: 2.4rem 0 4.5rem;
-  min-height: 42rem;
+  padding: 1.1rem 0 1.4rem;
   background: #f4f5f7;
 }
 .gallery-strips-mark {
   position: absolute;
   left: 50%;
-  top: 48%;
+  top: 50%;
   z-index: 0;
-  width: min(130vw, 68rem);
+  width: min(52vw, 26rem);
   height: auto;
   max-width: none;
   transform: translate(-50%, -50%);
-  opacity: 0.08;
+  opacity: 0.14;
   pointer-events: none;
   user-select: none;
 }
@@ -2135,8 +2138,8 @@ svg {
   position: relative;
   z-index: 1;
   overflow: hidden;
-  margin: 1.35rem 0;
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  margin: 0.55rem 0;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .gallery-strip ul {
   list-style: none;
@@ -2144,7 +2147,7 @@ svg {
   padding: 0;
   display: flex;
   width: max-content;
-  gap: 0.85rem;
+  gap: 1.1rem;
   animation: gallery-marquee 46s linear infinite;
 }
 .gallery-strip-rev ul {
@@ -2165,14 +2168,14 @@ svg {
 }
 .gallery-strip img {
   display: block;
-  height: 9.6rem;
+  height: 7.4rem;
   width: auto;
   max-width: none;
-  border-radius: 0.7rem;
+  border-radius: 0.55rem;
   object-fit: cover;
 }
-.gallery-strip-lg img { height: 14.2rem; }
-.gallery-strip-sm img { height: 6.6rem; }
+.gallery-strip-lg img { height: 10.2rem; }
+.gallery-strip-sm img { height: 6.2rem; }
 .gallery-strip:hover ul { animation-play-state: paused; }
 @keyframes gallery-marquee {
   from { transform: translate3d(0, 0, 0); }
@@ -2383,6 +2386,107 @@ svg {
   .ontario-card {
     animation: none;
   }
+}
+
+.site-footer {
+  background: var(--color-bg-muted);
+  color: var(--color-muted);
+}
+.site-footer-inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1.6rem 1.25rem 1.35rem;
+}
+.site-footer-brand {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+.site-footer-meta {
+  margin: 0 0 1.05rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+.site-footer-meta a {
+  color: var(--color-ink);
+  text-decoration: none;
+}
+.site-footer-meta span {
+  margin: 0 0.35rem;
+  color: var(--color-hairline);
+}
+.site-footer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1.25rem;
+  padding-top: 0.95rem;
+  border-top: 1px solid var(--color-hairline);
+}
+@media (min-width: 640px) {
+  .site-footer-cols {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.site-footer-cols h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.site-footer-cols ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.site-footer-cols li + li {
+  margin-top: 0.22rem;
+}
+.site-footer-cols a {
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  text-decoration: none;
+}
+.site-footer-cols a:hover {
+  text-decoration: underline;
+}
+.site-footer-sectors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.7rem;
+  margin: 1rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-hairline);
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+.site-footer-sectors span {
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  margin-right: 0.2rem;
+}
+.site-footer-sectors a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+.site-footer-sectors a:hover {
+  text-decoration: underline;
+}
+.site-footer-copy {
+  margin: 0.85rem 0 0;
+  font-size: 0.68rem;
+}
+.site-footer-copy a {
+  color: var(--color-muted);
+  text-decoration: none;
+}
+.site-footer-copy a:hover {
+  text-decoration: underline;
 }
 
 
