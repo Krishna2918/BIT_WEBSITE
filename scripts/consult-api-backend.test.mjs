@@ -49,18 +49,32 @@ test("consult POST rejects conversation, Turnstile leakage, and extra fields", a
   }
 });
 
-test("consult POST returns a stable 64-hex transaction id without sending mail", async () => {
+test("consult POST fails closed without CONSULT_WEBHOOK_URL", async () => {
   const response = await handleConsultPost(request(valid), {}, async () => {
     throw new Error("must not fetch when CRM is unbound");
   });
+  assert.equal(response.status, 503);
+  assert.deepEqual(await response.json(), { ok: false, error: "delivery_not_configured" });
+});
+
+test("consult POST returns a stable 64-hex transaction id only after CRM accepts", async () => {
+  const calls = [];
+  const response = await handleConsultPost(
+    request(valid),
+    {
+      CONSULT_WEBHOOK_URL: "https://crm-api.bitsolution.ca/v1/form-ai/intake",
+      FORM_AI_CRM_ADAPTER_TOKEN: "synthetic-crm-adapter-token",
+    },
+    async (url, init = {}) => {
+      calls.push({ url: String(url), init });
+      return new Response("{}", { status: 200 });
+    },
+  );
   assert.equal(response.status, 200);
   const body = await response.json();
   assert.equal(body.ok, true);
   assert.match(body.transaction_id, /^[a-f0-9]{64}$/u);
-  assert.equal(
-    body.transaction_id,
-    consultTransactionId(valid),
-  );
+  assert.equal(body.transaction_id, consultTransactionId(valid));
   assert.equal(
     body.transaction_id,
     createHash("sha256")
@@ -70,11 +84,18 @@ test("consult POST returns a stable 64-hex transaction id without sending mail",
       )
       .digest("hex"),
   );
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, "https://crm-api.bitsolution.ca/v1/form-ai/intake");
 });
 
 test("Fleet and Dental get different ids; exact duplicate replay is the same id", async () => {
-  const fleet = await (await handleConsultPost(request(valid), {})).json();
-  const replay = await (await handleConsultPost(request(valid), {})).json();
+  const env = {
+    CONSULT_WEBHOOK_URL: "https://crm-api.bitsolution.ca/v1/form-ai/intake",
+    FORM_AI_CRM_ADAPTER_TOKEN: "synthetic-crm-adapter-token",
+  };
+  const ok = async () => new Response("{}", { status: 200 });
+  const fleet = await (await handleConsultPost(request(valid), env, ok)).json();
+  const replay = await (await handleConsultPost(request(valid), env, ok)).json();
   const dental = await (
     await handleConsultPost(
       request({
@@ -83,7 +104,8 @@ test("Fleet and Dental get different ids; exact duplicate replay is the same id"
         intent: "dental",
         source: "dental-it-ontario",
       }),
-      {},
+      env,
+      ok,
     )
   ).json();
   assert.equal(fleet.transaction_id, replay.transaction_id);
@@ -95,6 +117,15 @@ test("bound CRM is HTTPS-only, strips measurement cookies, and uses Idempotency-
     (
       await handleConsultPost(request(valid), {
         CONSULT_WEBHOOK_URL: "http://crm.example/intake",
+        FORM_AI_CRM_ADAPTER_TOKEN: "synthetic-crm-adapter-token",
+      })
+    ).status,
+    503,
+  );
+  assert.equal(
+    (
+      await handleConsultPost(request(valid), {
+        CONSULT_WEBHOOK_URL: "https://crm-api.bitsolution.ca/v1/form-ai/intake",
       })
     ).status,
     503,

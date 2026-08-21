@@ -223,36 +223,31 @@ export async function handleConsultPost(
   const encoded = JSON.stringify(outbound);
 
   const hook =
-    secureAdapterUrl(env("FORM_AI_CRM_ADAPTER_URL", environment)) ||
-    secureAdapterUrl(env("CONSULT_WEBHOOK_URL", environment));
-  const configured =
-    Boolean(env("FORM_AI_CRM_ADAPTER_URL", environment)) ||
-    Boolean(env("CONSULT_WEBHOOK_URL", environment));
-  if (configured && !hook) {
+    secureAdapterUrl(env("CONSULT_WEBHOOK_URL", environment)) ||
+    secureAdapterUrl(env("FORM_AI_CRM_ADAPTER_URL", environment));
+  const token = serverToken(env("FORM_AI_CRM_ADAPTER_TOKEN", environment));
+  if (!hook || !token) {
     return Response.json({ ok: false, error: "delivery_not_configured" }, { status: 503 });
   }
 
-  if (hook) {
-    const token = serverToken(env("FORM_AI_CRM_ADAPTER_TOKEN", environment));
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      "Idempotency-Key": transactionId,
-    };
-    if (token) headers.Authorization = `Bearer ${token}`;
-    try {
-      const delivered = await fetchImplementation(hook, {
-        method: "POST",
-        headers,
-        body: encoded,
-        signal: AbortSignal.timeout(8000),
-      });
-      if (!delivered.ok) {
-        return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
-      }
-    } catch {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    "Idempotency-Key": transactionId,
+    Authorization: `Bearer ${token}`,
+  };
+  try {
+    const delivered = await fetchImplementation(hook, {
+      method: "POST",
+      headers,
+      body: encoded,
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!delivered.ok) {
       return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
     }
+  } catch {
+    return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
   }
 
   return Response.json(
