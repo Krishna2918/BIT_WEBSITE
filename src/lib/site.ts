@@ -21,16 +21,17 @@ export const SITE = {
 } as const;
 
 export const TRACKING = {
-  gtmId: import.meta.env.VITE_GTM_ID as string | undefined,
+  gtmId: (import.meta.env.VITE_GTM_ID as string | undefined) || "GTM-K8S8QCQJ",
   ga4Id: import.meta.env.VITE_GA4_ID as string | undefined,
-  adsId: import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined,
-  adsLabel: import.meta.env.VITE_GOOGLE_ADS_LABEL as string | undefined,
+  adsId: (import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined) || "AW-10823731022",
+  adsLabel:
+    (import.meta.env.VITE_GOOGLE_ADS_LABEL as string | undefined) || "A24SCKfk-OMcEM6OlKko",
   /** Marketing: off at launch. Do not load even if an ID appears. */
   clarityId: undefined as string | undefined,
   callrailSwap: undefined as string | undefined,
   /**
-   * Preview stays dark. Turn on only after domain cutover, cookie consent,
-   * privacy/security approval, and QA — via VITE_MEASUREMENT_ON=1 plus IDs.
+   * Conversion fires only after the visitor ticks measurement consent.
+   * Public Ads/GTM IDs are production defaults; VITE_* still overrides.
    */
-  measurementOn: import.meta.env.VITE_MEASUREMENT_ON === "1",
+  measurementOn: import.meta.env.VITE_MEASUREMENT_ON !== "0",
 } as const;

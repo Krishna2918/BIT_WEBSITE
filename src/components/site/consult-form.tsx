@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { captureAttribution, setMeasurementConsent, type Attribution } from "@/lib/tracking";
+import { Turnstile, TURNSTILE_ENABLED } from "@/components/site/turnstile";
 
 export type ConsultIntent = "fleet" | "dental" | "general";
 
@@ -35,6 +36,10 @@ export function ConsultForm({
   const [attr, setAttr] = useState<Attribution | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const receiveTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
 
   useEffect(() => {
     setAttr(captureAttribution());
@@ -60,7 +65,9 @@ export function ConsultForm({
     }
     setStatus("sending");
     setError("");
-    const body = Object.fromEntries(data.entries());
+    const body = Object.fromEntries(data.entries()) as Record<string, unknown>;
+    delete body["cf-turnstile-response"];
+    if (turnstileToken) body.turnstile_token = turnstileToken;
     try {
       const res = await fetch("/api/consult", {
         method: "POST",
@@ -149,7 +156,8 @@ export function ConsultForm({
           {error}
         </p>
       ) : null}
-      <button type="submit" disabled={status === "sending"}>
+      <Turnstile onToken={receiveTurnstileToken} />
+      <button type="submit" disabled={status === "sending" || (TURNSTILE_ENABLED && !turnstileToken)}>
         {status === "sending" ? "Sending…" : "Book a consultation"}
       </button>
       <p className="form-fine">

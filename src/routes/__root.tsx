@@ -4,6 +4,7 @@ import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import { SiteNav } from "@/components/site/site-nav";
 import { SiteFooter } from "@/components/site/site-footer";
 import { TrackingHooks } from "@/components/site/tracking";
+import { ChatwootWidget } from "@/components/site/chatwoot-widget";
 import { AskAiChat, HelpSheet } from "@/components/site/ask-ai";
 import { BootGate } from "@/components/site/boot-screen";
 import { SITE } from "@/lib/site";
@@ -21,6 +22,7 @@ function RootChrome() {
   return (
     <BootGate>
       <TrackingHooks />
+      <ChatwootWidget />
       <a className="skip-link" href="#main">
         Skip to content
       </a>
