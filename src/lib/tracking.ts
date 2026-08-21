@@ -100,7 +100,7 @@ export function fireConsultConversion(payload: { intent?: string } = {}) {
   } catch {
     /* still fire once this load */
   }
-  track("conversion", { intent: payload.intent || "", source: "thank-you" });
+  track("consult_complete", { intent: payload.intent || "", source: "thank-you" });
   if (typeof window.gtag !== "function") return;
   window.gtag("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
   const ads = TRACKING.adsId;
