@@ -40,7 +40,7 @@ export function TrackingHooks() {
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${TRACKING.ga4Id}`} />
           <script
             dangerouslySetInnerHTML={{
-              __html: `gtag('js',new Date());gtag('config','${TRACKING.ga4Id}',{anonymize_ip:true,allow_google_signals:false});`,
+              __html: `gtag('js',new Date());gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',wait_for_update:500});gtag('config','${TRACKING.ga4Id}',{anonymize_ip:true,allow_google_signals:false});`,
             }}
           />
         </>

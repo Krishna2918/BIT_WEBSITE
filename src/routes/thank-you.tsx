@@ -1,19 +1,26 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { SITE } from "@/lib/site";
 import { pageHead } from "@/lib/seo";
+import { fireConsultConversion, setMeasurementConsent } from "@/lib/tracking";
 
-type Search = { intent?: string };
+type Search = { intent?: string; measure?: string };
 
 export const Route = createFileRoute("/thank-you")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     intent: typeof s.intent === "string" ? s.intent : undefined,
+    measure: typeof s.measure === "string" ? s.measure : undefined,
   }),
   component: ThankYou,
   head: () => pageHead("/thank-you"),
 });
 
 function ThankYou() {
-  const { intent } = Route.useSearch();
+  const { intent, measure } = Route.useSearch();
+  useEffect(() => {
+    if (measure === "1") setMeasurementConsent(true);
+    fireConsultConversion({ intent });
+  }, [intent, measure]);
   return (
     <main className="bg-bg">
       <section className="mx-auto max-w-lg px-5 py-24 text-center">

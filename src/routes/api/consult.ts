@@ -9,6 +9,7 @@ const Schema = z.object({
   interest: z.string().trim().min(2).max(160),
   message: z.string().trim().max(2000).optional().default(""),
   casl: z.literal("yes"),
+  measure: z.string().max(8).optional(),
   intent: z.string().max(40).optional(),
   source: z.string().max(120).optional(),
   gclid: z.string().max(200).optional(),

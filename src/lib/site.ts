@@ -23,6 +23,8 @@ export const SITE = {
 export const TRACKING = {
   gtmId: import.meta.env.VITE_GTM_ID as string | undefined,
   ga4Id: import.meta.env.VITE_GA4_ID as string | undefined,
+  adsId: import.meta.env.VITE_GOOGLE_ADS_ID as string | undefined,
+  adsLabel: import.meta.env.VITE_GOOGLE_ADS_LABEL as string | undefined,
   /** Marketing: off at launch. Do not load even if an ID appears. */
   clarityId: undefined as string | undefined,
   callrailSwap: undefined as string | undefined,

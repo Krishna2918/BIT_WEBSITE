@@ -1,3 +1,5 @@
+import { TRACKING } from "@/lib/site";
+
 const KEYS = [
   "gclid",
   "utm_source",
@@ -17,6 +19,7 @@ export type Attribution = Record<(typeof KEYS)[number], string> & {
 declare global {
   interface Window {
     dataLayer: Record<string, unknown>[];
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -61,4 +64,47 @@ export function track(event: string, payload: Record<string, unknown> = {}) {
   }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(safe);
+}
+
+const MEASURE_KEY = "bit_measure";
+const CONV_KEY = "bit_conv_fired";
+
+export function hasMeasurementConsent(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    if (localStorage.getItem(MEASURE_KEY) === "1") return true;
+  } catch {
+    /* private mode */
+  }
+  return document.cookie.split(";").some((part) => part.trim() === `${MEASURE_KEY}=1`);
+}
+
+export function setMeasurementConsent(on: boolean) {
+  if (typeof window === "undefined") return;
+  const value = on ? "1" : "0";
+  const maxAge = on ? 31536000 : 0;
+  document.cookie = `${MEASURE_KEY}=${value}; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
+  try {
+    localStorage.setItem(MEASURE_KEY, value);
+  } catch {
+    /* private mode */
+  }
+}
+
+export function fireConsultConversion(payload: { intent?: string } = {}) {
+  if (typeof window === "undefined") return;
+  if (!hasMeasurementConsent()) return;
+  try {
+    if (sessionStorage.getItem(CONV_KEY) === "1") return;
+    sessionStorage.setItem(CONV_KEY, "1");
+  } catch {
+    /* still fire once this load */
+  }
+  track("conversion", { intent: payload.intent || "", source: "thank-you" });
+  if (typeof window.gtag !== "function") return;
+  window.gtag("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
+  const ads = TRACKING.adsId;
+  if (!ads || !TRACKING.measurementOn) return;
+  const sendTo = TRACKING.adsLabel ? `${ads}/${TRACKING.adsLabel}` : ads;
+  window.gtag("event", "conversion", { send_to: sendTo });
 }

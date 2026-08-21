@@ -62,8 +62,11 @@ function PrivacyPage() {
         <p className="mt-3 text-muted">
           If Google Tag Manager, GA4, Microsoft Clarity, or CallRail are
           configured on this site, those tools may set cookies or swap the
-          displayed phone number so we can measure visits. Hooks are present
-          even when those accounts are not yet connected.
+          displayed phone number so we can measure visits. Google conversion
+          tags fire only on the thank-you page, and only if you tick “Allow
+          conversion measurement” on the consultation form. That box is off
+          unless you choose it. Hooks are present even when those accounts are
+          not yet connected.
         </p>
 
         <h2 className="mt-10 text-[22px] font-semibold">Retention</h2>

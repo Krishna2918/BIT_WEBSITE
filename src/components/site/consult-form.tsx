@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { captureAttribution, track, type Attribution } from "@/lib/tracking";
+import { captureAttribution, setMeasurementConsent, type Attribution } from "@/lib/tracking";
 
 export type ConsultIntent = "fleet" | "dental" | "general";
 
@@ -68,8 +68,11 @@ export function ConsultForm({
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error("send");
-      track("consult_submit", { intent, source });
-      window.location.assign(`/thank-you?intent=${intent}`);
+      const measure = data.get("measure") === "yes";
+      setMeasurementConsent(measure);
+      const qs = new URLSearchParams({ intent });
+      if (measure) qs.set("measure", "1");
+      window.location.assign(`/thank-you?${qs.toString()}`);
     } catch {
       setStatus("error");
       setError("We could not send that. Call us or try again.");
@@ -130,6 +133,13 @@ export function ConsultForm({
           I consent to BIT Solution contacting me about this request by email or
           phone. I can withdraw consent any time. See the{" "}
           <Link to="/privacy">privacy notice</Link>.
+        </span>
+      </label>
+      <label className="casl">
+        <input type="checkbox" name="measure" value="yes" />
+        <span>
+          Allow conversion measurement cookies so we can tell if an advertisement
+          brought you here. Optional. Off unless you tick this box.
         </span>
       </label>
       {error ? (
