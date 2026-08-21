@@ -4,23 +4,24 @@ import { SITE } from "@/lib/site";
 import { pageHead } from "@/lib/seo";
 import { fireConsultConversion, setMeasurementConsent } from "@/lib/tracking";
 
-type Search = { intent?: string; measure?: string };
+type Search = { intent?: string; measure?: string; tid?: string };
 
 export const Route = createFileRoute("/thank-you")({
   validateSearch: (s: Record<string, unknown>): Search => ({
     intent: typeof s.intent === "string" ? s.intent : undefined,
     measure: typeof s.measure === "string" ? s.measure : undefined,
+    tid: typeof s.tid === "string" ? s.tid : undefined,
   }),
   component: ThankYou,
   head: () => pageHead("/thank-you"),
 });
 
 function ThankYou() {
-  const { intent, measure } = Route.useSearch();
+  const { intent, measure, tid } = Route.useSearch();
   useEffect(() => {
     if (measure === "1") setMeasurementConsent(true);
-    fireConsultConversion({ intent });
-  }, [intent, measure]);
+    fireConsultConversion({ intent, transaction_id: tid });
+  }, [intent, measure, tid]);
   return (
     <main className="bg-bg">
       <section className="mx-auto max-w-lg px-5 py-24 text-center">

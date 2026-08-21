@@ -42,6 +42,7 @@ export const Route = createFileRoute("/api/consult")({
         if (parsed.data.company_website) {
           return Response.json({ ok: true });
         }
+        const transaction_id = crypto.randomUUID();
         const hook = process.env.CONSULT_WEBHOOK_URL;
         if (hook) {
           try {
@@ -50,6 +51,7 @@ export const Route = createFileRoute("/api/consult")({
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 ...parsed.data,
+                transaction_id,
                 received_at: new Date().toISOString(),
               }),
             });
@@ -57,7 +59,7 @@ export const Route = createFileRoute("/api/consult")({
             return Response.json({ ok: false }, { status: 502 });
           }
         }
-        return Response.json({ ok: true });
+        return Response.json({ ok: true, transaction_id });
       },
     },
   },

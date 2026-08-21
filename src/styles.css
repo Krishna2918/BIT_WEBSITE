@@ -2111,6 +2111,87 @@ svg {
   }
 }
 
+.gallery-strips {
+  position: relative;
+  overflow: hidden;
+  padding: 2.4rem 0 4.5rem;
+  min-height: 42rem;
+  background: #f4f5f7;
+}
+.gallery-strips-mark {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  z-index: 0;
+  width: min(130vw, 68rem);
+  height: auto;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+.gallery-strip {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin: 1.35rem 0;
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.gallery-strip ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: max-content;
+  gap: 0.85rem;
+  animation: gallery-marquee 46s linear infinite;
+}
+.gallery-strip-rev ul {
+  animation-name: gallery-marquee-rev;
+  animation-duration: 58s;
+}
+.gallery-strip-lg ul { animation-duration: 38s; }
+.gallery-strip-sm ul { animation-duration: 52s; }
+.gallery-strip li {
+  flex: none;
+}
+.gallery-strip button {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.gallery-strip img {
+  display: block;
+  height: 9.6rem;
+  width: auto;
+  max-width: none;
+  border-radius: 0.7rem;
+  object-fit: cover;
+}
+.gallery-strip-lg img { height: 14.2rem; }
+.gallery-strip-sm img { height: 6.6rem; }
+.gallery-strip:hover ul { animation-play-state: paused; }
+@keyframes gallery-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes gallery-marquee-rev {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-strip ul {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 0 1rem;
+  }
+  .gallery-strips-mark { opacity: 0.05; }
+}
 .client-ticker {
   margin: 1.35rem auto 0;
   max-width: 40rem;

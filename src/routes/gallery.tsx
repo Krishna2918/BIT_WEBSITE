@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { GalleryGrid } from "@/components/site/gallery-grid";
-import { GALLERY } from "@/data/gallery";
+import { GalleryStrips } from "@/components/site/gallery-strips";
 import { pageHead } from "@/lib/seo";
 
 export const Route = createFileRoute("/gallery")({
@@ -11,7 +10,7 @@ export const Route = createFileRoute("/gallery")({
 function GalleryPage() {
   return (
     <main className="bg-bg">
-      <section className="px-5 pb-8 pt-16 text-center">
+      <section className="px-5 pb-10 pt-16 text-center">
         <p className="mb-2 text-[12px] font-medium uppercase tracking-[0.14em] text-link">
           Gallery
         </p>
@@ -27,9 +26,7 @@ function GalleryPage() {
           </Link>
         </p>
       </section>
-      <section className="mx-auto max-w-5xl px-5 pb-20">
-        <GalleryGrid items={GALLERY} filters />
-      </section>
+      <GalleryStrips />
     </main>
   );
 }

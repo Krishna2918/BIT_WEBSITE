@@ -68,10 +68,12 @@ export function ConsultForm({
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error("send");
+      const json = (await res.json()) as { ok?: boolean; transaction_id?: string };
       const measure = data.get("measure") === "yes";
       setMeasurementConsent(measure);
       const qs = new URLSearchParams({ intent });
       if (measure) qs.set("measure", "1");
+      if (json.transaction_id) qs.set("tid", json.transaction_id);
       window.location.assign(`/thank-you?${qs.toString()}`);
     } catch {
       setStatus("error");

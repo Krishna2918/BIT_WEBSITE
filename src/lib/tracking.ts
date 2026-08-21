@@ -91,20 +91,27 @@ export function setMeasurementConsent(on: boolean) {
   }
 }
 
-export function fireConsultConversion(payload: { intent?: string } = {}) {
+export function fireConsultConversion(payload: { intent?: string; transaction_id?: string } = {}) {
   if (typeof window === "undefined") return;
   if (!hasMeasurementConsent()) return;
+  const tid = payload.transaction_id?.trim();
+  if (!tid) return;
   try {
-    if (sessionStorage.getItem(CONV_KEY) === "1") return;
-    sessionStorage.setItem(CONV_KEY, "1");
+    const key = `${CONV_KEY}:${tid}`;
+    if (sessionStorage.getItem(key) === "1") return;
+    sessionStorage.setItem(key, "1");
   } catch {
-    /* still fire once this load */
+    /* still fire this load; Ads de-dupes on transaction_id */
   }
-  track("consult_complete", { intent: payload.intent || "", source: "thank-you" });
+  track("consult_complete", {
+    intent: payload.intent || "",
+    source: "thank-you",
+    transaction_id: tid,
+  });
   if (typeof window.gtag !== "function") return;
   window.gtag("consent", "update", { ad_storage: "granted", analytics_storage: "granted" });
   const ads = TRACKING.adsId;
   if (!ads || !TRACKING.measurementOn) return;
   const sendTo = TRACKING.adsLabel ? `${ads}/${TRACKING.adsLabel}` : ads;
-  window.gtag("event", "conversion", { send_to: sendTo });
+  window.gtag("event", "conversion", { send_to: sendTo, transaction_id: tid });
 }
