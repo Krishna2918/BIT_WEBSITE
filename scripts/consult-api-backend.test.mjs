@@ -123,4 +123,5 @@ test("bound CRM is HTTPS-only, strips measurement cookies, and uses Idempotency-
   assert.equal("turnstile_token" in payload, false);
   assert.equal(payload.interest, "Fleet operations — Ontario");
   assert.match(payload.transaction_id, /^[a-f0-9]{64}$/u);
+  assert.equal(payload.idempotency_key, payload.transaction_id);
 });

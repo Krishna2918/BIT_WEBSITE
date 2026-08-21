@@ -162,6 +162,7 @@ export function consultMethodNotAllowed() {
 function crmPayload(data: ConsultPost, transactionId: string) {
   return {
     transaction_id: transactionId,
+    idempotency_key: transactionId,
     name: data.name,
     company: data.company,
     email: data.email.trim().toLowerCase(),
