@@ -230,11 +230,13 @@ export async function handleConsultPost(
     return Response.json({ ok: false, error: "delivery_not_configured" }, { status: 503 });
   }
 
+  const bodyBytes = new TextEncoder().encode(encoded);
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
     Accept: "application/json",
     "Idempotency-Key": transactionId,
     Authorization: `Bearer ${token}`,
+    "Content-Length": String(bodyBytes.length),
   };
   try {
     const delivered = await fetchImplementation(hook, {
@@ -244,7 +246,17 @@ export async function handleConsultPost(
       signal: AbortSignal.timeout(8000),
     });
     if (!delivered.ok) {
-      return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });
+      let upstream: { status: number; error?: string } = { status: delivered.status };
+      try {
+        const text = await delivered.text();
+        const parsedUpstream = JSON.parse(text) as { error?: unknown };
+        if (typeof parsedUpstream.error === "string" && parsedUpstream.error.length <= 64) {
+          upstream = { status: delivered.status, error: parsedUpstream.error };
+        }
+      } catch {
+        /* keep status only */
+      }
+      return Response.json({ ok: false, error: "delivery_failed", upstream }, { status: 502 });
     }
   } catch {
     return Response.json({ ok: false, error: "delivery_failed" }, { status: 502 });

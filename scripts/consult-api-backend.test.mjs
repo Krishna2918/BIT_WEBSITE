@@ -155,4 +155,27 @@ test("bound CRM is HTTPS-only, strips measurement cookies, and uses Idempotency-
   assert.equal(payload.interest, "Fleet operations — Ontario");
   assert.match(payload.transaction_id, /^[a-f0-9]{64}$/u);
   assert.equal(payload.idempotency_key, payload.transaction_id);
+  assert.equal(calls[0].init.headers["Content-Type"], "application/json");
+  assert.equal(calls[0].init.headers["Content-Length"], String(Buffer.byteLength(calls[0].init.body)));
+});
+
+test("CRM rejection is 502 with upstream status and no secret material", async () => {
+  const response = await handleConsultPost(
+    request(valid),
+    {
+      CONSULT_WEBHOOK_URL: "https://crm-api.bitsolution.ca/v1/form-ai/intake",
+      FORM_AI_CRM_ADAPTER_TOKEN: "synthetic-crm-adapter-token",
+    },
+    async () =>
+      Response.json(
+        { ok: false, error: "unauthorized" },
+        { status: 401, headers: { "Content-Type": "application/json" } },
+      ),
+  );
+  assert.equal(response.status, 502);
+  const body = await response.json();
+  assert.equal(body.error, "delivery_failed");
+  assert.deepEqual(body.upstream, { status: 401, error: "unauthorized" });
+  assert.equal(JSON.stringify(body).includes("Bearer"), false);
+  assert.equal(JSON.stringify(body).includes("synthetic-crm-adapter-token"), false);
 });
