@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const TOKEN = import.meta.env.VITE_CHATWOOT_WEBSITE_TOKEN as string | undefined;
+const TOKEN = (import.meta.env.VITE_CHATWOOT_WEBSITE_TOKEN as string | undefined) || 'UnAjZ38WBGzDPn3F1ijxZXaX';
 const BASE = (import.meta.env.VITE_CHATWOOT_BASE_URL as string | undefined) || "https://livechat.bitsolution.ca";
 
 declare global {
