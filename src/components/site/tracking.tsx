@@ -35,12 +35,15 @@ export function TrackingHooks() {
       ) : (
         <meta name="bit-gtm-hook" content="ready" />
       )}
-      {TRACKING.measurementOn && TRACKING.ga4Id ? (
+      {TRACKING.measurementOn && (TRACKING.ga4Id || TRACKING.adsId) ? (
         <>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${TRACKING.ga4Id}`} />
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${TRACKING.ga4Id || TRACKING.adsId}`}
+          />
           <script
             dangerouslySetInnerHTML={{
-              __html: `gtag('js',new Date());gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',wait_for_update:500});gtag('config','${TRACKING.ga4Id}',{anonymize_ip:true,allow_google_signals:false});`,
+              __html: `gtag('js',new Date());gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',wait_for_update:500});${TRACKING.ga4Id ? `gtag('config','${TRACKING.ga4Id}',{anonymize_ip:true,allow_google_signals:false});` : ""}${TRACKING.adsId ? `gtag('config','${TRACKING.adsId}');` : ""}`,
             }}
           />
         </>

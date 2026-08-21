@@ -36,17 +36,52 @@ test("consult GET is JSON 405 with Allow POST", async () => {
   assert.deepEqual(await response.json(), { ok: false, error: "method_not_allowed" });
 });
 
-test("consult POST rejects conversation, Turnstile leakage, and extra fields", async () => {
-  for (const extra of [
-    { conversation: "Ask AI transcript" },
-    { "cf-turnstile-response": "leaked" },
-    { turnstile_token: "fake" },
-    { client_status: "new" },
-  ]) {
+test("consult POST rejects conversation and extra fields", async () => {
+  for (const extra of [{ conversation: "Ask AI transcript" }, { client_status: "new" }]) {
     const response = await handleConsultPost(request({ ...valid, ...extra }), {});
     assert.equal(response.status, 400, JSON.stringify(extra));
     assert.deepEqual(await response.json(), { ok: false, error: "invalid" });
   }
+});
+
+test("consult POST strips Turnstile fields before CRM payload", async () => {
+  const calls = [];
+  const response = await handleConsultPost(
+    request({ ...valid, "cf-turnstile-response": "leaked", turnstile_token: "fake" }),
+    {
+      CONSULT_WEBHOOK_URL: "https://crm-api.bitsolution.ca/v1/form-ai/intake",
+      FORM_AI_CRM_ADAPTER_TOKEN: "synthetic-crm-adapter-token",
+    },
+    async (url, init = {}) => {
+      calls.push(JSON.parse(String(init.body)));
+      return new Response("{}", { status: 200 });
+    },
+  );
+  assert.equal(response.status, 200);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0]["cf-turnstile-response"], undefined);
+  assert.equal(calls[0].turnstile_token, undefined);
+});
+
+test("consult POST fail-closed Turnstile when enabled without a secret", async () => {
+  const response = await handleConsultPost(request(valid), {
+    FORM_AI_TURNSTILE_ENABLED: "true",
+    FORM_AI_TURNSTILE_EXPECTED_HOSTNAMES: "bitsolution.ca",
+    FORM_AI_TURNSTILE_EXPECTED_ACTION: "consult",
+  });
+  assert.equal(response.status, 503);
+  assert.deepEqual(await response.json(), { ok: false, error: "verification_not_configured" });
+});
+
+test("consult POST rejects missing Turnstile token when verification is bound", async () => {
+  const response = await handleConsultPost(request(valid), {
+    FORM_AI_TURNSTILE_ENABLED: "true",
+    FORM_AI_TURNSTILE_SECRET_KEY: "synthetic-turnstile-secret-not-live",
+    FORM_AI_TURNSTILE_EXPECTED_HOSTNAMES: "bitsolution.ca",
+    FORM_AI_TURNSTILE_EXPECTED_ACTION: "consult",
+  });
+  assert.equal(response.status, 403);
+  assert.deepEqual(await response.json(), { ok: false, error: "verification_failed" });
 });
 
 test("consult POST fails closed without CONSULT_WEBHOOK_URL", async () => {

@@ -152,6 +152,56 @@ export function consultTransactionId(input: {
     .digest("hex");
 }
 
+export async function verifyTurnstile(
+  token: string | undefined,
+  request: Request,
+  environment: ConsultEnv = process.env,
+  fetchImplementation: typeof fetch = fetch,
+) {
+  if (env("FORM_AI_TURNSTILE_ENABLED", environment) !== "true") return { ok: true as const };
+  const secret = env("FORM_AI_TURNSTILE_SECRET_KEY", environment);
+  const allowedHosts = (env("FORM_AI_TURNSTILE_EXPECTED_HOSTNAMES", environment) || "")
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+  const expectedAction = env("FORM_AI_TURNSTILE_EXPECTED_ACTION", environment) || "consult";
+  if (!secret || allowedHosts.length === 0) {
+    return { ok: false as const, status: 503, error: "verification_not_configured" };
+  }
+  if (!token) return { ok: false as const, status: 403, error: "verification_failed" };
+  const form = new URLSearchParams({ secret, response: token });
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  if (forwarded) form.set("remoteip", forwarded);
+  try {
+    const response = await fetchImplementation(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: form,
+        signal: AbortSignal.timeout(8000),
+      },
+    );
+    const result = (await response.json()) as {
+      success?: boolean;
+      hostname?: string;
+      action?: string;
+    };
+    const hostname = result.hostname?.toLowerCase() || "";
+    if (
+      !response.ok ||
+      !result.success ||
+      !allowedHosts.includes(hostname) ||
+      result.action !== expectedAction
+    ) {
+      return { ok: false as const, status: 403, error: "verification_failed" };
+    }
+    return { ok: true as const };
+  } catch {
+    return { ok: false as const, status: 502, error: "verification_unavailable" };
+  }
+}
+
 export function consultMethodNotAllowed() {
   return Response.json(
     { ok: false, error: "method_not_allowed" },
@@ -210,7 +260,19 @@ export async function handleConsultPost(
   } catch {
     return Response.json({ ok: false, error: "invalid" }, { status: 400 });
   }
-  const parsed = parseConsultPost(json);
+  if (!json || typeof json !== "object" || Array.isArray(json)) {
+    return Response.json({ ok: false, error: "invalid" }, { status: 400 });
+  }
+  const inbound = json as Record<string, unknown>;
+  delete inbound["cf-turnstile-response"];
+  const turnstileToken =
+    typeof inbound.turnstile_token === "string" ? inbound.turnstile_token : undefined;
+  delete inbound.turnstile_token;
+  const verification = await verifyTurnstile(turnstileToken, request, environment, fetchImplementation);
+  if (!verification.ok) {
+    return Response.json({ ok: false, error: verification.error }, { status: verification.status });
+  }
+  const parsed = parseConsultPost(inbound);
   if (!parsed) {
     return Response.json({ ok: false, error: "invalid" }, { status: 400 });
   }
